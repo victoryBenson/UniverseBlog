@@ -7,6 +7,8 @@ const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const auth_1 = __importDefault(require("./routes/auth"));
+const user_1 = __importDefault(require("./routes/user"));
+const errorHandler_1 = __importDefault(require("./middleware/errorHandler"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT || 3001;
@@ -17,10 +19,12 @@ app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 // routes
 app.use('/api/auth', auth_1.default);
-// app.use('api/user', authRoute)
+app.use('/api/users', user_1.default);
 app.get("/", (req, res) => {
     res.send("Welcome here");
 });
+//error handler middleware
+app.use(errorHandler_1.default);
 if (!mongoUri) {
     console.error('MongoDB URI is not defined in the environment variables');
     process.exit(1);

@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.userLogin = exports.userRegister = void 0;
 const user_1 = __importDefault(require("../models/user"));
 //user login
-const userLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const userLogin = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { email, password } = req.body;
         const user = yield user_1.default.findOne({ email });
@@ -30,22 +30,29 @@ const userLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(200).json({ message: 'Login successful' });
     }
     catch (err) {
-        const error = err;
-        res.status(500).json(error.message);
+        next(err);
     }
 });
 exports.userLogin = userLogin;
 //register user
-const userRegister = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const userRegister = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { username, email, password } = req.body;
+        if (!username || !email || !password) {
+            res.status(400).json({ message: 'All field are required' });
+            return;
+        }
+        const duplicateUser = yield user_1.default.findOne({ email });
+        if (duplicateUser) {
+            res.status(400).json({ message: 'Email is already in use' });
+            return;
+        }
         const newUser = new user_1.default({ username, email, password });
         yield newUser.save();
-        res.status(201).json({ message: 'User registered successfully' });
+        res.status(201).json(newUser);
     }
     catch (err) {
-        const error = err;
-        res.status(500).json(error.message);
+        next(err);
     }
 });
 exports.userRegister = userRegister;

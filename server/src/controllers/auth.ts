@@ -1,9 +1,9 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import User from '../models/user';
 
 
 //user login
-const userLogin = async (req: Request, res: Response) => {
+const userLogin = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { email, password } = req.body;
   
@@ -21,24 +21,33 @@ const userLogin = async (req: Request, res: Response) => {
   
       res.status(200).json({ message: 'Login successful' });
     } catch (err) {
-        const error = err as Error;
-      res.status(500).json(error.message);
+       next(err)
     }
   }
 
 //register user
-const userRegister = async (req: Request, res: Response) => {
+const userRegister = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { username, email, password } = req.body;
+
+      if (!username || !email || !password) {
+        res.status(400).json({ message: 'All field are required' });
+        return;
+      }
+  
+      const duplicateUser = await User.findOne({ email });
+      if (duplicateUser) {
+        res.status(400).json({ message: 'Email is already in use' });
+        return;
+      }
   
       const newUser = new User({ username, email, password });
       await newUser.save();
   
-      res.status(201).json({ message: 'User registered successfully' });
+      res.status(201).json(newUser);
       
     } catch (err) {
-        const error = err as Error
-      res.status(500).json(error.message);
+        next(err)
     }
 }
 
