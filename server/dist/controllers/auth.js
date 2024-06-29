@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userLogin = exports.userRegister = void 0;
 const user_1 = __importDefault(require("../models/user"));
+const generateToken_1 = __importDefault(require("../utils/generateToken"));
 //user login
 const userLogin = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -27,7 +28,13 @@ const userLogin = (req, res, next) => __awaiter(void 0, void 0, void 0, function
         if (!isMatch) {
             return res.status(400).json({ message: 'Invalid email or password' });
         }
-        res.status(200).json({ message: 'Login successful' });
+        const token = (0, generateToken_1.default)(user.id);
+        const expiryDate = new Date(Date.now() + 24 * (3600000)); //expire in 24hrs
+        res
+            .status(201)
+            .json(token)
+            .header("authorization", `Bearer ${token}`)
+            .cookie("token", token, { httpOnly: true, secure: true, expires: expiryDate });
     }
     catch (err) {
         next(err);
@@ -49,7 +56,13 @@ const userRegister = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
         }
         const newUser = new user_1.default({ username, email, password });
         yield newUser.save();
-        res.status(201).json(newUser);
+        const token = (0, generateToken_1.default)(newUser.id);
+        const expiryDate = new Date(Date.now() + 24 * (3600000)); //expire in 24hrs
+        res
+            .status(201)
+            .json(newUser)
+            .header("authorization", `Bearer ${token}`)
+            .cookie("token", token, { httpOnly: true, secure: true, expires: expiryDate });
     }
     catch (err) {
         next(err);

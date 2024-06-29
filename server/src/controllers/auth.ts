@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import User from '../models/user';
+import generateToken from "../utils/generateToken";
 
 
 //user login
@@ -18,8 +19,16 @@ const userLogin = async (req: Request, res: Response, next: NextFunction) => {
       if (!isMatch) {
         return res.status(400).json({ message: 'Invalid email or password' });
       }
-  
-      res.status(200).json({ message: 'Login successful' });
+      
+      const token = generateToken(user.id)
+      const expiryDate = new Date(Date.now() + 24*(3600000)) //expire in 24hrs
+
+      res
+      .status(201)
+      .json(token)
+      .header("authorization", `Bearer ${token}`)
+      .cookie("token", token, {httpOnly: true, secure:true, expires: expiryDate})
+
     } catch (err) {
        next(err)
     }
@@ -43,8 +52,14 @@ const userRegister = async (req: Request, res: Response, next: NextFunction) => 
   
       const newUser = new User({ username, email, password });
       await newUser.save();
-  
-      res.status(201).json(newUser);
+
+      const token = generateToken(newUser.id);
+      const expiryDate = new Date(Date.now() + 24*(3600000)) //expire in 24hrs
+      res
+      .status(201)
+      .json(newUser)
+      .header("authorization", `Bearer ${token}`)
+      .cookie("token", token, {httpOnly: true, secure:true, expires: expiryDate})
       
     } catch (err) {
         next(err)

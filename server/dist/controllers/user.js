@@ -60,7 +60,6 @@ const updateUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
         if (!user) {
             return res.status(400).json({ message: "User does not exist!" });
         }
-        // const updatedUser = await user.save();
         res.status(200).json(user);
     }
     catch (err) {
@@ -68,7 +67,7 @@ const updateUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
     }
 });
 exports.updateUser = updateUser;
-//update user
+//delete user
 const deleteUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userId = req.params.id;

@@ -42,6 +42,7 @@ const getUser = async (req: Request, res: Response, next: NextFunction) => {
     }
 };
 
+
 //update user
 const updateUser = async (req: Request, res: Response, next: NextFunction) => {
     
@@ -61,7 +62,6 @@ const updateUser = async (req: Request, res: Response, next: NextFunction) => {
             return res.status(400).json({ message: "User does not exist!" });
         }
 
-        // const updatedUser = await user.save();
         res.status(200).json(user);
       
     } catch (err) {
@@ -70,7 +70,7 @@ const updateUser = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 
-//update user
+//delete user
 const deleteUser = async (req: Request, res: Response, next: NextFunction) => {
     
     try {
