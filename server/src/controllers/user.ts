@@ -49,18 +49,45 @@ const updateUser = async (req: Request, res: Response, next: NextFunction) => {
 
         const userId = req.params.id
         if(!Types.ObjectId.isValid(userId)){
-            return res.status(400).json({message: "Invalid user Id"})
+            return res.status(400).json({message: "Invalid userId"})
         }
 
         const userDetails = req.body
-        const user = await User.findByIdAndUpdate(userId, userDetails, { new: true }).select('-password').sort("-createdAt");
+        const options = { new: true, runValidators: true }
+
+        const user = await User.findByIdAndUpdate(userId, userDetails, options).select('-password').sort("-createdAt");
 
         if (!user) {
             return res.status(400).json({ message: "User does not exist!" });
         }
 
+        // const updatedUser = await user.save();
         res.status(200).json(user);
       
+    } catch (err) {
+        next(err)
+    }
+};
+
+
+//update user
+const deleteUser = async (req: Request, res: Response, next: NextFunction) => {
+    
+    try {
+
+        const userId = req.params.id
+        if(!Types.ObjectId.isValid(userId)){
+            return res.status(400).json({message: "Invalid userId"})
+        }
+
+        const user = await User.findByIdAndDelete(userId);
+
+        if (!user) {
+            return res.status(400).json({ message: "User does not exist!" });
+        }else{
+            return res.status(200).json({message: "User deleted successfully!"})
+        }
+     
     } catch (err) {
         next(err)
     }
@@ -70,5 +97,6 @@ const updateUser = async (req: Request, res: Response, next: NextFunction) => {
 export {
     getUser,
     getUsers,
-    updateUser
+    updateUser,
+    deleteUser
 }

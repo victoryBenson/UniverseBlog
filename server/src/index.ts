@@ -37,6 +37,7 @@ if (!mongoUri) {
   process.exit(1);
 }
 
+
 //connect to mongoDb
 mongoose.set("strictQuery", false);
 mongoose.connect(mongoUri).then(() => {

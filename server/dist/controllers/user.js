@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateUser = exports.getUsers = exports.getUser = void 0;
+exports.deleteUser = exports.updateUser = exports.getUsers = exports.getUser = void 0;
 const user_1 = __importDefault(require("../models/user"));
 const mongoose_1 = require("mongoose");
 //getUsers
@@ -52,13 +52,15 @@ const updateUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
     try {
         const userId = req.params.id;
         if (!mongoose_1.Types.ObjectId.isValid(userId)) {
-            return res.status(400).json({ message: "Invalid user Id" });
+            return res.status(400).json({ message: "Invalid userId" });
         }
         const userDetails = req.body;
-        const user = yield user_1.default.findByIdAndUpdate(userId, userDetails, { new: true }).select('-password').sort("-createdAt");
+        const options = { new: true, runValidators: true };
+        const user = yield user_1.default.findByIdAndUpdate(userId, userDetails, options).select('-password').sort("-createdAt");
         if (!user) {
             return res.status(400).json({ message: "User does not exist!" });
         }
+        // const updatedUser = await user.save();
         res.status(200).json(user);
     }
     catch (err) {
@@ -66,3 +68,23 @@ const updateUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
     }
 });
 exports.updateUser = updateUser;
+//update user
+const deleteUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userId = req.params.id;
+        if (!mongoose_1.Types.ObjectId.isValid(userId)) {
+            return res.status(400).json({ message: "Invalid userId" });
+        }
+        const user = yield user_1.default.findByIdAndDelete(userId);
+        if (!user) {
+            return res.status(400).json({ message: "User does not exist!" });
+        }
+        else {
+            return res.status(200).json({ message: "User deleted successfully!" });
+        }
+    }
+    catch (err) {
+        next(err);
+    }
+});
+exports.deleteUser = deleteUser;
