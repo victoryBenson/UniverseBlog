@@ -1,23 +1,24 @@
 import { NextFunction, Request, Response } from "express";
 import User from '../models/user';
 import generateToken from "../utils/generateToken";
+import bcrypt from 'bcryptjs';
 
 
 //user login
 const userLogin = async (req: Request, res: Response, next: NextFunction) => {
+  const { email, password } = req.body;
     try {
-      const { email, password } = req.body;
   
-      const user = await User.findOne({ email });
-
+      const user = await User.findOne({ email }).lean();
+      
       if (!user) {
-        return res.status(400).json({ message: 'User not found' });
-      }
-  
-      // verify password 
-      const isMatch = await user.comparePassword(password);
-      if (!isMatch) {
-        return res.status(400).json({ message: 'Invalid email or password' });
+        return res.status(400).json({ message: 'User does not exist' });
+      } 
+            
+      const passwordMatch = await bcrypt.compare(password, user.password)
+      
+      if (!passwordMatch) {
+          return res.status(401).json({ message: 'Invalid Credentials' });
       }
       
       const token = generateToken(user.id)
@@ -25,7 +26,7 @@ const userLogin = async (req: Request, res: Response, next: NextFunction) => {
 
       res
       .status(201)
-      .json(token)
+      .json(user)
       .header("authorization", `Bearer ${token}`)
       .cookie("token", token, {httpOnly: true, secure:true, expires: expiryDate})
 

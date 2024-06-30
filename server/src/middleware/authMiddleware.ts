@@ -14,9 +14,9 @@ const secret = process.env.ACCESS_TOKEN_SECRET as string
 
 export const protect = async (req: AuthRequest, res: Response, next:NextFunction) => {
     let token;
-
-    if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
-        token = req.headers.authorization.split(' ')[1];
+    const authHeader = req.headers.authorization
+    if(authHeader && authHeader.startsWith('Bearer')){
+        token = authHeader.split(' ')[1];
     }
 
     if(!token){

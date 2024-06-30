@@ -12,18 +12,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
-const secret = process.env.ACCESS_TOKEN_SECRET;
-const protect = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
-    let token;
-    const authHeader = (_a = req.headers) === null || _a === void 0 ? void 0 : _a.authorization;
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-        return res.status(401).json({ message: 'Unauthorized Access!' });
-    }
-    token = authHeader.split(" ")[1];
-    console.log(token);
-    console.log(secret);
+exports.ComparePassword = void 0;
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
+// const saltRounds = 10;
+// export const hashPassword = async (password: string): Promise<string> => {
+//   return await bcrypt.hash(password, saltRounds);
+// };
+const ComparePassword = (password, hash) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield bcryptjs_1.default.compare(password, hash);
 });
-exports.default = protect;
+exports.ComparePassword = ComparePassword;
