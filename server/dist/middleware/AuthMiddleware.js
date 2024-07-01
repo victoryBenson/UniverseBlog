@@ -33,6 +33,15 @@ const protect = (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
     //   } catch (error) {
     //     res.status(401).json({ message: 'Not authorized, token failed' });
     //   }
+    // try {
+    //     // Verify token
+    //     const decoded = jwt.verify(token, 'your_secret_key_here');
+    //     // Attach user information to request object
+    //     (req as any).user = decoded;
+    //     next();
+    //   } catch (error) {
+    //     return res.status(401).json({ message: 'Invalid or expired token' });
+    //   }
     jsonwebtoken_1.default.verify(token, secret, (err, user) => {
         if (err) {
             return res.sendStatus(403); // Forbidden

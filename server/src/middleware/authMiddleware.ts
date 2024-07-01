@@ -30,6 +30,16 @@ export const protect = async (req: AuthRequest, res: Response, next:NextFunction
     //     res.status(401).json({ message: 'Not authorized, token failed' });
     //   }
 
+    // try {
+    //     // Verify token
+    //     const decoded = jwt.verify(token, 'your_secret_key_here');
+    //     // Attach user information to request object
+    //     (req as any).user = decoded;
+    //     next();
+    //   } catch (error) {
+    //     return res.status(401).json({ message: 'Invalid or expired token' });
+    //   }
+
 
     jwt.verify(token, secret, (err, user) => {
         if (err) {
