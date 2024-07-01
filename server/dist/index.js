@@ -9,6 +9,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const auth_1 = __importDefault(require("./routes/auth"));
 const user_1 = __importDefault(require("./routes/user"));
 const errorHandler_1 = __importDefault(require("./middleware/errorHandler"));
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT || 3001;
@@ -17,6 +18,7 @@ const mongoUri = process.env.MONGODB_URI;
 app.use(express_1.default.json());
 // Middleware to parse application/x-www-form-urlencoded
 app.use(express_1.default.urlencoded({ extended: true }));
+app.use((0, cookie_parser_1.default)());
 // routes
 app.use('/api/auth', auth_1.default);
 app.use('/api/users', user_1.default);

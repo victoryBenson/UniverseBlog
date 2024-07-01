@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import authRoute from "./routes/auth"
 import userRoute from "./routes/user"
 import errorHandler from "./middleware/errorHandler";
-
+import cookieParser from 'cookie-parser'
 
 dotenv.config();
 
@@ -18,6 +18,7 @@ app.use(express.json());
 
 // Middleware to parse application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser())
  
 
 // routes

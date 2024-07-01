@@ -25,11 +25,10 @@ const userLogin = async (req: Request, res: Response, next: NextFunction) => {
       const expiryDate = new Date(Date.now() + 24*(3600000)) //expire in 24hrs
 
       res
-      .status(201)
+      .status(200)
+      .setHeader("authorization", `Bearer ${token}`)
+      .cookie("token", token, {httpOnly: true, secure:false, expires: expiryDate})
       .json(user)
-      .header("authorization", `Bearer ${token}`)
-      .cookie("token", token, {httpOnly: true, secure:true, expires: expiryDate})
-
     } catch (err) {
        next(err)
     }

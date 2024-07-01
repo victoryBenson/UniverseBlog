@@ -12,18 +12,33 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.protect = void 0;
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const secret = process.env.ACCESS_TOKEN_SECRET;
 const protect = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
     let token;
-    const authHeader = (_a = req.headers) === null || _a === void 0 ? void 0 : _a.authorization;
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-        return res.status(401).json({ message: 'Unauthorized Access!' });
+    const authHeader = req.headers.authorization;
+    if (authHeader && authHeader.startsWith('Bearer')) {
+        token = authHeader.split(' ')[1];
     }
-    token = authHeader.split(" ")[1];
-    console.log(token);
-    console.log(secret);
+    if (!token) {
+        return res.status(401).json({ message: 'Not Authorized, Pls Login' });
+    }
+    // try {
+    //     const decoded: any = jwt.verify(token, secret);
+    //     (req as any).user = await User.findById(decoded.id).select('-password');
+    //     next();
+    //   } catch (error) {
+    //     res.status(401).json({ message: 'Not authorized, token failed' });
+    //   }
+    jsonwebtoken_1.default.verify(token, secret, (err, user) => {
+        if (err) {
+            return res.sendStatus(403); // Forbidden
+        }
+        req.user = user;
+        next();
+    });
 });
-exports.default = protect;
+exports.protect = protect;

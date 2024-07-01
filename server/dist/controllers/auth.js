@@ -31,10 +31,10 @@ const userLogin = (req, res, next) => __awaiter(void 0, void 0, void 0, function
         const token = (0, generateToken_1.default)(user.id);
         const expiryDate = new Date(Date.now() + 24 * (3600000)); //expire in 24hrs
         res
-            .status(201)
-            .json(user)
-            .header("authorization", `Bearer ${token}`)
-            .cookie("token", token, { httpOnly: true, secure: true, expires: expiryDate });
+            .status(200)
+            .setHeader("authorization", `Bearer ${token}`)
+            .cookie("token", token, { httpOnly: true, secure: false, expires: expiryDate })
+            .json(user);
     }
     catch (err) {
         next(err);
