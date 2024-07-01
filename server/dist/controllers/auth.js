@@ -14,8 +14,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userLogin = exports.userRegister = void 0;
 const user_1 = __importDefault(require("../models/user"));
-const generateToken_1 = __importDefault(require("../utils/generateToken"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
+const secret = process.env.ACCESS_TOKEN_SECRET;
 //user login
 const userLogin = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
@@ -28,7 +31,8 @@ const userLogin = (req, res, next) => __awaiter(void 0, void 0, void 0, function
         if (!passwordMatch) {
             return res.status(401).json({ message: 'Invalid Credentials' });
         }
-        const token = (0, generateToken_1.default)(user.id);
+        // const token = generateToken(user.userID)
+        const token = jsonwebtoken_1.default.sign({ userID: user._id }, secret, { expiresIn: '24h' });
         const expiryDate = new Date(Date.now() + 24 * (3600000)); //expire in 24hrs
         res
             .status(200)
@@ -56,13 +60,14 @@ const userRegister = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
         }
         const newUser = new user_1.default({ username, email, password });
         yield newUser.save();
-        const token = (0, generateToken_1.default)(newUser.id);
+        // const token = generateToken(newUser.id);
+        const token = jsonwebtoken_1.default.sign({ userID: newUser._id }, secret, { expiresIn: '24h' });
         const expiryDate = new Date(Date.now() + 24 * (3600000)); //expire in 24hrs
         res
             .status(201)
-            .json(newUser)
             .header("authorization", `Bearer ${token}`)
-            .cookie("token", token, { httpOnly: true, secure: true, expires: expiryDate });
+            .cookie("token", token, { httpOnly: true, secure: true, expires: expiryDate })
+            .json(newUser);
     }
     catch (err) {
         next(err);

@@ -26,28 +26,33 @@ const protect = (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
     if (!token) {
         return res.status(401).json({ message: 'Not Authorized, Pls Login' });
     }
+    try {
+        const decoded = jsonwebtoken_1.default.verify(token, secret);
+        console.log(decoded.userID);
+        console.log("hello");
+        // const user = await User.findById(decoded.userID).select('-password');
+        // (req as any).user = user
+        // console.log(user)
+        req.body.user = decoded;
+        next();
+    }
+    catch (error) {
+        res.sendStatus(401);
+    }
     // try {
-    //     const decoded: any = jwt.verify(token, secret);
-    //     (req as any).user = await User.findById(decoded.id).select('-password');
-    //     next();
-    //   } catch (error) {
-    //     res.status(401).json({ message: 'Not authorized, token failed' });
-    //   }
-    // try {
-    //     // Verify token
-    //     const decoded = jwt.verify(token, 'your_secret_key_here');
+    //     const decoded = jwt.verify(token, secret);
     //     // Attach user information to request object
-    //     (req as any).user = decoded;
+    //     req.body.user = decoded;
     //     next();
     //   } catch (error) {
     //     return res.status(401).json({ message: 'Invalid or expired token' });
     //   }
-    jsonwebtoken_1.default.verify(token, secret, (err, user) => {
-        if (err) {
-            return res.sendStatus(403); // Forbidden
-        }
-        req.user = user;
-        next();
-    });
+    // jwt.verify(token, secret, (err, user) => {
+    //     if (err) {
+    //       return res.sendStatus(403); // Forbidden
+    //     }
+    //    ( req as any).user = user;
+    //     next();
+    //   });
 });
 exports.protect = protect;

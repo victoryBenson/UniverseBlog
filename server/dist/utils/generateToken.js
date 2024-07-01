@@ -7,7 +7,7 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const secret = process.env.ACCESS_TOKEN_SECRET;
-const generateToken = (id) => {
-    return jsonwebtoken_1.default.sign({ id }, secret, { expiresIn: '24h' });
+const generateToken = (userID) => {
+    return jsonwebtoken_1.default.sign({ userID }, secret, { expiresIn: '24h' });
 };
 exports.default = generateToken;

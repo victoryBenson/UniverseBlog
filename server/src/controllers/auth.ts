@@ -2,6 +2,11 @@ import { NextFunction, Request, Response } from "express";
 import User from '../models/user';
 import generateToken from "../utils/generateToken";
 import bcrypt from 'bcryptjs';
+import jwt from "jsonwebtoken";
+import dotenv from 'dotenv'
+dotenv.config()
+
+const secret = process.env.ACCESS_TOKEN_SECRET as string
 
 
 //user login
@@ -21,7 +26,9 @@ const userLogin = async (req: Request, res: Response, next: NextFunction) => {
           return res.status(401).json({ message: 'Invalid Credentials' });
       }
       
-      const token = generateToken(user.id)
+      // const token = generateToken(user.userID)
+      const token = jwt.sign({userID: user._id}, secret, {expiresIn: '24h'})
+
       const expiryDate = new Date(Date.now() + 24*(3600000)) //expire in 24hrs
 
       res
@@ -53,13 +60,16 @@ const userRegister = async (req: Request, res: Response, next: NextFunction) => 
       const newUser = new User({ username, email, password });
       await newUser.save();
 
-      const token = generateToken(newUser.id);
+      // const token = generateToken(newUser.id);
+      const token = jwt.sign({userID: newUser._id}, secret, {expiresIn: '24h'})
+      
+
       const expiryDate = new Date(Date.now() + 24*(3600000)) //expire in 24hrs
       res
       .status(201)
-      .json(newUser)
       .header("authorization", `Bearer ${token}`)
       .cookie("token", token, {httpOnly: true, secure:true, expires: expiryDate})
+      .json(newUser)
       
     } catch (err) {
         next(err)
