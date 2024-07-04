@@ -28,31 +28,12 @@ const protect = (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
     }
     try {
         const decoded = jsonwebtoken_1.default.verify(token, secret);
-        console.log(decoded.userID);
-        console.log("hello");
-        // const user = await User.findById(decoded.userID).select('-password');
-        // (req as any).user = user
-        // console.log(user)
-        req.body.user = decoded;
+        console.log(req.user);
+        req.user = decoded;
         next();
     }
     catch (error) {
         res.sendStatus(401);
     }
-    // try {
-    //     const decoded = jwt.verify(token, secret);
-    //     // Attach user information to request object
-    //     req.body.user = decoded;
-    //     next();
-    //   } catch (error) {
-    //     return res.status(401).json({ message: 'Invalid or expired token' });
-    //   }
-    // jwt.verify(token, secret, (err, user) => {
-    //     if (err) {
-    //       return res.sendStatus(403); // Forbidden
-    //     }
-    //    ( req as any).user = user;
-    //     next();
-    //   });
 });
 exports.protect = protect;
