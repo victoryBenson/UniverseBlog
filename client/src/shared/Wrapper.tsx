@@ -1,8 +1,10 @@
-import React from 'react'
+import { PropsWithChildren } from "react"
 
-const Wrapper = ({children: any}) => {
+const Wrapper = (props: PropsWithChildren) => {
   return (
-    <div>children</div>
+    <div>
+      {props.children}
+    </div>
   )
 }
 
