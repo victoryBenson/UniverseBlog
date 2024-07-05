@@ -8,7 +8,9 @@ export default {
     colors:{
       "blue1": "#3d55ef",
       "blue2": "#39f",
-      "white": "#ffffff"
+      "white": "#ffffff",
+      "black": "000000",
+      "arch": "#eeeeee"
     },
     fontFamily:{
       poppins: ["Poppins", "sans-serif"],
