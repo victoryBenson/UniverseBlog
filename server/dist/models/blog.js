@@ -4,21 +4,31 @@ const mongoose_1 = require("mongoose");
 const blogSchema = new mongoose_1.Schema({
     author: {
         type: String,
-        required: true
+        required: true,
+        lowercase: true
     },
     title: {
         type: String,
-        required: true
+        required: true,
+        lowercase: true
     },
     content: {
         type: String,
         required: true
     },
     readTime: {
-        type: String
+        type: String,
+        required: true,
+        lowercase: true
+    },
+    label: {
+        type: String,
+        required: true,
+        lowercase: true
     },
     image: {
-        type: String
+        type: String,
+        default: "https://i.postimg.cc/qRXRjfZB/undraw.png"
     }
 }, {
     timestamps: true

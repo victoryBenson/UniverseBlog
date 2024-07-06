@@ -2,29 +2,31 @@ import { NextFunction, Request, Response } from "express";
 import Blog from "../models/blog";
 import { Types } from "mongoose";
 
+//create_blog
 const createBlog = async(req:Request, res:Response, next:NextFunction) => {
     try {
         const newBlog = new Blog(req.body);
         if(!newBlog){
-            return res.sendStatus(204)
+            return res.status(204).json({message: "no content found!"})
         }
         
         const savedBlog = await newBlog.save();
-        res.sendStatus(201).json(savedBlog);
+        res.status(201).json(savedBlog);
       } catch (err) {
-        res.sendStatus(400).send(err);
+        next(err)
       }
 };
 
+//get_blog
 const getBlogs = async (req:Request, res:Response, next:NextFunction) =>{
     try {
         const blogs = await Blog.find({}).sort("-createdAt")
 
         if(!blogs){
-            return res.sendStatus(400).json({message: "user not found"})
+            return res.status(400).json({message: "user not found"})
         };
 
-        res.sendStatus(200).json(blogs)
+        res.status(200).json(blogs)
     } catch (error) {
         next(error)
     }
@@ -43,28 +45,31 @@ const getBlog = async (req: Request, res: Response, next: NextFunction) => {
         const blog = await Blog.findById(blogId)
 
         if(!blog) {
-            return res.sendStatus(400).json({ message: "User does not exist!" });
+            return res.status(400).json({ message: "User does not exist!" });
         }
 
-        res.sendStatus(200).json(blog);
+        res.status(200).json(blog);
       
     } catch (err) {
         next(err)
     }
 };
 
+//deleteBlog
 const deleteBlog = async(req:Request, res:Response, next:NextFunction) => {
     const blogId = req.params.id
     try {
         if(!blogId){
-            return res.sendStatus(400).json({message: "Invalid blog Id"})
+            return res.status(400).json({message: "Invalid blog Id"})
         }
     
         const blog = await Blog.findByIdAndDelete(blogId)
     
         if(!blog){
-            return res.sendStatus(400).json({message: "blog not found"})
+            return res.status(400).json({message: "Blog not found"})
         }
+
+        res.status(200).json({message: "Deleted successfully"})
     } catch (error) {
        next(error) 
     }
@@ -75,7 +80,7 @@ const updateBlog = async(req:Request, res:Response, next:NextFunction) => {
     const blogId = req.params.id;
     try {
         if(!blogId){
-            return res.sendStatus(400).json({message: "Invalid blog Id"})
+            return res.status(400).json({message: "Invalid blog Id"})
         }
 
         const blogDetails = req.body;
@@ -84,11 +89,9 @@ const updateBlog = async(req:Request, res:Response, next:NextFunction) => {
         const blog = await Blog.findByIdAndUpdate(blogId, blogDetails, options)
 
         if(!blog){
-            return res.sendStatus(400).json({message: "user does not exist"})
+            return res.status(400).json({message: "Blog does not exist"})
         }
-
-       
-        res.sendStatus(200).json(blog)
+        res.status(200).json({message: "Updated successfully!"})
     } catch (error) {
         next(error)
     }
