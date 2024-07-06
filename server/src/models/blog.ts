@@ -5,6 +5,7 @@ export interface MyBlog extends Document {
     title: string;
     content: string;
     image: string;
+    readTime: string;
     createdAt: Date;
     updatedAt: Date
 }
@@ -22,6 +23,9 @@ const blogSchema = new Schema<MyBlog>(
         content:{
             type: String,
             required: true
+        },
+        readTime:{
+            type:String
         },
         image:{
             type: String                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   

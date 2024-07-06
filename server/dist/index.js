@@ -23,7 +23,7 @@ app.use((0, cookie_parser_1.default)());
 // routes
 app.use('/api/auth', auth_1.default);
 app.use('/api/users', user_1.default);
-app.use('/api/blog', blog_1.default);
+app.use('/api/blogs', blog_1.default);
 app.get("/", (req, res) => {
     res.send("Welcome here");
 });

@@ -5,7 +5,7 @@ import { createBlog, deleteBlog, getBlog, getBlogs, updateBlog } from '../contro
 
 const router = Router()
 
-router.get('blogs', getBlogs)
+router.get('getBlogs', getBlogs)
 router.get('blog/:id', getBlog)
 router.post("write_blog", createBlog)
 router.patch("update_blog/:id", updateBlog )

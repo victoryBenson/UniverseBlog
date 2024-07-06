@@ -18,6 +18,9 @@ const mongoose_1 = require("mongoose");
 const createBlog = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const newBlog = new blog_1.default(req.body);
+        if (!newBlog) {
+            return res.sendStatus(204);
+        }
         const savedBlog = yield newBlog.save();
         res.sendStatus(201).json(savedBlog);
     }

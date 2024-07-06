@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const blog_1 = require("../controllers/blog");
 const router = (0, express_1.Router)();
-router.get('blogs', blog_1.getBlogs);
+router.get('getBlogs', blog_1.getBlogs);
 router.get('blog/:id', blog_1.getBlog);
 router.post("write_blog", blog_1.createBlog);
 router.patch("update_blog/:id", blog_1.updateBlog);

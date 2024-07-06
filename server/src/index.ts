@@ -26,7 +26,7 @@ app.use(cookieParser())
 // routes
 app.use('/api/auth', authRoute)
 app.use('/api/users', userRoute)
-app.use('/api/blog', blogRoute)
+app.use('/api/blogs', blogRoute)
 
 
 app.get("/", (req: Request, res: Response) => {

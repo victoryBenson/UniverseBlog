@@ -5,6 +5,10 @@ import { Types } from "mongoose";
 const createBlog = async(req:Request, res:Response, next:NextFunction) => {
     try {
         const newBlog = new Blog(req.body);
+        if(!newBlog){
+            return res.sendStatus(204)
+        }
+        
         const savedBlog = await newBlog.save();
         res.sendStatus(201).json(savedBlog);
       } catch (err) {
