@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import authRoute from "./routes/auth"
 import userRoute from "./routes/user"
+import blogRoute from "./routes/blog"
 import errorHandler from "./middleware/errorHandler";
 import cookieParser from 'cookie-parser'
 
@@ -17,6 +18,7 @@ const mongoUri = process.env.MONGODB_URI;
 app.use(express.json());
 
 // Middleware to parse application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }))
 
 app.use(cookieParser())
  
@@ -24,6 +26,7 @@ app.use(cookieParser())
 // routes
 app.use('/api/auth', authRoute)
 app.use('/api/users', userRoute)
+app.use('/api/blog', blogRoute)
 
 
 app.get("/", (req: Request, res: Response) => {

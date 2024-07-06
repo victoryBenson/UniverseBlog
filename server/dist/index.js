@@ -8,6 +8,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const auth_1 = __importDefault(require("./routes/auth"));
 const user_1 = __importDefault(require("./routes/user"));
+const blog_1 = __importDefault(require("./routes/blog"));
 const errorHandler_1 = __importDefault(require("./middleware/errorHandler"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 dotenv_1.default.config();
@@ -22,6 +23,7 @@ app.use((0, cookie_parser_1.default)());
 // routes
 app.use('/api/auth', auth_1.default);
 app.use('/api/users', user_1.default);
+app.use('/api/blog', blog_1.default);
 app.get("/", (req, res) => {
     res.send("Welcome here");
 });

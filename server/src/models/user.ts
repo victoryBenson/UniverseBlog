@@ -6,7 +6,6 @@ export interface IUser extends Document {
     email: string;
     password: string;
     avatar?: string;
-    // comparePassword(userPassword: string):Promise<boolean>
 }
 
 const userSchema:Schema<IUser> = new Schema({
@@ -50,11 +49,7 @@ userSchema.pre<IUser>('save', async function (next) {
     }
   });
 
-// //compare password with login password
-// userSchema.methods.comparePassword = async function (userPassword: string): Promise<boolean> {
-//     return await comparePassword(userPassword, this.password);
-// };
-  
+
 const User: Model<IUser> = mongoose.model<IUser>("User", userSchema);
 
 export default User;
