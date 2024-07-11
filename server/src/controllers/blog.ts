@@ -23,7 +23,7 @@ const getBlogs = async (req:Request, res:Response, next:NextFunction) =>{
         const blogs = await Blog.find({}).sort("-createdAt")
 
         if(!blogs){
-            return res.status(400).json({message: "user not found"})
+            return res.status(400).json({message: "blog not found"})
         };
 
         res.status(200).json(blogs)
@@ -45,7 +45,7 @@ const getBlog = async (req: Request, res: Response, next: NextFunction) => {
         const blog = await Blog.findById(blogId)
 
         if(!blog) {
-            return res.status(400).json({ message: "User does not exist!" });
+            return res.status(400).json({ message: "blog does not exist!" });
         }
 
         res.status(200).json(blog);

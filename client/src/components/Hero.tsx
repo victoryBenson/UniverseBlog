@@ -1,39 +1,40 @@
-import { Link } from "react-router-dom"
-import Logo from "../shared/Logo"
-import SocialMedia from "../shared/SocialMedia"
-import { FaRegUserCircle } from "react-icons/fa"
-import { IoIosArrowDown } from "react-icons/io"
-import { GoHome } from "react-icons/go"
-import { LuPenLine } from "react-icons/lu"
-import { IoLockClosedOutline } from "react-icons/io5"
+import { BlogProps } from "../interface/BlogProps"
+import displayRandom from "../utils/ShufflePost";
 
+interface BlogListProps {
+  posts: BlogProps[]
+}
 
-const Hero = () => {
+const Hero = ({posts}: BlogListProps) => {
+
+  const shufflePosts = displayRandom(posts);
+    
   return (
-    <>
-        <div className='bg-gradient-to-r from-blue1 to-blue2 text-white wave-container'>
-            <div className="absolute top-0 inset-0 h-20 bg-black z-20"></div>
-            <div className="flex items-center justify-end relative h-20 p-2 gap-2">
-                <div><SocialMedia/></div>
-                <div className="rounded flex  items-right w-1/5 text-black ">
-                    <input type="text" name="" id="" placeholder="search here" className="p-2 outline-none w-full rounded text-blue1" />
+    <div className="justify-center flex flex-wrap md:gap-2  h-full">
+      {
+        shufflePosts.slice(0, 4).map((post, index) => {
+          return(
+            <div key={index} className={` h-96 w-[22rem] my-5 md:my-14 lg:w-64 rounded shadow relative group`}>
+                <div className="absolute top-0 h-full w-full overflow-hidden">
+                    <img src={post.image} alt="image" className="h-full object-cover rounded overflow-hidden group-hover:scale-105 duration-300 transition-all"/>
+                    <p className="bg-black/30 h-full w-full top-0 absolute rounded"/>
+                </div>
+                <div className="justify-center absolute bottom-0 p-2 h-1/2 group-hover:scale-y-90 transition-all duration-300 transform-gpu">
+                    <p className="gap-1 flex items-center">
+                      <span className="text-sm text-white bg-blue2 p-1 rounded-sm cursor-pointer">2.5</span>
+                      <span className="underline decoration-2 text-[#d8e4bd]">#{post.label}</span>
+                    </p>
+                    <h1 className="text-white text-lg font-bold capitalize cursor-pointer py-2 hover:underline decoration-2 duration-300 transition-all">{post.title}</h1>
+                    <p className="flex items-center text-sm gap-2 text-arch">
+                        <span className="group-hover:cursor-pointer">{post.author}</span>
+                        <span className="group-hover:cursor-pointer">{post.readTime} read</span>
+                    </p>
                 </div>
             </div>
-            <div className="flex items-center justify-between mx-10 h-14 bg-whit text-blue p-3 rounded">
-                <div><Logo/></div>
-                <div  className="gap-4 flex">
-                    <Link to={'/'} className="flex items-center"><GoHome />home</Link>
-                    <Link to={'/'} className="flex items-center">categories <IoIosArrowDown /></Link>
-                    <Link to={'/'} className="flex items-center">topics</Link>
-                    <Link to={"/"} className="flex items-center"> <LuPenLine />write</Link>
-                </div>
-                <div className="flex items-center gap-4">
-                    <Link to={"/"} className="flex items-center"><IoLockClosedOutline />login</Link>
-                    <Link to={"/"}><FaRegUserCircle /></Link>
-                </div>
-            </div>
-        </div>
-    </>
+          )
+        })
+      }
+    </div>
   )
 }
 

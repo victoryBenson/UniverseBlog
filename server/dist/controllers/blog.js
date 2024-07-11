@@ -35,7 +35,7 @@ const getBlogs = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
     try {
         const blogs = yield blog_1.default.find({}).sort("-createdAt");
         if (!blogs) {
-            return res.status(400).json({ message: "user not found" });
+            return res.status(400).json({ message: "blog not found" });
         }
         ;
         res.status(200).json(blogs);
@@ -54,7 +54,7 @@ const getBlog = (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
         }
         const blog = yield blog_1.default.findById(blogId);
         if (!blog) {
-            return res.status(400).json({ message: "User does not exist!" });
+            return res.status(400).json({ message: "blog does not exist!" });
         }
         res.status(200).json(blog);
     }
