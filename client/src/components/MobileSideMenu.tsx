@@ -1,8 +1,8 @@
-import SocialMedia from '../shared/SocialMedia'
+import {SocialMedia} from '../shared/SocialMedia'
 
 
 type HandleMobileBtnProps = {
-    handleMobileView: (message: string) => string
+    handleMobileView: (event: React.MouseEvent<HTMLDivElement>, message: string) => string
 }
 const MobileSideMenu = ({handleMobileView}: HandleMobileBtnProps) => {
   return (

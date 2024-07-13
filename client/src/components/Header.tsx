@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import Logo from "../shared/Logo"
-import SocialMedia from "../shared/SocialMedia"
+import {SocialMedia} from "../shared/SocialMedia"
 import { FaRegUserCircle } from "react-icons/fa"
 import { IoIosArrowDown } from "react-icons/io"
 import { GoHome } from "react-icons/go"
@@ -30,7 +30,7 @@ const Header = () => {
 
   return (
     <>
-        <div className='bg-gradient-to-r from-blue1 via-seaGreen to-blue2 text-white h-14 rounded-lg justify-between items-center p-2 px-3 flex'>
+        <div className='bg-gradient-to-r from-blue1 via-seaGreen to-blue2 text-white h-14 rounded-lg justify-between items-center p-2 px-3 flex m-5'>
             <div>
                 <Logo/>
             </div>
@@ -44,7 +44,7 @@ const Header = () => {
                 )}
             </div>
             <div  className="gap-4 hidden lg:flex ">
-                <Link to={'/'} className="flex items-center"><GoHome />Home</Link>
+                <Link to={'/'} >Home</Link>
                 <Link to={'/'} className="flex items-center">Categories <IoIosArrowDown /></Link>
                 <Link to={"/"} className="flex items-center"> <LuPenLine />Write</Link>
             </div>

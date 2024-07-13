@@ -21,9 +21,9 @@ const BlogProvider = ({children}: DataProviderProps) => {
     const [data, setData] = useState<BlogProps[]>([]);
     const [isError, setIsError] = useState<unknown>();
     const [isLoading, setIsLoading] = useState<boolean>(false)
-
     
-    useEffect(() => {
+    
+     useEffect(() => {
         const fetchBlog = async () => {
             try {
                 setIsLoading(true)
@@ -43,7 +43,6 @@ const BlogProvider = ({children}: DataProviderProps) => {
         };
 
         fetchBlog()
-
     }, []);
 
     return (

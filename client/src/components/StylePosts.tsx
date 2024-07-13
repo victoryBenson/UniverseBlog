@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { BlogProps } from '../interface/BlogProps';
 import displayRandom from '../utils/ShufflePost';
 
@@ -11,24 +11,26 @@ const StylePosts = ({stylePosts}: DisplayPosts) => {
     const [selectedCategory, setSelectedCategory] = useState<string>("software");
     
     const shufflePost = displayRandom(stylePosts)
-    // console.log(shufflePost[1])
 
     const handleClick = (label: string) => {
       setSelectedCategory(selectedCategory === label ? "software" : label);
     };
   
-    const filteredItems = shufflePost.filter(item => item.label === selectedCategory);
-    // console.log(filteredItems[2])
+    // const filteredItems = shufflePost.filter(item => item.label === selectedCategory);
+
+    const filteredItems = useMemo(() => {
+        return shufflePost.filter(item => item.label === selectedCategory);
+    }, [selectedCategory, shufflePost])
 
    
   return (
-    <div className='p-2 my-2 rounded text-sm bg-white'>
+    <div className='p-2 rounded text-sm bg-white'>
         <div className='flex justify-between py-2 md:py-5 items-center'>
             <p className='font-bold text-base md:text-xl'>Style</p>
             <p className='space-x-2 text-xs md:text-sm'>
-                <span className='bg-arch md:px-2 p-[.07rem] rounded cursor-pointer' onClick={()=> handleClick("software")}>software</span>
-                <span className='bg-arch md:px-2 p-[.07rem] rounded cursor-pointer' onClick={()=> handleClick("gadget")}>gadget</span>
-                <span className='bg-arch md:px-2 p-[.07rem] rounded cursor-pointer' onClick={()=> handleClick("technology")}>technology</span>
+                <span className='bg-blue2/10 md:px-2 p-1 rounded cursor-pointer' onClick={()=> handleClick("software")}>software</span>
+                <span className='bg-blue2/10 md:px-2 p-1 rounded cursor-pointer' onClick={()=> handleClick("gadget")}>gadget</span>
+                <span className='bg-blue2/10 md:px-2 p-1 rounded cursor-pointer' onClick={()=> handleClick("technology")}>technology</span>
             </p>
         </div>
         {
@@ -38,18 +40,16 @@ const StylePosts = ({stylePosts}: DisplayPosts) => {
                         <div className='col-span-3 md:col-span-2'>
                             {
                                 filteredItems[0] && (
-                                    <div key={filteredItems[0]._id} className=' shadow-xs rounded'>
-                                        <div className='flex flex-col h-96 md:p-2'>
-                                            <span className='h-2/3'>
-                                                <img src={filteredItems[0].image} alt="" className='h-full w-full object-cover object-center rounded' />
-                                            </span>
-                                            <div className='h-full'>
-                                                <p className='text-blue2 cursor-pointer underline decoration-2 decoration-seaGreen'>{filteredItems[0].label}</p>
-                                                <p className='capitalize font-bold text-lg truncate'>{filteredItems[0].title}</p>
-                                                <div className="flex items-center gap-2 text-xs">
-                                                    <p className="text-darkGray capitalize">{filteredItems[0].author}</p>
-                                                    <p className="text-darkGray">{new Date(filteredItems[0].updatedAt).toLocaleDateString('default', { month:"long", year:"numeric" })}</p>
-                                                </div>
+                                    <div key={filteredItems[0]._id} className='p-2 rounded-lg group flex flex-col h-96 overflow-hidden'>
+                                        <div className='overflow-hidden h-2/3 rounded-lg'>
+                                            <img src={filteredItems[0].image} alt="" className='h-full w-full object-cover object-center group-hover:scale-105 duration-500 ' />
+                                        </div>
+                                        <div className=' overflow-hidden'>
+                                            <p className='text-blue2 cursor-pointer underline decoration-2 decoration-seaGreen'>{filteredItems[0].label}</p>
+                                            <p className='capitalize font-bold text-lg truncate'>{filteredItems[0].title}</p>
+                                            <div className="flex items-center gap-2 text-xs">
+                                                <p className="text-darkGray capitalize">{filteredItems[0].author}</p>
+                                                <p className="text-darkGray">{new Date(filteredItems[0].updatedAt).toLocaleDateString('default', { month:"long", year:"numeric" })}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -61,11 +61,11 @@ const StylePosts = ({stylePosts}: DisplayPosts) => {
                             <div className='shadow-xs rounded'>
                                 {
                                     filteredItems[1] && (
-                                        <div key={filteredItems[1]._id} className='flex flex-col h-48 p-1'>
-                                            <span className='h-2/3 md:h-1/2'>
-                                                <img src={filteredItems[1].image} alt="" className='h-full w-full object-cover object-center rounded' />
-                                            </span>
-                                            <div className='h-full'>
+                                        <div key={filteredItems[1]._id} className='flex flex-col h-48 p-1 group rounded-lg'>
+                                            <div className='h-3/4 md:h-1/ overflow-hidden rounded-lg'>
+                                                <img src={filteredItems[1].image} alt="" className='h-full w-full object-cover object-center rounded group-hover:scale-105 duration-500 ' />
+                                            </div>
+                                            <div>
                                                 <p className='text-blue2 cursor-pointer underline decoration-2 decoration-seaGreen'>{filteredItems[1].label}</p>
                                                 <p className='capitalize font-bold truncate'>{filteredItems[1].title}</p>
                                                 <div className="flex items-center gap-2 text-xs">
@@ -81,11 +81,11 @@ const StylePosts = ({stylePosts}: DisplayPosts) => {
                                 {
                                     filteredItems[2] && (
 
-                                    <div key={filteredItems[2]._id} className='flex flex-col h-48 p-1'>
-                                        <span className='h-2/3 md:h-1/2'>
-                                            <img src={filteredItems[2].image} alt="" className='h-full w-full object-cover object-center rounded' />
-                                        </span>
-                                        <div className='h-full'>
+                                    <div key={filteredItems[2]._id} className='flex flex-col h-48 p-1 group rounded-lg'>
+                                        <div className='h-3/4 md:h-1/ overflow-hidden rounded-lg'>
+                                            <img src={filteredItems[2].image} alt="" className='h-full w-full object-cover object-center rounded-lg group-hover:scale-105 duration-500' />
+                                        </div>
+                                        <div>
                                             <p className='text-blue2 cursor-pointer underline decoration-2 decoration-seaGreen'>{filteredItems[2].label}</p>
                                             <p className='capitalize font-bold truncate'>{filteredItems[2].title}</p>
                                             <div className="flex items-center gap-2 text-xs">

@@ -1,7 +1,7 @@
 import { BlogProps } from "../interface/BlogProps"
 import displayRandom from "../utils/ShufflePost";
 import truncateText from "../utils/TruncateText";
-// import truncateText from '../utils/TruncateText';
+
 
 interface MyBlogProps{
     blogs: BlogProps[], 
@@ -18,8 +18,8 @@ const LatestPosts = ({blogs}: MyBlogProps) => {
             {shufflePost.slice(0, 3).map((blog, index) => {
             return (
                 <div key={index} className="grid grid-cols-8 h-40 w-[100vm] gap-1 md:gap-2 group md:p-2 bg-white rounded">
-                    <div className="col-span-2 md:col-span-2  overflow-hidden cursor-pointer rounded m-1 p-1 md:p-2">
-                        <img src={blog.image} alt="image" className="h-full w-full object-cover group-hover:scale-105 duration-300 transition-all rounded overflow-hidden"/>
+                    <div className="col-span-2 md:col-span-2  overflow-hidden cursor-pointer rounded-lg m-1">
+                        <img src={blog.image} alt="image" className="h-full w-full object-cover group-hover:scale-105 duration-700 transition-all rounded-lg overflow-hidden"/>
                     </div>
                     <div className="col-span-6 md:col-span-6  space-y-2 text-sm py-2">
                         <p className="text-blue2 cursor-pointer hover:underline decoration-2 decoration-seaGreen underline-offset-4 duration-300 transition-all">{blog.label}</p>

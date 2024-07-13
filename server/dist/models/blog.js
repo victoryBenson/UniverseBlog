@@ -28,7 +28,7 @@ const blogSchema = new mongoose_1.Schema({
     },
     image: {
         type: String,
-        default: "https://i.postimg.cc/qRXRjfZB/undraw.png"
+        default: "https://i.postimg.cc/CKswg3qB/focused-tech.jpg"
     }
 }, {
     timestamps: true

@@ -1,38 +1,31 @@
 import { Link } from "react-router-dom"
 import Logo from "../shared/Logo"
-import SocialMedia from "../shared/SocialMedia"
-import { FaRegUserCircle } from "react-icons/fa"
-import { IoIosArrowDown } from "react-icons/io"
-import { GoHome } from "react-icons/go"
-import { LuPenLine } from "react-icons/lu"
-import { IoLockClosedOutline } from "react-icons/io5"
+import {SocialMedia,} from "../shared/SocialMedia"
+import { LuHeart } from "react-icons/lu"
 
 
 const Footer = () => {
   return (
-    <>
-        <div className='bg-gradient-to-r from-blue1 to-blue2 text-white wave-container h-[40vh] md:h-[50vh]'>
-            <div className="flex items-center justify-end relative h-20 p-2 gap-2">
-                <div><SocialMedia/></div>
-                <div className="rounded flex  items-right md:w-1/3 text-black ">
-                    <input type="text" name="" id="" placeholder="search here" className="p-2 outline-none w-full rounded text-black/60 font-normal" />
-                </div>
+    <div className=" bg-blue1 text-sm md:text-base">
+        <div className="flex flex-col justify-center items-center text-white px-3 h-72">
+            <div className="p-4"><Logo/></div>
+            <div className="flex gap-4 text-white/80">
+              <Link to={"/"}>Sign up</Link>
+              <Link to={"/"}>About</Link>
+              <Link to={"/"}>Pricing</Link>
+              <Link to={"/"}>Blog</Link>
             </div>
-            <div className="flex items-center justify-between mx-10 h-14 bg-whit text-blue p-3 rounded">
-                <div><Logo/></div>
-                <div  className="gap-4 flex">
-                    <Link to={'/'} className="flex items-center text-lg"><GoHome />home</Link>
-                    <Link to={'/'} className="flex items-center text-lg">categories <IoIosArrowDown /></Link>
-                    <Link to={'/'} className="flex items-center text-lg">topics</Link>
-                    <Link to={"/"} className="flex items-center text-lg"> <LuPenLine />write</Link>
-                </div>
-                <div className="flex items-center gap-4">
-                    <Link to={"/"} className="flex items-center text-lg"><IoLockClosedOutline />login</Link>
-                    <Link to={"/"}><FaRegUserCircle size={30}/></Link>
-                </div>
+            <div className="flex space-x-2 p-2 flex-wrap justify-center items-center text-darkGray">
+              <span>&copy;2024</span>
+              <span>Terms & Conditions</span>
+              <span>Privacy</span>
+              <span>Support</span>
+              <span>Newsletter</span>
             </div>
+            <SocialMedia/>
+            <div className="flex items-center md:pt-10 p-5 text-white/80">Built with <LuHeart className="mx-1 text-seaGreen" /> by Kennytech</div>
         </div>
-    </>
+    </div>
   )
 }
 
