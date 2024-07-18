@@ -1,6 +1,5 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import axios from "../utils/AxiosConfig";
-
 import { BlogProps } from '../interface/BlogProps';
 
 
@@ -8,6 +7,7 @@ interface BlogContextType {
     data: BlogProps[];
     isError: unknown;
     isLoading: boolean;
+    getBlogById: (id: number) => BlogProps | undefined
 }
 
 const BlogContext = createContext<BlogContextType | undefined>(undefined);
@@ -45,8 +45,12 @@ const BlogProvider = ({children}: DataProviderProps) => {
         fetchBlog()
     }, []);
 
+    //fetchBlogByID
+    const getBlogById = (id: number) => data.find(blog => blog._id === id)
+    
+
     return (
-        <BlogContext.Provider value={{data, isError, isLoading}}>
+        <BlogContext.Provider value={{data, isError, isLoading, getBlogById}}>
             {children}
         </BlogContext.Provider>
     )

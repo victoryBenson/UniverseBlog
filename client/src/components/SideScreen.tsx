@@ -37,7 +37,7 @@ export const SideScreen = ({blogLabel}: BlogLabelProps) => {
                         uniquePosts.slice(1,3).map(post => {
                             return (
                                 <div key={post._id} className="flex">
-                                    <p className="font-semibold p-2 text-base capitalize">{post.title}- <i className="font-normal text-sm lowercase text-darkGray">{post.author}</i></p>
+                                    <p className=" p-2 text-base capitalize">{post.title}- <i className="font-normal text-sm lowercase text-darkGray">{post.author}</i></p>
                                 </div>
                             )
                         })

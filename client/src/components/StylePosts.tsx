@@ -8,35 +8,42 @@ interface DisplayPosts {
 
 
 const StylePosts = ({stylePosts}: DisplayPosts) => {
-    const [selectedCategory, setSelectedCategory] = useState<string>("software");
-    
-    const shufflePost = displayRandom(stylePosts)
+    // const shufflePost = displayRandom(stylePosts)
 
-    const handleClick = (label: string) => {
-      setSelectedCategory(selectedCategory === label ? "software" : label);
+    const [selectedCategory, setSelectedCategory] = useState<string >("editor's pick");
+
+    const items = Array.from(new Set(stylePosts.map(item => item.label)));
+  
+    const handleLabelClick = (label: string) => {
+        setSelectedCategory(label);
     };
   
-    // const filteredItems = shufflePost.filter(item => item.label === selectedCategory);
+    // const filteredItems = selectedCategory ? shufflePost.filter(item => item.label === selectedCategory).slice(0, 3) : [];
 
     const filteredItems = useMemo(() => {
-        return shufflePost.filter(item => item.label === selectedCategory);
-    }, [selectedCategory, shufflePost])
-
+        return selectedCategory ? displayRandom(stylePosts).filter(item => item.label === selectedCategory).slice(0, 3) : [];
+    },[selectedCategory, stylePosts])
    
   return (
     <div className='p-2 rounded text-sm bg-white'>
-        <div className='flex justify-between py-2 md:py-5 items-center'>
+        <div className='flex flex-wrap justify-between py-2 md:py-5 items-center w-full'>
             <p className='font-bold text-base md:text-xl'>Style</p>
-            <p className='space-x-2 text-xs md:text-sm'>
-                <span className='bg-blue2/10 md:px-2 p-1 rounded cursor-pointer' onClick={()=> handleClick("software")}>software</span>
-                <span className='bg-blue2/10 md:px-2 p-1 rounded cursor-pointer' onClick={()=> handleClick("gadget")}>gadget</span>
-                <span className='bg-blue2/10 md:px-2 p-1 rounded cursor-pointer' onClick={()=> handleClick("technology")}>technology</span>
-            </p>
+            <div className='flex truncate items-center justify-center gap-2'>
+                {
+                    items && items.map(item => {
+                        return (
+                            <div key={item} onClick={() => handleLabelClick(item)} className={`sm:px-2 sm: py-2 p-1 text-sm rounded cursor-pointer truncate ${selectedCategory === item ? 'bg-blue1 text-white' : 'bg-lightGray text-black'}`}>
+                                {item}
+                            </div>
+                        )
+                    })
+                }
+            </div>
         </div>
         {
             selectedCategory && (
                 <>
-                    <div  className='grid grid-cols-3 gap-2 content-center'>
+                    <div  className='grid grid-cols-3 gap-2 content-center transition-all duration-700'>
                         <div className='col-span-3 md:col-span-2'>
                             {
                                 filteredItems[0] && (

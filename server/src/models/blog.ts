@@ -1,10 +1,17 @@
-    import { Document, model, Schema } from "mongoose";
+import { Document, model, Schema } from "mongoose";
+
+export enum BlogLabel {
+    TECHNOLOGY = 'technology',
+    SOFTWARE = 'software',
+    GADGET = 'gadget',
+    EDITORSPICK = "editor's pick"
+};
 
 export interface MyBlog extends Document {
     author: string;
     title: string;
     content: string;
-    label: string;
+    label: BlogLabel;
     image: string;
     readTime: string;
     createdAt: Date;
@@ -35,7 +42,8 @@ const blogSchema = new Schema<MyBlog>(
         label:{
             type: String,
             required: true,
-            lowercase: true
+            lowercase: true,
+            enum: BlogLabel
         },
         image:{
             type: String,

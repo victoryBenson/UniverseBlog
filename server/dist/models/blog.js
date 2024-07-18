@@ -1,6 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.BlogLabel = void 0;
 const mongoose_1 = require("mongoose");
+var BlogLabel;
+(function (BlogLabel) {
+    BlogLabel["TECHNOLOGY"] = "technology";
+    BlogLabel["SOFTWARE"] = "software";
+    BlogLabel["GADGET"] = "gadget";
+    BlogLabel["EDITORSPICK"] = "editor's pick";
+})(BlogLabel || (exports.BlogLabel = BlogLabel = {}));
+;
 const blogSchema = new mongoose_1.Schema({
     author: {
         type: String,
@@ -24,7 +33,8 @@ const blogSchema = new mongoose_1.Schema({
     label: {
         type: String,
         required: true,
-        lowercase: true
+        lowercase: true,
+        enum: BlogLabel
     },
     image: {
         type: String,

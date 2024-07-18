@@ -1,4 +1,5 @@
 
+import BlogDetails from './components/BlogDetails'
 import Footer from './components/Footer'
 import Header from './components/Header'
 import LandingPage from './pages/LandingPage'
@@ -12,6 +13,7 @@ const App = () => {
         <Header/>
         <Routes>
           <Route path={"/"} element={<LandingPage/>}/>
+          <Route path={"/blog/:id"} element={<BlogDetails/>}/>
         </Routes>
         <Footer/>
       </Router>
