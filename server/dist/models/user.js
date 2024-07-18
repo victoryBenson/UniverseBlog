@@ -76,9 +76,5 @@ userSchema.pre('save', function (next) {
         }
     });
 });
-// //compare password with login password
-// userSchema.methods.comparePassword = async function (userPassword: string): Promise<boolean> {
-//     return await comparePassword(userPassword, this.password);
-// };
 const User = mongoose_1.default.model("User", userSchema);
 exports.default = User;

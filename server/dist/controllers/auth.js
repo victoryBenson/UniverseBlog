@@ -31,7 +31,6 @@ const userLogin = (req, res, next) => __awaiter(void 0, void 0, void 0, function
         if (!passwordMatch) {
             return res.status(401).json({ message: 'Invalid Credentials' });
         }
-        // const token = generateToken(user.userID)
         const token = jsonwebtoken_1.default.sign({ userID: user._id }, secret, { expiresIn: '24h' });
         const expiryDate = new Date(Date.now() + 24 * (3600000)); //expire in 24hrs
         res
@@ -60,7 +59,6 @@ const userRegister = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
         }
         const newUser = new user_1.default({ username, email, password });
         yield newUser.save();
-        // const token = generateToken(newUser.id);
         const token = jsonwebtoken_1.default.sign({ userID: newUser._id }, secret, { expiresIn: '24h' });
         const expiryDate = new Date(Date.now() + 24 * (3600000)); //expire in 24hrs
         res
