@@ -17,7 +17,6 @@ const mongoUri = process.env.MONGODB_URI;
 // Middleware to parse application/json
 app.use(express_1.default.json());
 // Middleware to parse application/x-www-form-urlencoded
-app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, cookie_parser_1.default)());
 // routes
 app.use('/api/auth', auth_1.default);
