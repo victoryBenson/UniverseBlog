@@ -2,9 +2,9 @@ import axios from "axios";
 
 let backendURL
 if (process.env.NODE_ENV === 'production') {
-    backendURL = "https://rebornv2api.onrender.com/api/v1/products/";
+    backendURL = "https://rebornv2api.onrender.com/api/blogs";
 } else{
-    backendURL = "http://localhost:3000/api/blogs/";
+    backendURL = "http://localhost:3000/api/blogs";
 }
 
 const axiosInstance = axios.create({

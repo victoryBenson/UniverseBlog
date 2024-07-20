@@ -1,5 +1,5 @@
-import { createContext, ReactNode, useContext, useEffect, useState } from "react";
-import axios from "../utils/AxiosConfig";
+import { createContext, ReactNode, useContext, useState } from "react";
+import axiosInstance from "../utils/AxiosConfig";
 import { BlogProps } from '../interface/BlogProps';
 
 
@@ -7,7 +7,9 @@ interface BlogContextType {
     data: BlogProps[];
     isError: unknown;
     isLoading: boolean;
-    getBlogById: (id: number) => BlogProps | undefined
+    getBlogByID: (id: string) => Promise<BlogProps | undefined>;
+    fetchAllBlogs: () => Promise<void>,
+    scrollToTop: () => void
 }
 
 const BlogContext = createContext<BlogContextType | undefined>(undefined);
@@ -23,34 +25,50 @@ const BlogProvider = ({children}: DataProviderProps) => {
     const [isLoading, setIsLoading] = useState<boolean>(false)
     
     
-     useEffect(() => {
-        const fetchBlog = async () => {
-            try {
-                setIsLoading(true)
-                const response = await axios.get<BlogProps[]>(`getBlogs`);
-                const result = await response.data;
-                setData(result)
-                
-            } catch (err: unknown) {
-                if(err instanceof Error){
-                    setIsError(err.message)
-                }else {
-                    setIsError(err)
-                }
-            }finally {
-                setIsLoading(false)
+     //fetch all blog
+    const fetchAllBlogs = async () => {
+        try {
+            setIsLoading(true)
+            const response = await axiosInstance.get<BlogProps[]>(`getBlogs`);
+            const result = await response.data;
+            setData(result)
+            console.log(data)
+        } catch (err: unknown) {
+            if(err instanceof Error){
+                setIsError(err.message)
+            }else {
+                setIsError(err)
             }
-        };
+        }finally {
+            setIsLoading(false)
+        }
+    }
 
-        fetchBlog()
-    }, []);
 
-    //fetchBlogByID
-    const getBlogById = (id: number) => data.find(blog => blog._id === id)
-    
+    //getSingleBlog
+    const getBlogByID = async (id: string): Promise<BlogProps | undefined> => {
+        try {
+            setIsLoading(true)
+            const response = await axiosInstance.get<BlogProps>(`getBlog/${id}`)
+            return response.data
+        } catch (error) {
+            setIsError(error)
+        }finally{
+            setIsLoading(false)
+        }
+    }
+
+    const scrollToTop = () => {
+        window.scrollTo(
+            {
+                top: 0,
+                behavior: 'smooth'
+            }
+        )
+      };
 
     return (
-        <BlogContext.Provider value={{data, isError, isLoading, getBlogById}}>
+        <BlogContext.Provider value={{data, isError, isLoading, getBlogByID, fetchAllBlogs, scrollToTop}}>
             {children}
         </BlogContext.Provider>
     )

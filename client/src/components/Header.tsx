@@ -3,7 +3,6 @@ import Logo from "../shared/Logo"
 import {SocialMedia} from "../shared/SocialMedia"
 import { FaRegUserCircle } from "react-icons/fa"
 import { IoIosArrowDown } from "react-icons/io"
-import { GoHome } from "react-icons/go"
 import { LuPenLine } from "react-icons/lu"
 import { IoLockClosedOutline } from "react-icons/io5"
 import { HiOutlineMenuAlt3 } from "react-icons/hi"
@@ -19,27 +18,19 @@ const Header = () => {
         setMobile(!mobile)
     }
 
-    const scrollToTop = () => {
-        window.scrollTo(
-            {
-                top: 0,
-                behavior: 'smooth'
-            }
-        )
-      };
+   
 
   return (
     <>
         <div className='bg-gradient-to-r from-blue1 via-seaGreen to-blue2 text-white h-14 rounded-lg justify-between items-center p-2 px-3 flex m-5'>
-            <div>
+            <Link to={"/"}>
                 <Logo/>
-            </div>
+            </Link>
             <div className="flex md:hidden " >
                 <HiOutlineMenuAlt3 size={30} onClick={handleMobileView}/>
                 {mobile && (
                     <MobileSideMenu 
-                        handleMobileView={handleMobileView}
-                        scrollToTop ={scrollToTop}
+                        handleMobile={handleMobileView}
                     />
                 )}
             </div>

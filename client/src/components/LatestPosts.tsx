@@ -3,6 +3,7 @@ import { BlogProps } from "../interface/BlogProps"
 import displayRandom from "../utils/ShufflePost";
 import truncateText from "../utils/TruncateText";
 import useIsMobile from "../utils/isMobileView";
+import { UseData } from "../context/Blog";
 
 
 interface MyBlogProps{
@@ -12,6 +13,7 @@ interface MyBlogProps{
 const LatestPosts = ({blogs}: MyBlogProps) => {
     const shufflePost = displayRandom(blogs);
     const isMobile = useIsMobile();
+    const {scrollToTop} = UseData()
 
 
   return (
@@ -22,7 +24,7 @@ const LatestPosts = ({blogs}: MyBlogProps) => {
         <div className="flex flex-col gap-4">
             {shufflePost.slice(0, 3).map((blog, index) => {
             return (
-                <Link key={index} className="grid grid-cols-8 h-40 w-[100vm] gap-1 md:gap-2 group md:p-2 bg-white rounded" to={`blog/${blog._id}`}>
+                <Link onClick={scrollToTop} key={index} className="grid grid-cols-8 h-40 w-[100vm] gap-1 md:gap-2 group md:p-2 bg-white rounded" to={`/blog/${blog._id}`}>
                     <div className="col-span-2 md:col-span-2  overflow-hidden cursor-pointer rounded-lg m-1">
                         <img src={blog.image} alt="image" className="h-full w-full object-cover group-hover:scale-105 duration-700 transition-all rounded-lg overflow-hidden"/>
                     </div>

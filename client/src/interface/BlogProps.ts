@@ -1,5 +1,5 @@
 export interface BlogProps {
-    _id: number;
+    _id: string;
     title: string;
     content: string;
     author: string;
