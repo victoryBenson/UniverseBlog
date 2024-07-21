@@ -95,6 +95,15 @@ const updateBlog = async(req:Request, res:Response, next:NextFunction) => {
     } catch (error) {
         next(error)
     }
+};
+
+const getLabels = async(req:Request, res:Response, next:NextFunction) => {
+    try {
+        const Labels = await Blog.find({label: req.params.tag});
+        res.json(Labels)
+    } catch (error) {
+        next(error)
+    }
 }
 
 
@@ -105,5 +114,6 @@ export {
     getBlogs,
     createBlog,
     deleteBlog,
-    updateBlog
+    updateBlog,
+    getLabels
 }

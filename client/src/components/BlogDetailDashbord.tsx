@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import BlogDetails from "./BlogDetails"
+import BlogDetails from "../pages/BlogDetails"
 import { UseData } from "../context/Blog"
 import { SideScreen } from "./SideScreen"
 import Wrapper from "../shared/Wrapper"

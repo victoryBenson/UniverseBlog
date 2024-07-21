@@ -9,7 +9,8 @@ interface BlogContextType {
     isLoading: boolean;
     getBlogByID: (id: string) => Promise<BlogProps | undefined>;
     fetchAllBlogs: () => Promise<void>,
-    scrollToTop: () => void
+    scrollToTop: () => void,
+    // getBlogByLabel: () => void
 }
 
 const BlogContext = createContext<BlogContextType | undefined>(undefined);
@@ -57,6 +58,20 @@ const BlogProvider = ({children}: DataProviderProps) => {
             setIsLoading(false)
         }
     }
+                                                      
+    // //getBlogByLabel
+    // const getBlogByLabel = async (label: string) => {
+    //     try {
+    //         setIsLoading(true);
+    //       const response = await axiosInstance.get(`getLabel/${label}`);
+    //       setLabels(response.data);
+    //     } catch (error) {
+    //       setIsError(error);
+    //     } finally {
+    //       setIsLoading(false);
+    //     }
+    //   };
+
 
     const scrollToTop = () => {
         window.scrollTo(

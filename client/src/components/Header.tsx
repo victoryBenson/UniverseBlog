@@ -13,12 +13,16 @@ import MobileSideMenu from "./MobileSideMenu"
 
 const Header = () => {
     const [mobile, setMobile] = useState<boolean>(false)
+    const [category, setCategory] = useState<boolean>(false)
 
     const handleMobileView = () => {
         setMobile(!mobile)
-    }
+    };
 
-   
+    const handleCategory = () => {
+        setCategory(!category)
+    }
+ 
 
   return (
     <>
@@ -36,8 +40,22 @@ const Header = () => {
             </div>
             <div  className="gap-4 hidden lg:flex ">
                 <Link to={'/'} >Home</Link>
-                <Link to={'/'} className="flex items-center">Categories <IoIosArrowDown /></Link>
-                <Link to={"/"} className="flex items-center"> <LuPenLine />Write</Link>
+                <div className="flex items-center relative">
+                    <span onClick={handleCategory} className="flex items-center cursor-pointer">
+                        Categories <IoIosArrowDown />
+                    </span>
+                    {
+                        category && (
+                            <div className="w-40 bg-white text-darkGray absolute top-10 rounded shadow p-2 z-10 transition-all duration-300">
+                                <p className="p-2 cursor-pointer my-1 hover:bg-blue1 hover:text-white hover:rounded">Software</p>
+                                <p className="p-2 cursor-pointer my-1 hover:bg-blue1 hover:text-white hover:rounded">Editor's Pick</p>
+                                <p className="p-2 cursor-pointer my-1 hover:bg-blue1 hover:text-white hover:rounded">Gadget</p>
+                                <p className="p-2 cursor-pointer my-1 hover:bg-blue1 hover:text-white hover:rounded">Technology</p>
+                            </div>
+                        )
+                    }
+                </div>
+                <Link to={"/createBlog"} className="flex items-center"> <LuPenLine />Write</Link>
             </div>
             <div className="items-center justify-between hidden md:flex  h-14 md:gap-4">
                 <div className="hidden md:flex"><SocialMedia/></div>

@@ -5,6 +5,7 @@ import LatestPosts from '../components/LatestPosts'
 import { SideScreen } from '../components/SideScreen';
 import StylePosts from '../components/StylePosts';
 import { useEffect } from "react";
+import {LoaderAnimation} from "../shared/LoaderAnimation";
 
 
 const LandingPage = () => {
@@ -18,7 +19,7 @@ const LandingPage = () => {
    
   
     if(isLoading){
-      <span>Loading...</span> 
+      <LoaderAnimation/>
     }
 
     if(isError){

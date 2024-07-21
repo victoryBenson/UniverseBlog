@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react'
 import { BlogProps } from '../interface/BlogProps';
 import displayRandom from '../utils/ShufflePost';
+import { Link } from 'react-router-dom';
+import { UseData } from '../context/Blog';
 
 interface DisplayPosts {
     stylePosts: BlogProps[]
@@ -9,6 +11,7 @@ interface DisplayPosts {
 
 const StylePosts = ({stylePosts}: DisplayPosts) => {
     // const shufflePost = displayRandom(stylePosts)
+    const {scrollToTop} = UseData()
 
     const [selectedCategory, setSelectedCategory] = useState<string >("editor's pick");
 
@@ -41,13 +44,13 @@ const StylePosts = ({stylePosts}: DisplayPosts) => {
             </div>
         </div>
         {
-            selectedCategory && (
+            selectedCategory && filteredItems.length? (
                 <>
-                    <div  className='grid grid-cols-3 gap-2 content-center transition-all duration-700'>
+                    <div className='grid grid-cols-3 gap-2 content-center transition-all duration-700'>
                         <div className='col-span-3 md:col-span-2'>
                             {
                                 filteredItems[0] && (
-                                    <div key={filteredItems[0]._id} className='p-2 rounded-lg group flex flex-col h-96 overflow-hidden'>
+                                    <Link onClick={scrollToTop} to={`blog/${filteredItems[0]._id}`} key={filteredItems[0]._id} className='p-2 rounded-lg group flex flex-col h-96 overflow-hidden'>
                                         <div className='overflow-hidden h-2/3 rounded-lg'>
                                             <img src={filteredItems[0].image} alt="" className='h-full w-full object-cover object-center group-hover:scale-105 duration-500 ' />
                                         </div>
@@ -59,7 +62,7 @@ const StylePosts = ({stylePosts}: DisplayPosts) => {
                                                 <p className="text-darkGray">{new Date(filteredItems[0].updatedAt).toLocaleDateString('default', { month:"long", year:"numeric" })}</p>
                                             </div>
                                         </div>
-                                    </div>
+                                    </Link>
                                 )
                             }
 
@@ -68,7 +71,7 @@ const StylePosts = ({stylePosts}: DisplayPosts) => {
                             <div className='shadow-xs rounded'>
                                 {
                                     filteredItems[1] && (
-                                        <div key={filteredItems[1]._id} className='flex flex-col h-48 p-1 group rounded-lg'>
+                                        <Link onClick={scrollToTop} to={`blog/${filteredItems[1]._id}`} key={filteredItems[1]._id} className='flex flex-col h-48 p-1 group rounded-lg'>
                                             <div className='h-3/4 md:h-1/ overflow-hidden rounded-lg'>
                                                 <img src={filteredItems[1].image} alt="" className='h-full w-full object-cover object-center rounded group-hover:scale-105 duration-500 ' />
                                             </div>
@@ -80,7 +83,7 @@ const StylePosts = ({stylePosts}: DisplayPosts) => {
                                                     <p className="text-darkGray">{new Date(filteredItems[1].updatedAt).toLocaleDateString('default', { month: 'long', year: 'numeric' })}</p>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </Link>
                                     )
                                 }
                             </div>
@@ -88,7 +91,7 @@ const StylePosts = ({stylePosts}: DisplayPosts) => {
                                 {
                                     filteredItems[2] && (
 
-                                    <div key={filteredItems[2]._id} className='flex flex-col h-48 p-1 group rounded-lg'>
+                                    <Link onClick={scrollToTop} to={`blog/${filteredItems[2]._id}`} key={filteredItems[2]._id} className='flex flex-col h-48 p-1 group rounded-lg'>
                                         <div className='h-3/4 md:h-1/ overflow-hidden rounded-lg'>
                                             <img src={filteredItems[2].image} alt="" className='h-full w-full object-cover object-center rounded-lg group-hover:scale-105 duration-500' />
                                         </div>
@@ -100,14 +103,15 @@ const StylePosts = ({stylePosts}: DisplayPosts) => {
                                                 <p className="text-darkGray">{new Date(filteredItems[2].updatedAt).toLocaleDateString('default', { month: 'long', year: 'numeric' })}</p>
                                             </div>
                                         </div>
-                                    </div>
+                                    </Link>
                                     )
                                 }
                             </div>
                         </div>
                     </div>
                 </>
-            )
+            ):
+            <div className='text-sm animate-pulse text-lightGray'>Please wait...</div>
         }
     </div>
   )

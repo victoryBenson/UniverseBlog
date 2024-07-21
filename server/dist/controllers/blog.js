@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateBlog = exports.deleteBlog = exports.createBlog = exports.getBlogs = exports.getBlog = void 0;
+exports.getLabels = exports.updateBlog = exports.deleteBlog = exports.createBlog = exports.getBlogs = exports.getBlog = void 0;
 const blog_1 = __importDefault(require("../models/blog"));
 const mongoose_1 = require("mongoose");
 //create_blog
@@ -100,3 +100,13 @@ const updateBlog = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
     }
 });
 exports.updateBlog = updateBlog;
+const getLabels = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const Labels = yield blog_1.default.find({ label: req.params.tag });
+        res.json(Labels);
+    }
+    catch (error) {
+        next(error);
+    }
+});
+exports.getLabels = getLabels;
