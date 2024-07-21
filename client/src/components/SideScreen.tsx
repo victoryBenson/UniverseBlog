@@ -4,6 +4,7 @@ import displayRandom from "../utils/ShufflePost"
 import { useMemo } from "react"
 import Newsletter from "./Newsletter"
 
+
 interface BlogLabelProps {
     blogLabel: BlogProps[]
 }
@@ -16,13 +17,12 @@ export const SideScreen = ({blogLabel}: BlogLabelProps) => {
         const uniqueLabel = new Set<string>();
 
         return displayPosts.filter(post => {
-
-        if (uniqueLabel.has(post.label)) {
-            return false;
-        } else {
-            uniqueLabel.add(post.label);
-            return true;
-        }
+            if (uniqueLabel.has(post.label)) {
+                return false;
+            } else {
+                uniqueLabel.add(post.label);
+                return true;
+            }
         });
 
     }, [displayPosts]);
@@ -30,10 +30,10 @@ export const SideScreen = ({blogLabel}: BlogLabelProps) => {
   return (
         <div>
             {/* popular post */}
-            <div className="p-2 bg-white rounded">
-                <p className="p-2 font-bold text-lg">Popular Posts</p>
+            <div className="p-2 bg-white rounded-lg">
+                <p className="font-bold text-base md:text-xl">Popular Posts</p>
                 <div className="flex flex-wrap w-full gap-2">
-                    {
+                    {uniquePosts.length?(
                         uniquePosts.slice(1,3).map(post => {
                             return (
                                 <div key={post._id} className="flex">
@@ -41,14 +41,19 @@ export const SideScreen = ({blogLabel}: BlogLabelProps) => {
                                 </div>
                             )
                         })
+                    ): (
+            
+                        <span className="p-2 text-lightGray text-sm"> please wait...</span>
+                    )
                     }
                 </div>
             </div>
             {/*  */}
             <div className="p-2">
-                <p className="p-2 font-bold text-lg">Label</p>
+                <p className="font-bold text-base md:text-xl">Label</p>
                 <div className="flex flex-wrap w-full gap-2">
-                    {
+                    {uniquePosts.length ? (
+
                         uniquePosts.map(post => {
                             return (
                                 <div key={post._id} className="">
@@ -56,6 +61,10 @@ export const SideScreen = ({blogLabel}: BlogLabelProps) => {
                                 </div>
                             )
                         })
+                    ) :
+                    (
+                        <span className="p-2 text-lightGray text-sm"> please wait...</span>
+                    )
                     }
                 </div>
             </div>

@@ -1,7 +1,8 @@
 
-import BlogDetails from './components/BlogDetails'
+import BlogDetailDashboard from './components/BlogDetailDashbord'
 import Footer from './components/Footer'
 import Header from './components/Header'
+import CreateBlog from './pages/CreateBlog'
 import LandingPage from './pages/LandingPage'
 import { Routes,Route, BrowserRouter as Router } from 'react-router-dom'
 
@@ -12,8 +13,9 @@ const App = () => {
       <Router>
         <Header/>
         <Routes>
-          <Route path={"/"} element={<LandingPage/>}/>
-          <Route path={"/blog/:id"} element={<BlogDetails/>}/>
+          <Route path={"/"} index element={<LandingPage/>}/>
+          <Route path={"/blog/:id"} element={<BlogDetailDashboard/>}/>
+          <Route path={"/createBlog"} element={<CreateBlog/>}/>
         </Routes>
         <Footer/>
       </Router>
