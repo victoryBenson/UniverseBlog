@@ -1,30 +1,48 @@
-# Blog webApp
+# UniverseBlog
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+UniversalBlog is a full-featured blog site built with Node.js, Express, React, TypeScript and TailwindCss. This project includes features like user authentication, posting blogs, comments, and a rich text editor.
 
-Currently, two official plugins are available:
+## Table of Contents
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Scripts](#scripts)
+- [Environment Variables](#environment-variables)
+- [API Endpoints](#api-endpoints)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- User authentication and authorization
+- Create, edit, and delete blog posts
+- Comment on posts
+- Rich text editor for writing posts
+- Responsive design
 
-- Configure the top-level `parserOptions` property like this:
+## Tech Stack
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- **Frontend**: React, TypeScript, TailwindCSS
+- **Backend**: Node.js, Express, MongoDB
+- **Authentication**: JWT (JSON Web Tokens)
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Prerequisites
+
+Before you begin, ensure you have met the following requirements:
+
+- Node.js and npm installed on your machine
+- MongoDB installed and running locally or use a MongoDB Atlas cluster
+- Git for version control
+
+## Installation
+
+1. **Clone the repository**:
+
+   ```bash
+   git clone https://github.com/victoryBenson/UniverseBlog.git
+   
+   cd client to start the frontend side and cd server to start the server side
