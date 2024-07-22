@@ -1,5 +1,5 @@
 
-import BlogDetailDashboard from './components/BlogDetailDashbord'
+import BlogDetailDashboard from './components/BlogDetailDashboard'
 import Footer from './components/Footer'
 import Header from './components/Header'
 import CreateBlog from './pages/CreateBlog'
