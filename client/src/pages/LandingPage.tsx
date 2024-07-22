@@ -23,7 +23,7 @@ const LandingPage = () => {
     }
 
     if(isError){
-      <span>error...</span>
+      <span>An error occurred...</span>
     }
 
   return (

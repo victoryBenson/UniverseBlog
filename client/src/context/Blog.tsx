@@ -33,7 +33,7 @@ const BlogProvider = ({children}: DataProviderProps) => {
             const response = await axiosInstance.get<BlogProps[]>(`getBlogs`);
             const result = await response.data;
             setData(result)
-            console.log(data)
+            // console.log(data)
         } catch (err: unknown) {
             if(err instanceof Error){
                 setIsError(err.message)
