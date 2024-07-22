@@ -2,7 +2,7 @@ import axios from "axios";
 
 let backendURL
 if (process.env.NODE_ENV === 'production') {
-    backendURL = "https://rebornv2api.onrender.com/api/blogs";
+    backendURL = "https://universeblog-api.onrender.com/api/blogs";
 } else{
     backendURL = "http://localhost:3000/api/blogs";
 }
