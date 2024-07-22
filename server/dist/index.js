@@ -17,7 +17,7 @@ const app = (0, express_1.default)();
 const port = process.env.PORT || 3001;
 const mongoUri = process.env.MONGODB_URI;
 //cors middleware
-const allowedOrigins = ['http://localhost:5173'];
+const allowedOrigins = ['http://localhost:5173', "https://universeblog.vercel.app"];
 app.use((0, cors_1.default)({
     origin: (origin, callback) => {
         if (!origin || allowedOrigins.indexOf(origin) !== -1) {
