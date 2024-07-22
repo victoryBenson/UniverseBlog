@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import User, {IUser} from "../models/user";
 import dotenv from 'dotenv';
-import { decode } from "punycode";
 
 dotenv.config()
 
@@ -12,7 +11,7 @@ interface AuthRequest extends Request {
   
 const secret = process.env.ACCESS_TOKEN_SECRET as string
 
-export const protect = async (req: AuthRequest, res: Response, next:NextFunction) => {
+const protect = async (req: AuthRequest, res: Response, next:NextFunction) => {
     let token;
 
     const authHeader = req.headers.authorization
@@ -36,4 +35,6 @@ export const protect = async (req: AuthRequest, res: Response, next:NextFunction
     } catch (error) {
         res.sendStatus(401)
     }
-}
+};
+
+export default protect;
