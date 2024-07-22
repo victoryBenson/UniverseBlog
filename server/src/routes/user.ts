@@ -1,11 +1,11 @@
 import { Router } from "express";
 import { deleteUser, getUser, getUsers, updateUser } from "../controllers/user";
-import protect from "../middleware/authMiddleware";
+// import protect from "../middleware/authMiddleware";
 
  
 const router = Router()
 
-router.use(protect)
+// router.use(protect)
 
 router.get('/getUser/:id', getUser)
 router.get('/getUsers', getUsers)
