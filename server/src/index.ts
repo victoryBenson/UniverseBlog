@@ -26,12 +26,9 @@ app.use(cors({
     }
 }));
 
-// Middleware to parse application/json
+
 app.use(express.json());
-
-// Middleware to parse application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }))
-
 app.use(cookieParser())
  
 

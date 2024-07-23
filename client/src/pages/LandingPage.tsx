@@ -16,15 +16,14 @@ const LandingPage = () => {
     fetchAllBlogs()
   },[])
 
-   
   
-    if(isLoading){
-      <LoaderAnimation/>
-    }
+  if(isLoading){
+    <LoaderAnimation/>
+  }
 
-    if(isError){
-      <span>An error occurred...</span>
-    }
+  if(isError){
+    <span>An error occurred...</span>
+  }
 
   return (
     <Wrapper>
@@ -45,4 +44,4 @@ const LandingPage = () => {
   )
 }
 
-export default LandingPage
+export default LandingPage;

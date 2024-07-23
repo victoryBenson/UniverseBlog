@@ -1,4 +1,3 @@
-
 import BlogDetailDashboard from './components/BlogDetailDashboard'
 import Footer from './components/Footer'
 import Header from './components/Header'
@@ -23,4 +22,4 @@ const App = () => {
   )
 }
 
-export default App
+export default App;

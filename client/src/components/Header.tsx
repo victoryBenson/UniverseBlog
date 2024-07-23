@@ -55,7 +55,7 @@ const Header = () => {
                         )
                     }
                 </div>
-                <Link to={"/createBlog"} className="flex items-center"> <LuPenLine />Write</Link>
+                <Link to={"/createBlog"} className="flex items-center cursor-pointer"> <LuPenLine />Write</Link>
             </div>
             <div className="items-center justify-between hidden md:flex  h-14 md:gap-4">
                 <div className="hidden md:flex"><SocialMedia/></div>
