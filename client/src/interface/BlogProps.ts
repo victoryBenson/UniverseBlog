@@ -1,3 +1,5 @@
+
+
 export interface BlogProps {
     _id: string;
     title: string;
@@ -9,3 +11,14 @@ export interface BlogProps {
     createdAt: string;
     updatedAt: string;
   }
+
+
+  export interface FormInitialState {
+    author:string,
+    tittle:string,
+    content:string,
+    readTime:string,
+    label:string,
+    image: null | File
+}
+

@@ -10,7 +10,7 @@ interface BlogContextType {
     getBlogByID: (id: string) => Promise<BlogProps | undefined>;
     fetchAllBlogs: () => Promise<void>,
     scrollToTop: () => void,
-    // getBlogByLabel: () => void
+    createBlog: (newBlog: Omit<BlogProps, "_id" | "createdAt" | "updatedAt">)=> Promise<void>
 }
 
 const BlogContext = createContext<BlogContextType | undefined>(undefined);
@@ -58,21 +58,27 @@ const BlogProvider = ({children}: DataProviderProps) => {
             setIsLoading(false)
         }
     }
+
+    //createBlog
+    const createBlog = async(newBlog: Omit<BlogProps, "_id" | "createdAt" | "updatedAt">) => {
+        setIsLoading(true);
+        try {
+            const response = await axiosInstance.post<BlogProps[]>("createBlog", newBlog);
+            return response.data
+        } catch (error) {
+            if(error instanceof Error){
+                setIsError(error.message)
+            }else{
+                setIsError("An unknown error occurred")
+            }
+        }finally{
+            setIsLoading(false)
+        }
+    }
                                                       
-    // //getBlogByLabel
-    // const getBlogByLabel = async (label: string) => {
-    //     try {
-    //         setIsLoading(true);
-    //       const response = await axiosInstance.get(`getLabel/${label}`);
-    //       setLabels(response.data);
-    //     } catch (error) {
-    //       setIsError(error);
-    //     } finally {
-    //       setIsLoading(false);
-    //     }
-    //   };
 
 
+    //scroll to top
     const scrollToTop = () => {
         window.scrollTo(
             {
@@ -83,7 +89,7 @@ const BlogProvider = ({children}: DataProviderProps) => {
       };
 
     return (
-        <BlogContext.Provider value={{data, isError, isLoading, getBlogByID, fetchAllBlogs, scrollToTop}}>
+        <BlogContext.Provider value={{data, isError, isLoading, getBlogByID, fetchAllBlogs, scrollToTop, createBlog}}>
             {children}
         </BlogContext.Provider>
     )
