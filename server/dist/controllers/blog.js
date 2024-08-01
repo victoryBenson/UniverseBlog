@@ -17,12 +17,19 @@ const blog_1 = __importDefault(require("../models/blog"));
 const mongoose_1 = require("mongoose");
 //create_blog
 const createBlog = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const file = req.file;
+    const { author, title, content, label, readTime } = req.body;
     try {
-        const newBlog = new blog_1.default(req.body);
+        if (!file) {
+            return res.status(400).send('No file uploaded');
+        }
+        ;
+        const newBlog = new blog_1.default({ author, title, content, label, readTime, image: file.path });
         if (!newBlog) {
             return res.status(204).json({ message: "no content found!" });
         }
         const savedBlog = yield newBlog.save();
+        console.log(savedBlog); //
         res.status(201).json(savedBlog);
     }
     catch (err) {

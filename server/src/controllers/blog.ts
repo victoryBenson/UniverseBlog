@@ -2,16 +2,26 @@ import { NextFunction, Request, Response } from "express";
 import Blog from "../models/blog";
 import { Types } from "mongoose";
 
+
 //create_blog
 const createBlog = async(req:Request, res:Response, next:NextFunction) => {
+    const file = req.file;
+    const {author, title, content, label, readTime} = req.body
     try {
-        const newBlog = new Blog(req.body);
+        if (!file) {
+            return res.status(400).send('No file uploaded');
+        };
+
+        const newBlog = new Blog({author, title, content, label, readTime, image:file.path});
+        
         if(!newBlog){
             return res.status(204).json({message: "no content found!"})
         }
         
         const savedBlog = await newBlog.save();
+        console.log(savedBlog) //
         res.status(201).json(savedBlog);
+
       } catch (err) {
         next(err)
       }

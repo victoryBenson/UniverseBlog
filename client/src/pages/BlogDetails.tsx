@@ -32,7 +32,7 @@ const BlogDetails = () => {
 
 
     if(isError){
-        return <div className='text-red'>{isError && isError}</div>
+        return <div className='text-red text-center'>{isError && isError}</div>
     }
 
 
