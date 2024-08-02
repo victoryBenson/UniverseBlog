@@ -90,9 +90,14 @@ const deleteBlog = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
 exports.deleteBlog = deleteBlog;
 const updateBlog = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const blogId = req.params.id;
+    let { author, title, content, label, readTime, image } = req.body;
     try {
         if (!blogId) {
             return res.status(400).json({ message: "Invalid blog Id" });
+        }
+        ;
+        if (req.file) {
+            image = req.file.path;
         }
         const blogDetails = req.body;
         const options = { new: true, runValidators: true };
@@ -100,7 +105,10 @@ const updateBlog = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
         if (!blog) {
             return res.status(400).json({ message: "Blog does not exist" });
         }
-        res.status(200).json({ message: "Updated successfully!" });
+        res
+            .status(200)
+            .json(blog);
+        // .json({msg: "Updated successfully!"})
     }
     catch (error) {
         next(error);

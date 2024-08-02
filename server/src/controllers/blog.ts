@@ -65,6 +65,7 @@ const getBlog = async (req: Request, res: Response, next: NextFunction) => {
     }
 };
 
+
 //deleteBlog
 const deleteBlog = async(req:Request, res:Response, next:NextFunction) => {
     const blogId = req.params.id
@@ -86,11 +87,18 @@ const deleteBlog = async(req:Request, res:Response, next:NextFunction) => {
 
 };
 
+
 const updateBlog = async(req:Request, res:Response, next:NextFunction) => {
     const blogId = req.params.id;
+    let {author, title, content, label, readTime, image} = req.body
+
     try {
         if(!blogId){
             return res.status(400).json({message: "Invalid blog Id"})
+        };
+
+        if (req.file) {
+            image = req.file.path
         }
 
         const blogDetails = req.body;
@@ -101,11 +109,15 @@ const updateBlog = async(req:Request, res:Response, next:NextFunction) => {
         if(!blog){
             return res.status(400).json({message: "Blog does not exist"})
         }
-        res.status(200).json({message: "Updated successfully!"})
+        res
+        .status(200)
+        .json(blog)
+        // .json({msg: "Updated successfully!"})
     } catch (error) {
         next(error)
     }
 };
+
 
 const getLabels = async(req:Request, res:Response, next:NextFunction) => {
     try {

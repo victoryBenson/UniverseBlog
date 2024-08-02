@@ -9,17 +9,20 @@ dotenv.config();
 
 
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME!,
-  api_key: process.env.CLOUDINARY_API_KEY!,
-  api_secret: process.env.CLOUDINARY_API_SECRET!,
+  cloud_name: process.env.CLOUD_NAME!,
+  api_key: process.env.CLOUD_API_KEY!,
+  api_secret: process.env.CLOUD_API_SECRET!,
 });
 
+console.log(process.env.CLOUD_NAME!)
+
 const storage = new CloudinaryStorage({
-  cloudinary: cloudinary,params: {
+  cloudinary: cloudinary,
+  params: {
     folder: 'blog_images',
     format: async (req:Request, file:any) => 'png',
     public_id: (req:Request, file: any) => file.originalname.split('.')[0],
   } as any,
 });
 
-export const upload = multer({ storage });
+const upload = multer({ storage });
