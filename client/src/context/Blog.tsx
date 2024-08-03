@@ -1,28 +1,28 @@
 import { createContext, ReactNode, useContext, useState } from "react";
+import { BlogProps} from '../interface/BlogProps';
 import axiosInstance from "../utils/AxiosConfig";
-import { BlogProps } from '../interface/BlogProps';
-
 
 interface BlogContextType {
     data: BlogProps[];
-    isError: unknown;
+    isError: undefined | string;
     isLoading: boolean;
     getBlogByID: (id: string) => Promise<BlogProps | undefined>;
     fetchAllBlogs: () => Promise<void>,
     scrollToTop: () => void,
-    // getBlogByLabel: () => void
+    createBlog: (blogData: unknown)=> Promise<void>
 }
+
 
 const BlogContext = createContext<BlogContextType | undefined>(undefined);
 
 type DataProviderProps = {
     children: ReactNode
-}
+};
 
 
 const BlogProvider = ({children}: DataProviderProps) => {
     const [data, setData] = useState<BlogProps[]>([]);
-    const [isError, setIsError] = useState<unknown>();
+    const [isError, setIsError] = useState<undefined | string>();
     const [isLoading, setIsLoading] = useState<boolean>(false)
     
     
@@ -30,49 +30,46 @@ const BlogProvider = ({children}: DataProviderProps) => {
     const fetchAllBlogs = async () => {
         try {
             setIsLoading(true)
-            const response = await axiosInstance.get<BlogProps[]>(`getBlogs`);
-            const result = await response.data;
-            setData(result)
-            // console.log(data)
-        } catch (err: unknown) {
-            if(err instanceof Error){
-                setIsError(err.message)
+            const response = await axiosInstance.get(`blogs/getBlogs`);
+            setData(response.data);
+            return response.data;
+        } catch (error) {
+            if(error instanceof Error){
+                setIsError(error.message)
             }else {
-                setIsError(err)
+                setIsError("An error occurred")
             }
         }finally {
             setIsLoading(false)
         }
     }
 
-
     //getSingleBlog
-    const getBlogByID = async (id: string): Promise<BlogProps | undefined> => {
+    const getBlogByID = async (id: string) => {
         try {
             setIsLoading(true)
-            const response = await axiosInstance.get<BlogProps>(`getBlog/${id}`)
+            const response = await axiosInstance.get(`blogs/getBlog/${id}`)
             return response.data
         } catch (error) {
-            setIsError(error)
+            if(error instanceof Error){
+                setIsError(error.message)
+            }else {
+                setIsError("An error occurred")
+            }
         }finally{
             setIsLoading(false)
         }
     }
+
+    //createBlog
+    const createBlog = async(blogData: unknown) => {
+        const response = await axiosInstance.post(`blogs/write_blog`, blogData);
+        console.log(response.data)
+        return response.data
+    };
                                                       
-    // //getBlogByLabel
-    // const getBlogByLabel = async (label: string) => {
-    //     try {
-    //         setIsLoading(true);
-    //       const response = await axiosInstance.get(`getLabel/${label}`);
-    //       setLabels(response.data);
-    //     } catch (error) {
-    //       setIsError(error);
-    //     } finally {
-    //       setIsLoading(false);
-    //     }
-    //   };
 
-
+    //scroll to top
     const scrollToTop = () => {
         window.scrollTo(
             {
@@ -80,23 +77,22 @@ const BlogProvider = ({children}: DataProviderProps) => {
                 behavior: 'smooth'
             }
         )
-      };
+    };
 
     return (
-        <BlogContext.Provider value={{data, isError, isLoading, getBlogByID, fetchAllBlogs, scrollToTop}}>
+        <BlogContext.Provider value={{data, isError, isLoading, getBlogByID, fetchAllBlogs, scrollToTop, createBlog }}>
             {children}
         </BlogContext.Provider>
     )
 };
 
-
 export default BlogProvider;
-                                                                                                         
+                     
+// export BlogContext using custom hook
 export const UseData = () => {
     const context = useContext(BlogContext);
     if (context === undefined) {
       throw new Error('useData must be used within a BlogProvider');
     }
     return context;
-
 };

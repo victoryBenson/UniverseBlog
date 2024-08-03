@@ -17,12 +17,19 @@ const blog_1 = __importDefault(require("../models/blog"));
 const mongoose_1 = require("mongoose");
 //create_blog
 const createBlog = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const file = req.file;
+    const { author, title, content, label, readTime } = req.body;
     try {
-        const newBlog = new blog_1.default(req.body);
+        if (!file) {
+            return res.status(400).send('No file uploaded');
+        }
+        ;
+        const newBlog = new blog_1.default({ author, title, content, label, readTime, image: file.path });
         if (!newBlog) {
             return res.status(204).json({ message: "no content found!" });
         }
         const savedBlog = yield newBlog.save();
+        console.log(savedBlog); //
         res.status(201).json(savedBlog);
     }
     catch (err) {
@@ -83,9 +90,14 @@ const deleteBlog = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
 exports.deleteBlog = deleteBlog;
 const updateBlog = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const blogId = req.params.id;
+    let { author, title, content, label, readTime, image } = req.body;
     try {
         if (!blogId) {
             return res.status(400).json({ message: "Invalid blog Id" });
+        }
+        ;
+        if (req.file) {
+            image = req.file.path;
         }
         const blogDetails = req.body;
         const options = { new: true, runValidators: true };
@@ -93,7 +105,10 @@ const updateBlog = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
         if (!blog) {
             return res.status(400).json({ message: "Blog does not exist" });
         }
-        res.status(200).json({ message: "Updated successfully!" });
+        res
+            .status(200)
+            .json(blog);
+        // .json({msg: "Updated successfully!"})
     }
     catch (error) {
         next(error);
