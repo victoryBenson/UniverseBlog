@@ -1,4 +1,3 @@
-import { Toaster } from 'react-hot-toast'
 import BlogDetailDashboard from './components/BlogDetailDashboard'
 import Footer from './components/Footer'
 import Header from './components/Header'
@@ -19,7 +18,6 @@ const App = () => {
         </Routes>
         <Footer/>
       </Router>
-      <Toaster/>
     </div>
   )
 }
