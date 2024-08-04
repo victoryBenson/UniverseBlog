@@ -13,8 +13,7 @@ export default {
       "seaGreen": "#9FE2BF",
       "arch": "#eeeeee",
       "lightGray": "#D3D3D3",
-      "darkGray": "#A9A9A9",
-      "red": "#ff333c"
+      "darkGray": "#A9A9A9"
     },
     fontFamily:{
       poppins: ["Poppins", "sans-serif"],
