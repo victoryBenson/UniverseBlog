@@ -2,9 +2,9 @@ import axios from "axios";
 
 let backendURL
 if (process.env.NODE_ENV === 'production') {
-    backendURL = "https://universeblog-api.onrender.com/api/blogs";
+    backendURL = "https://universeblog-api.onrender.com/api/";
 } else{
-    backendURL = "http://localhost:3000/api/blogs";
+    backendURL = "http://localhost:3000/api/";
 }
 
 const axiosInstance = axios.create({
@@ -14,4 +14,4 @@ const axiosInstance = axios.create({
     },
 });
 
-export default axiosInstance
+export default axiosInstance;
