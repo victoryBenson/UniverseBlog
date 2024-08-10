@@ -33,12 +33,12 @@ const CreateBlog = () => {
     };
 
     const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const imageFile = event.target.files as FileList;
+        const imageFile = event.target.files ? event.target.files[0] : null;
         if(imageFile){
             setFormState( (prev) => ({
                 ...prev,
-                image: imageFile?.[0],
-                imagePrev: URL.createObjectURL(imageFile?.[0])
+                // image: imageFile,
+                // imagePrev: URL.createObjectURL(imageFile[0])
             }))
         }
     }

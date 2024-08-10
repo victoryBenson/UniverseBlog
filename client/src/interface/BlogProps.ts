@@ -5,7 +5,7 @@ export interface BlogProps {
     author: string;
     label: string;
     readTime: string;
-    image?: string | File | null;
+    image?: string;
     createdAt: string;
     updatedAt: string;
     imagePrev: string;
