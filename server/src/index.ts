@@ -13,8 +13,8 @@ dotenv.config();
 const app: Express = express();
 const port = process.env.PORT! || 3001;
 const mongoUri = process.env.MONGODB_URI!;
-console.log(mongoUri)
-console.log(port)
+// console.log(mongoUri)
+// console.log(port)
 
 
 //cors middleware
