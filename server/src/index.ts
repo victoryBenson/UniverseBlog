@@ -6,13 +6,16 @@ import userRoute from "./routes/user"
 import blogRoute from "./routes/blog"
 import errorHandler from "./middleware/errorHandler";
 import cookieParser from 'cookie-parser';
-import cors from 'cors'
+import cors from 'cors';
 
 dotenv.config();
 
 const app: Express = express();
-const port = process.env.PORT || 3001;
-const mongoUri = process.env.MONGODB_URI;
+const port = process.env.PORT!;
+const mongoUri = process.env.MONGODB_URI!;
+console.log(mongoUri)
+console.log(port)
+
 
 //cors middleware
 const allowedOrigins = ['http://localhost:5173', "https://universeblog.vercel.app"];
@@ -46,7 +49,7 @@ app.get("/", (req: Request, res: Response) => {
 app.use(errorHandler);
 
 if (!mongoUri) {
-  console.error('MongoDB URI is not defined in the environment variables');
+  console.error('MONGODB_URI is not defined in the environment variables');
   process.exit(1);
 }
 

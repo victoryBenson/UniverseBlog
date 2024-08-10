@@ -4,6 +4,7 @@ import Header from './components/Header'
 import CreateBlog from './pages/CreateBlog'
 import LandingPage from './pages/LandingPage'
 import { Routes,Route, BrowserRouter as Router } from 'react-router-dom'
+import { Toaster } from 'react-hot-toast'
 
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
         </Routes>
         <Footer/>
       </Router>
+      <Toaster/>
     </div>
   )
 }

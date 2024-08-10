@@ -14,7 +14,7 @@ type BlogParams = {
 const BlogDetails = () => {
     const { id } = useParams<BlogParams>();
     const { isLoading, isError, getBlogByID} = UseData();
-    const [blog, setBlog] = useState<BlogProps | undefined>(undefined)
+    const [blog, setBlog] = useState<BlogProps | undefined>()
 
   
     useEffect(() => {
@@ -33,9 +33,8 @@ const BlogDetails = () => {
 
 
     if(isError){
-        return <div>An error occurred</div>
+        return <div className='text-red text-center'>{isError && isError}</div>
     }
-
 
 
     if(!blog){
@@ -48,7 +47,7 @@ const BlogDetails = () => {
             <h1 className='font-bold p-2 text-lg md:text-3xl fond-bold py-10 capitalize'>{blog.title}</h1>
             <div className='flex flex-wrap items-center gap-2 text-darkGray divide-x-3 py-2'>
                 <span>by <strong className='text-black'> {blog.author}</strong></span>
-                <span className='flex items-center'><CiClock1 /> {new Date(blog.updatedAt).toLocaleString('default', { month:"long", year:"numeric" })}</span>
+                <span className='flex items-center'><CiClock1 /> {new Date(blog.updatedAt).toLocaleString('default', { day: "2-digit", month:"long", year:"numeric" })}</span>
                 <span className='flex items-center'><FaRegComments /> 9 comments</span>
                 <span className='flex items-center'><IoBookOutline className='mx-1'/> {blog.readTime} read</span>
                 <span><CiHeart size={20}/></span>
