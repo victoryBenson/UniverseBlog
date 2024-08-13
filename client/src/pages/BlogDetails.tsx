@@ -45,6 +45,7 @@ const BlogDetails = () => {
         backendImageURL = "https://universeblog-api.onrender.com";
     } else{
         backendImageURL = "http://localhost:3000";
+        console.log(process.env.NODE_ENV)
     }
 
     console.log(`${backendImageURL}${blog.image}`)
