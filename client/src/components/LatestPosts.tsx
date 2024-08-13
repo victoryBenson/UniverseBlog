@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { BlogProps } from "../interface/BlogProps"
-import displayRandom from "../utils/ShufflePost";
+// import displayRandom from "../utils/ShufflePost";
 import truncateText from "../utils/TruncateText";
 import useIsMobile from "../utils/isMobileView";
 import { UseData } from "../context/Blog";
@@ -11,9 +11,10 @@ interface MyBlogProps{
 }
 
 const LatestPosts = ({blogs}: MyBlogProps) => {
-    const shufflePost = displayRandom(blogs);
+    // const shufflePost = displayRandom(blogs);
     const isMobile = useIsMobile();
     const {scrollToTop} = UseData()
+    console.log(blogs)
 
 
   return (
@@ -22,13 +23,19 @@ const LatestPosts = ({blogs}: MyBlogProps) => {
             <p className="font-bold text-base md:text-xl">Latest Posts</p>
         </div>
         <div className="flex flex-col gap-4">
-            {shufflePost.length ?(
+            {blogs.length ?(
 
-                shufflePost.slice(0, 3).map((blog, index) => {
+                blogs.slice(0, 3).map((blog, index) => {
                 return (
                     <Link onClick={scrollToTop} key={index} className="grid grid-cols-8 h-40 w-[100vm] gap-1 md:gap-2 group md:p-2 bg-white rounded" to={`/blog/${blog._id}`}>
                         <div className="col-span-2 md:col-span-2  overflow-hidden cursor-pointer rounded-lg m-1">
-                            <img src={blog.image} alt="image" className="h-full w-full object-cover group-hover:scale-105 duration-700 transition-all rounded-lg overflow-hidden"/>
+                            {
+                                (blog.image)?.includes('uploads')?
+                                <img src={`http://localhost:3000${blog.image}`} alt={blog.label} className="h-full w-full object-cover group-hover:scale-105 duration-700 transition-all rounded-lg overflow-hidden"/>
+                                :
+                                <img src={blog.image} alt={blog.label} className="h-full w-full object-cover group-hover:scale-105 duration-700 transition-all rounded-lg overflow-hidden"/>
+
+                            }
                         </div>
                         <div className="col-span-6 md:col-span-6  space-y-2 text-sm py-2">
                             <p className="text-blue2 cursor-pointer hover:underline decoration-2 decoration-seaGreen underline-offset-4 duration-300 transition-all">{blog.label}</p>

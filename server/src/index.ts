@@ -7,14 +7,13 @@ import blogRoute from "./routes/blog"
 import errorHandler from "./middleware/errorHandler";
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import path from "path";
 
 dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT! || 3001;
 const mongoUri = process.env.MONGODB_URI!;
-// console.log(mongoUri)
-// console.log(port)
 
 
 //cors middleware
@@ -33,7 +32,8 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
- 
+app.use("/uploads", express.static(path.join(__dirname, "../src/uploads")));
+
 
 // routes
 app.use('/api/auth', authRoute)
@@ -59,7 +59,7 @@ mongoose.set("strictQuery", false);
 mongoose.connect(mongoUri).then(() => {
   app.listen(port, () => {
     console.log(`server is listening on port ${port}!`);
-    console.log(`Cook Something!`);
+    console.log(`It's fun time!`);
   });
 });
 

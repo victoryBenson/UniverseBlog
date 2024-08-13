@@ -9,9 +9,9 @@ if (process.env.NODE_ENV === 'production') {
 
 const axiosInstance = axios.create({
     baseURL: backendURL,
-    headers: {
-        'Content-Type': 'application/json'
-    },
+    // headers: {
+    //     'Content-Type': 'application/json'
+    // },
 });
 
 export default axiosInstance;

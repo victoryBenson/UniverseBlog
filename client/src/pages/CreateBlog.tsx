@@ -6,6 +6,7 @@ import { UseData } from "../context/Blog";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { FcAddImage } from "react-icons/fc";
+import { FullScreenLoader} from "../shared/LoaderAnimation";
 
 
 const initialState: NewBlog = {
@@ -14,12 +15,14 @@ const initialState: NewBlog = {
     content: "",
     readTime: "",
     label: "",
-    image: "",
+    img: null as File | null,
     imagePrev: ""
-}
+};
+
+
 const CreateBlog = () => {
     const [formState, setFormState] = useState<NewBlog>(initialState);
-    const {author, title, content, readTime, label, image} = formState;
+    const {author, title, content, readTime, label, img, imagePrev} = formState;
     const {createBlog} = UseData();
     const [loading, setLoading] = useState<boolean>(false)
     const [isError, setIsError] = useState<null | string>()
@@ -32,14 +35,14 @@ const CreateBlog = () => {
         inputRef.current?.click()
     };
 
-    const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const imageFile = event.target.files ? event.target.files[0] : null;
+    const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const imageFile = e.target.files?.[0];
         if(imageFile){
-            setFormState( (prev) => ({
-                ...prev,
-                // image: imageFile,
-                // imagePrev: URL.createObjectURL(imageFile[0])
-            }))
+            setFormState({
+                ...formState,
+                img: imageFile,
+                imagePrev: URL.createObjectURL(imageFile)
+            })
         }
     }
 
@@ -52,14 +55,26 @@ const CreateBlog = () => {
         event.preventDefault();
         setLoading(true);
         try {
-            const BlogData = {author, title, content, readTime, label, image}
-            if(!author || !content || !readTime || !label || !title){
-                toast.error("All fields are required!");
+            if(!img){
+                toast.error("Please upload an image!")
+                console.log("Please upload an image!")
                 return
             }
-            await createBlog(BlogData)
+    
+            const formData = new FormData();
+            formData.append('author', author);
+            formData.append("title", title);
+            formData.append("content", content);
+            formData.append("readTime", readTime);
+            formData.append("label", label);
+            formData.append("image", img);
+
+            await createBlog(formData)
+
             toast.success('Blog created Successfully!')
+
             navigate("/")
+
         } catch (error) {
             if(error instanceof Error){
                 setIsError(error.message)
@@ -81,9 +96,9 @@ const CreateBlog = () => {
                         onClick={handleClick}
                     >
                         {
-                            formState.imagePrev ? (
+                            imagePrev ? (
                                 <div className='overflow-hidden w-full h-full'>
-                                    <img src={formState.imagePrev} alt="ProfilePreview" className='h-full w-full rounded object-cover object-top' />
+                                    <img src={imagePrev} alt="ProfilePreview" className='h-full w-full rounded object-cover object-top' />
                                 </div>
                             ):(
                                 <div className="flex flex-col items-center">
@@ -112,7 +127,7 @@ const CreateBlog = () => {
                             <input type="text" name="author" required value={author} onChange={handleChange}  placeholder="author" className="p-2 w-full ring-1 ring-blue2/20 rounded-xl focus:ring-2 focus:outline-blue1/60 bg-arch/40"/>
                         </div>
                         <div className="w-full md:w-auto">
-                            <select id="labels" name="labels" onChange={handleChange} required className="p-2 w-full ring-1 ring-blue2/20 rounded-xl focus:ring-2 focus:outline-blue1/60 bg-arch/40">
+                            <select id="labels" name="label" onChange={handleChange} required className="p-2 w-full ring-1 ring-blue2/20 rounded-xl focus:ring-2 focus:outline-blue1/60 bg-arch/40">
                                 <option value="" className="text-lightGray">-select an option-</option>
                                 <option value="technology">technology</option>
                                 <option value="gadget">gadget</option>
@@ -123,23 +138,30 @@ const CreateBlog = () => {
                         <div className="w-full md:w-auto">
                         <select id="readTime" name="readTime" onChange={handleChange} required className="p-2 w-full ring-1 ring-blue2/20 rounded-xl focus:ring-2 focus:outline-blue1/60 bg-arch/40">
                                 <option value="" className="text-lightGray">-select an option-</option>
-                                <option value="1min">1 minute</option>
-                                <option value="2min">2 minutes</option>
-                                <option value="3min">3 minutes</option>
-                                <option value="4min">4 minutes</option>
-                                <option value="5min">5 minutes</option>
+                                <option value="1">1 minute</option>
+                                <option value="2">2 minutes</option>
+                                <option value="3">3 minutes</option>
+                                <option value="4">4 minutes</option>
+                                <option value="5">5 minutes</option>
                             </select>
                         </div>
                     </div>
-                    <div className="w-full">
-                        <textarea name="content" value={content} onChange={handleChange} required rows={10} className=" w-full p-2 ring-1 ring-blue2/20 rounded-xl focus:ring-2 focus:outline-blue1/60 bg-arch/40" placeholder="Tell your story"></textarea>
+                    <div className="w-full h-40 ">
+                        <textarea name="content" value={content} onChange={handleChange} required className=" w-full h-full p-2 ring-1 ring-blue2/20 rounded-xl focus:ring-2 focus:outline-blue1/60 bg-arch/40" placeholder="Tell your story"></textarea>
                     </div>
                 </div>
                 <div className="text-red">{isError && isError }</div>
-                <div className=" md:w-[80%] w-full my-5 rounded">
-                    <button disabled={loading} className="w-full p-3 bg-blue1 text-white rounded-lg hover:bg-opacity-80 transition-all duration-300 flex items-center justify-center">
-                        <AiOutlineCloudUpload />Publish
-                    </button>
+                <div className=" md:w-[80%] w-full my-5 rounded ">
+                    {
+                        !loading? 
+                        (<button disabled={loading} className="w-full p-3 bg-blue1 text-white rounded-lg hover:bg-opacity-80 transition-all duration-300 flex items-center justify-center cursor-pointer">
+                            <AiOutlineCloudUpload />Publish
+                        </button>
+                        ) :
+                        (
+                            <FullScreenLoader/>
+                        )
+                    }
                 </div>
             </form>
         </div>
