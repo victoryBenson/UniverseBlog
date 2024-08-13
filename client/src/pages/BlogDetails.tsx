@@ -40,7 +40,14 @@ const BlogDetails = () => {
         return <div>No blog found</div>
     }
 
-    console.log(`http://localhost:3000${blog.image}`)
+    let backendImageURL
+    if (process.env.NODE_ENV === 'production') {
+        backendImageURL = "https://universeblog-api.onrender.com";
+    } else{
+        backendImageURL = "http://localhost:3000";
+    }
+
+    console.log(`${backendImageURL}${blog.image}`)
 
     return (
         <div className='min-h-screen mx-4 md:mx-8 lg:mx-20'>
@@ -56,7 +63,7 @@ const BlogDetails = () => {
             <div className=' overflow-hidden rounded-2xl w-full h-96'>
                 {
                     (blog.image)?.includes('uploads') ?
-                    <img src={`http://localhost:3000${blog.image}`} alt="image" className='rounded-2xl h-full w-full object-cover object-top hover:scale-105 duration-1000 '/>
+                    <img src={`${backendImageURL}${blog.image}`} alt="image" className='rounded-2xl h-full w-full object-cover object-top hover:scale-105 duration-1000 '/>
                     :
                     <img src={blog.image} alt="image" className='rounded-2xl h-full w-full object-cover object-top hover:scale-105 duration-1000 '/>
                 }
