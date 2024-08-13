@@ -2,20 +2,42 @@ import { NextFunction, Request, Response } from "express";
 import Blog from "../models/blog";
 import { Types } from "mongoose";
 
+
+
 //create_blog
 const createBlog = async(req:Request, res:Response, next:NextFunction) => {
+
+    const {author, title, content, label, readTime} = req.body
+    const image = req.file? `/uploads/${req.file.filename}` : null;
+    
+    if(!image || !author || !content || !label || !readTime || !title){
+        return res.status(400).json({message: "All field are required!"})
+    };
+
     try {
-        const newBlog = new Blog(req.body);
+
+        const newBlog = {
+            author, 
+            title,
+            content, 
+            label, 
+            readTime, 
+            image
+        };
+
+        const createNewBlog = new Blog(newBlog);
+
         if(!newBlog){
             return res.status(204).json({message: "no content found!"})
         }
         
-        const savedBlog = await newBlog.save();
+        const savedBlog = await createNewBlog.save();
         res.status(201).json(savedBlog);
       } catch (err) {
         next(err)
       }
 };
+
 
 //get_blog
 const getBlogs = async (req:Request, res:Response, next:NextFunction) =>{
@@ -55,6 +77,7 @@ const getBlog = async (req: Request, res: Response, next: NextFunction) => {
     }
 };
 
+
 //deleteBlog
 const deleteBlog = async(req:Request, res:Response, next:NextFunction) => {
     const blogId = req.params.id
@@ -76,6 +99,8 @@ const deleteBlog = async(req:Request, res:Response, next:NextFunction) => {
 
 };
 
+
+//updateBlog
 const updateBlog = async(req:Request, res:Response, next:NextFunction) => {
     const blogId = req.params.id;
     try {
@@ -97,6 +122,8 @@ const updateBlog = async(req:Request, res:Response, next:NextFunction) => {
     }
 };
 
+
+//getLabel
 const getLabels = async(req:Request, res:Response, next:NextFunction) => {
     try {
         const Labels = await Blog.find({label: req.params.tag});

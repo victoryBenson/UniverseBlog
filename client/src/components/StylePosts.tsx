@@ -52,7 +52,11 @@ const StylePosts = ({stylePosts}: DisplayPosts) => {
                                 filteredItems[0] && (
                                     <Link onClick={scrollToTop} to={`blog/${filteredItems[0]._id}`} key={filteredItems[0]._id} className='p-2 rounded-lg group flex flex-col h-96 overflow-hidden'>
                                         <div className='overflow-hidden h-2/3 rounded-lg'>
-                                            <img src={filteredItems[0].image} alt="" className='h-full w-full object-cover object-center group-hover:scale-105 duration-500 ' />
+                                            {(filteredItems[0].image)?.includes('uploads') ? 
+                                            <img src={`http://localhost:3000${filteredItems[0].image}` || filteredItems[0].image} alt="" className='h-full w-full object-cover object-center group-hover:scale-105 duration-500 ' />
+                                            :
+                                            <img src={ filteredItems[0].image} alt="" className='h-full w-full object-cover object-center group-hover:scale-105 duration-500 ' />
+                                            }
                                         </div>
                                         <div className=' overflow-hidden'>
                                             <p className='text-blue2 cursor-pointer underline decoration-2 decoration-seaGreen'>{filteredItems[0].label}</p>
@@ -73,7 +77,12 @@ const StylePosts = ({stylePosts}: DisplayPosts) => {
                                     filteredItems[1] && (
                                         <Link onClick={scrollToTop} to={`blog/${filteredItems[1]._id}`} key={filteredItems[1]._id} className='flex flex-col h-48 p-1 group rounded-lg'>
                                             <div className='h-3/4 md:h-1/ overflow-hidden rounded-lg'>
-                                                <img src={filteredItems[1].image} alt="" className='h-full w-full object-cover object-center rounded group-hover:scale-105 duration-500 ' />
+                                                {
+                                                    (filteredItems[1].image)?.includes('uploads')?
+                                                    <img src={`http://localhost:3000${filteredItems[1].image}` || filteredItems[1].image} alt="" className='h-full w-full object-cover object-center rounded group-hover:scale-105 duration-500 ' />
+                                                    :
+                                                    <img src={filteredItems[1].image} alt="" className='h-full w-full object-cover object-center rounded group-hover:scale-105 duration-500 ' />
+                                                }
                                             </div>
                                             <div>
                                                 <p className='text-blue2 cursor-pointer underline decoration-2 decoration-seaGreen'>{filteredItems[1].label}</p>
@@ -93,7 +102,12 @@ const StylePosts = ({stylePosts}: DisplayPosts) => {
 
                                     <Link onClick={scrollToTop} to={`blog/${filteredItems[2]._id}`} key={filteredItems[2]._id} className='flex flex-col h-48 p-1 group rounded-lg'>
                                         <div className='h-3/4 md:h-1/ overflow-hidden rounded-lg'>
-                                            <img src={filteredItems[2].image} alt="" className='h-full w-full object-cover object-center rounded-lg group-hover:scale-105 duration-500' />
+                                            {
+                                                (filteredItems[2].image)?.includes('uploads')?
+                                                <img src={`http://localhost:3000${filteredItems[2].image}` || filteredItems[2].image} alt="" className='h-full w-full object-cover object-center rounded-lg group-hover:scale-105 duration-500' />
+                                                :
+                                                <img src={filteredItems[2].image} alt="" className='h-full w-full object-cover object-center rounded-lg group-hover:scale-105 duration-500' />
+                                            }
                                         </div>
                                         <div>
                                             <p className='text-blue2 cursor-pointer underline decoration-2 decoration-seaGreen'>{filteredItems[2].label}</p>

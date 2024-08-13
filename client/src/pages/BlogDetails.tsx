@@ -26,7 +26,6 @@ const BlogDetails = () => {
     },[])
   
 
-
     if(isLoading){
         return <LoaderAnimation/>;
     }
@@ -41,6 +40,8 @@ const BlogDetails = () => {
         return <div>No blog found</div>
     }
 
+    console.log(`http://localhost:3000${blog.image}`)
+
     return (
         <div className='min-h-screen mx-4 md:mx-8 lg:mx-20'>
             <span className='bg-blue1 text-white p-1 rounded'>{blog.label}</span>
@@ -49,11 +50,16 @@ const BlogDetails = () => {
                 <span>by <strong className='text-black'> {blog.author}</strong></span>
                 <span className='flex items-center'><CiClock1 /> {new Date(blog.updatedAt).toLocaleString('default', { day: "2-digit", month:"long", year:"numeric" })}</span>
                 <span className='flex items-center'><FaRegComments /> 9 comments</span>
-                <span className='flex items-center'><IoBookOutline className='mx-1'/> {blog.readTime} read</span>
+                <span className='flex items-center'><IoBookOutline className='mx-1'/>{blog.readTime} read</span>
                 <span><CiHeart size={20}/></span>
             </div>
-            <div className=' overflow-hidden rounded-2xl w-full  h-96'>
-                <img src={blog.image} alt="image" className='rounded-2xl overflow-hidden h-full w-full object-cover hover:scale-105 duration-1000 '/>
+            <div className=' overflow-hidden rounded-2xl w-full h-96'>
+                {
+                    (blog.image)?.includes('uploads') ?
+                    <img src={`http://localhost:3000${blog.image}`} alt="image" className='rounded-2xl h-full w-full object-cover object-top hover:scale-105 duration-1000 '/>
+                    :
+                    <img src={blog.image} alt="image" className='rounded-2xl h-full w-full object-cover object-top hover:scale-105 duration-1000 '/>
+                }
             </div>
             <div className='py-2'>
                 <p className='py-2 font-light first-letter:text-2xl first-letter:mx-2'>{blog.content}</p>

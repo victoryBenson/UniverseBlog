@@ -12,7 +12,7 @@ export interface MyBlog extends Document {
     title: string;
     content: string;
     label: BlogLabel;
-    image: string;
+    image?: string;
     readTime: string;
     createdAt: Date;
     updatedAt: Date
