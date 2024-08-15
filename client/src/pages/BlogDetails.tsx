@@ -52,7 +52,7 @@ const BlogDetails = () => {
 
 
     return (
-        <div className='min-h-screen mx-4 md:mx-8 lg:mx-20 bg-white p-5'>
+        <div className='min-h-screen md:mx-8 lg:mx-20 bg-white p-1 md:p-5'>
             <div className=' overflow-hidden rounded-2xl w-full h-72'>
                 {
                     (blog.image)?.includes('uploads') ?
