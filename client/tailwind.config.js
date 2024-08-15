@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+import typography from '@tailwindcss/typography';
 export default {
   content: [
     "./index.html",
@@ -13,7 +14,7 @@ export default {
       "seaGreen": "#9FE2BF",
       "arch": "#eeeeee",
       "lightGray": "#D3D3D3",
-      "darkGray": "#A9A9A9",
+      "darkGray": "#71797E",
       "red": "#FF0000"
     },
     fontFamily:{
@@ -36,6 +37,7 @@ export default {
         },
       });
     },
+    typography,
   ],
 }
 
