@@ -18,7 +18,7 @@ const LatestPosts = ({blogs}: MyBlogProps) => {
 
 
   return (
-    <div className=" p-1 md:p-2 rounded">
+    <div className=" p-1 md:p-2 rounded py-10">
         <div>
             <p className="font-bold text-base md:text-xl">Latest Posts</p>
         </div>

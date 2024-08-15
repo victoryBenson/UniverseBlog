@@ -30,7 +30,7 @@ export const SideScreen = ({blogLabel}: BlogLabelProps) => {
   return (
         <div>
             {/* popular post */}
-            <div className="p-2 bg-white rounded-lg">
+            <div className="p-1 bg-white rounded-lg">
                 <p className="font-bold text-base md:text-xl">Popular Posts</p>
                 <div className="flex flex-wrap w-full gap-2">
                     {uniquePosts.length?(
