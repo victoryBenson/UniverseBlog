@@ -1,8 +1,5 @@
 import { Link } from "react-router-dom";
 import { BlogProps } from "../interface/BlogProps"
-// import displayRandom from "../utils/ShufflePost";
-// import truncateText from "../utils/TruncateText";
-// import useIsMobile from "../utils/isMobileView";
 import { UseData } from "../context/Blog";
 
 
@@ -11,8 +8,6 @@ interface MyBlogProps{
 }
 
 const LatestPosts = ({blogs}: MyBlogProps) => {
-    // const shufflePost = displayRandom(blogs);
-    // const isMobile = useIsMobile();
     const {scrollToTop} = UseData()
     console.log(blogs)
 
@@ -58,4 +53,4 @@ const LatestPosts = ({blogs}: MyBlogProps) => {
   )
 }
 
-export default LatestPosts
+export default LatestPosts;

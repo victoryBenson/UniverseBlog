@@ -15,7 +15,7 @@ const Footer = () => {
               <Link to={"/"}>Pricing</Link>
               <Link to={"/"}>Blog</Link>
             </div>
-            <div className="flex space-x-2 p-2 flex-wrap justify-center items-center text-darkGray">
+            <div className="flex space-x-2 p-2 flex-wrap justify-center items-center text-lightGray">
               <span>&copy;2024</span>
               <span>Terms & Conditions</span>
               <span>Privacy</span>

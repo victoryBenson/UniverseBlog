@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { UseData } from '../context/Blog';
 import { useEffect, useState } from 'react';
 import { BlogProps } from '../interface/BlogProps';
@@ -80,8 +80,8 @@ const BlogDetails = () => {
                 <div dangerouslySetInnerHTML={{ __html: blog.content }} className='py-2 font-light first-letter:text-2xl first-letter:mx-2' />
             </div>
             <div className='my-4 flex justify-end gap-4'>
-                <button className='hover:bg-blue1 hover:text-white border border-blue2 transition-all p-2 rounded my-10 text-sm flex items-center '><CiEdit size={20}/>Edit Blog</button>
-                <button className='bg-blue1 text-white hover:bg-white hover:text-black border border-blue2 transition-all p-2 rounded my-10 text-sm flex items-center'><RiDeleteBinLine/>Delete Blog</button>
+                <Link to={`/edit_blog/${blog._id}`} className='hover:bg-blue1 hover:text-white border border-blue2 transition-all p-2 rounded my-10 text-sm flex items-center '><CiEdit size={20}/>Edit Blog</Link>
+                <Link to={"/"} className='bg-blue1 text-white hover:bg-white hover:text-black border border-blue2 transition-all p-2 rounded my-10 text-sm flex items-center'><RiDeleteBinLine/>Delete Blog</Link>
             </div>
             <div className='bg-white p-5 my-5 rounded-xl'>
                 <h1 className='font-bold text-xl'>Write a comment</h1>
