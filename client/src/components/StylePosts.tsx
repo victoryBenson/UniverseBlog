@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { BlogProps } from '../interface/BlogProps';
 import displayRandom from '../utils/ShufflePost';
 import { Link } from 'react-router-dom';
-import { UseData } from '../context/Blog';
+import scrollToTop from '../utils/ScrollTo';
 
 interface DisplayPosts {
     stylePosts: BlogProps[]
@@ -11,7 +11,6 @@ interface DisplayPosts {
 
 const StylePosts = ({stylePosts}: DisplayPosts) => {
     // const shufflePost = displayRandom(stylePosts)
-    const {scrollToTop} = UseData()
 
     const [selectedCategory, setSelectedCategory] = useState<string >("editor's pick");
 

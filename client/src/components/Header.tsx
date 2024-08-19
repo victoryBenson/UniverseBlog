@@ -6,14 +6,16 @@ import { IoIosArrowDown } from "react-icons/io"
 import { LuPenLine } from "react-icons/lu"
 import { IoLockClosedOutline } from "react-icons/io5"
 import { HiOutlineMenuAlt3 } from "react-icons/hi"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import MobileSideMenu from "./MobileSideMenu"
+import scrollToTop from "../utils/ScrollTo"
 
 
 
 const Header = () => {
     const [mobile, setMobile] = useState<boolean>(false)
-    const [category, setCategory] = useState<boolean>(false)
+    const [category, setCategory] = useState<boolean>(false);
+    const [isActive, setIsActive] = useState<boolean>(false)
 
     const handleMobileView = () => {
         setMobile(!mobile)
@@ -22,11 +24,17 @@ const Header = () => {
     const handleCategory = () => {
         setCategory(!category)
     }
+
+    useEffect(() => {
+        window.addEventListener('scroll', ()=>{
+            window.scrollY > 60 ? setIsActive(true) : setIsActive(false)
+        })
+    }, [])
  
 
   return (
-    <>
-        <div className='bg-gradient-to-r from-blue1 via-seaGreen to-blue2 text-white h-14 rounded-lg justify-between items-center p-2 px-3 flex m-5'>
+    <div className={`${isActive && 'fixed z-40 inset-0 top-0 py-3 h-20 bg-white'}`}>
+        <div className='bg-gradient-to-l h-20 from-blue1 via-seaGreen to-blue2 text-white rounded-lg justify-between items-center p-2 px-3 flex m-2 md:mx-16 md:my-5'>
             <Link to={"/"}>
                 <Logo/>
             </Link>
@@ -38,7 +46,7 @@ const Header = () => {
                     />
                 )}
             </div>
-            <div  className="gap-4 hidden lg:flex ">
+            <div  className="gap-4 hidden lg:flex text-lg">
                 <Link to={'/'} >Home</Link>
                 <div className="flex items-center relative">
                     <span onClick={handleCategory} className="flex items-center cursor-pointer">
@@ -55,7 +63,7 @@ const Header = () => {
                         )
                     }
                 </div>
-                <Link to={"/createBlog"} className="flex items-center cursor-pointer"> <LuPenLine />Write</Link>
+                <Link to={"/createBlog"} onClick={scrollToTop} className="flex items-center cursor-pointer"> <LuPenLine />Write</Link>
             </div>
             <div className="items-center justify-between hidden md:flex  h-14 md:gap-4">
                 <div className="hidden md:flex"><SocialMedia/></div>
@@ -64,11 +72,11 @@ const Header = () => {
                 </div>
                 <div className="hidden md:flex items-center gap-4">
                     <Link to={"/"} className="flex items-center"><IoLockClosedOutline />login</Link>
-                    <Link to={"/"}><FaRegUserCircle size={30}/></Link>
+                    <Link to={"/"}><FaRegUserCircle size={20}/></Link>
                 </div>
             </div>
         </div>
-    </>
+    </div>
   )
 }
 

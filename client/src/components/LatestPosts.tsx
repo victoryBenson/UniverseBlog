@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { BlogProps } from "../interface/BlogProps"
-import { UseData } from "../context/Blog";
+import scrollToTop from "../utils/ScrollTo";
+
 
 
 interface MyBlogProps{
@@ -8,8 +9,6 @@ interface MyBlogProps{
 }
 
 const LatestPosts = ({blogs}: MyBlogProps) => {
-    const {scrollToTop} = UseData()
-    console.log(blogs)
 
 
   return (

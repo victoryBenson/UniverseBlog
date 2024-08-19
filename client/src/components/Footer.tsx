@@ -23,7 +23,7 @@ const Footer = () => {
               <span>Newsletter</span>
             </div>
             <SocialMedia/>
-            <div className="flex items-center md:pt-10 p-5 text-white/80">Built with <LuHeart className="mx-1 text-seaGreen" /> by Kennytech</div>
+            <div className="flex items-center md:pt-10 p-5 text-white/80">Designed & Built with <LuHeart className="mx-1 text-seaGreen" /> by <a href="https://victorybenson.onrender.com" target="_blank" rel="noopener noreferrer" className="mx-1">Kennytech</a></div>
         </div>
     </div>
   )
