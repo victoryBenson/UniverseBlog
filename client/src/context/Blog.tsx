@@ -9,8 +9,8 @@ interface BlogContextType {
     isLoading: boolean;
     getBlogByID: (id: string) => Promise<BlogProps | undefined>;
     fetchAllBlogs: () => Promise<void>,
-    scrollToTop: () => void,
-    createBlog: (blogData: unknown)=> Promise<void>
+    createBlog: (blogData: unknown)=> Promise<void>,
+    deleteBlog: (id: string) => Promise<BlogProps | undefined>
 }
 
 const BlogContext = createContext<BlogContextType | undefined>(undefined);
@@ -63,24 +63,21 @@ const BlogProvider = ({children}: DataProviderProps) => {
     }
                                                       
 
-     //createBlog
-     const createBlog = async(blogData: unknown) => {
+    //createBlog
+    const createBlog = async(blogData: unknown) => {
         const response = await axiosInstance.post(`blogs/write_blog`, blogData);
-        console.log(response.data)
         return response.data
     };
 
-    const scrollToTop = () => {
-        window.scrollTo(
-            {
-                top: 0,
-                behavior: 'smooth'
-            }
-        )
-      };
+    //delete-blog
+    const deleteBlog = async(id: string) => {
+        const response = await axiosInstance.delete(`blogs/delete_blog/${id}`)
+        return response.data
+    }
+
 
     return (
-        <BlogContext.Provider value={{data, isError, isLoading, getBlogByID, fetchAllBlogs, scrollToTop, createBlog}}>
+        <BlogContext.Provider value={{data, isError, isLoading, getBlogByID, fetchAllBlogs, createBlog, deleteBlog}}>
             {children}
         </BlogContext.Provider>
     )

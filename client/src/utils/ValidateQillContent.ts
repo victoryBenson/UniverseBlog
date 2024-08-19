@@ -1,4 +1,4 @@
-const isQuillContentEmpty = (content: string): boolean => {
+const isQuillContentEmpty = (content: string) => {
 
     const div = document.createElement('div');
     div.innerHTML = content;

@@ -15,7 +15,7 @@ const Footer = () => {
               <Link to={"/"}>Pricing</Link>
               <Link to={"/"}>Blog</Link>
             </div>
-            <div className="flex space-x-2 p-2 flex-wrap justify-center items-center text-darkGray">
+            <div className="flex space-x-2 p-2 flex-wrap justify-center items-center text-lightGray">
               <span>&copy;2024</span>
               <span>Terms & Conditions</span>
               <span>Privacy</span>
@@ -23,7 +23,7 @@ const Footer = () => {
               <span>Newsletter</span>
             </div>
             <SocialMedia/>
-            <div className="flex items-center md:pt-10 p-5 text-white/80">Built with <LuHeart className="mx-1 text-seaGreen" /> by Kennytech</div>
+            <div className="flex items-center md:pt-10 p-5 text-white/80">Designed & Built with <LuHeart className="mx-1 text-seaGreen" /> by <a href="https://victorybenson.onrender.com" target="_blank" rel="noopener noreferrer" className="mx-1">Kennytech</a></div>
         </div>
     </div>
   )

@@ -1,4 +1,5 @@
-import { TbLoader3, TbLoaderQuarter } from "react-icons/tb";
+import { GiMoebiusTriangle } from "react-icons/gi";
+import { TbLoader3 } from "react-icons/tb";
 
 const LoaderAnimation = () => {
   return (
@@ -24,9 +25,8 @@ const LoaderAnimation2 = () => {
 const FullScreenLoader = () => {
     return (
         <div className="flex items-center justify-center h-inherit bg-white/80 fixed inset-0 z-[999]">
-            <div className="flex flex-col items-center">
-                <TbLoaderQuarter className="animate-spin text-blue1" size={40} />
-                <p className="text-blue1 font-bold text-xl">please wait!</p>
+            <div className="flex flex-col items-center shadow-inner bg-gradient-to-tr from-blue1 to-blue2 via-seaGreen rounded-full p-4 animate-pulse">
+                <GiMoebiusTriangle className=" text-white" size={40}/>
             </div>
         </div>
     )

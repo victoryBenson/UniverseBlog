@@ -3,36 +3,29 @@ import Blog from "../models/blog";
 import { Types } from "mongoose";
 
 
-
 //create_blog
 const createBlog = async(req:Request, res:Response, next:NextFunction) => {
-
-    const {author, title, content, label, readTime} = req.body
-    const image = req.file? `/uploads/${req.file.filename}` : null;
-    
-    if(!image || !author || !content || !label || !readTime || !title){
-        return res.status(400).json({message: "All field are required!"})
-    };
-
     try {
+        const {author, title, content, label, readTime} = req.body
+        const imagePath = req.file?.path;
+    
+        if(!imagePath){
+            return res.status(400).json({message: "Please upload an image!"})
+        };
 
-        const newBlog = {
+        const newBlogData = {
             author, 
             title,
             content, 
             label, 
             readTime, 
-            image
+            image: imagePath
         };
 
-        const createNewBlog = new Blog(newBlog);
+        const newBlog = new Blog(newBlogData);
+        await newBlog.save();
 
-        if(!newBlog){
-            return res.status(204).json({message: "no content found!"})
-        }
-        
-        const savedBlog = await createNewBlog.save();
-        res.status(201).json(savedBlog);
+        res.status(201).json(newBlog);
       } catch (err) {
         next(err)
       }
@@ -102,21 +95,32 @@ const deleteBlog = async(req:Request, res:Response, next:NextFunction) => {
 
 //updateBlog
 const updateBlog = async(req:Request, res:Response, next:NextFunction) => {
-    const blogId = req.params.id;
     try {
+        const blogId = req.params.id;
+        const {author, title, content, label, readTime} = req.body
+        const imagePath = req.file?.path;
+
         if(!blogId){
             return res.status(400).json({message: "Invalid blog Id"})
         }
 
-        const blogDetails = req.body;
+        const blogUpdateData = {
+            author, 
+            title,
+            content, 
+            label, 
+            readTime, 
+            image: imagePath
+        };
         const options = { new: true, runValidators: true }
 
-        const blog = await Blog.findByIdAndUpdate(blogId, blogDetails, options)
+        const blog = await Blog.findByIdAndUpdate(blogId, blogUpdateData, options)
 
         if(!blog){
             return res.status(400).json({message: "Blog does not exist"})
         }
         res.status(200).json({message: "Updated successfully!"})
+        
     } catch (error) {
         next(error)
     }

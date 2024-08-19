@@ -1,22 +1,25 @@
 import { Link } from 'react-router-dom'
-import { UseData } from '../context/Blog'
 import {SocialMedia} from '../shared/SocialMedia'
 import { LuPenLine } from 'react-icons/lu'
+import scrollToTop from '../utils/ScrollTo'
+import { MdOutlineClose } from 'react-icons/md'
 
 
 type HandleMobileBtnProps = {
     handleMobile: () => void,
 }
 const MobileSideMenu = ({handleMobile}: HandleMobileBtnProps) => {
-    const {scrollToTop} = UseData()
+   
 
   return (
-    <div onClick={handleMobile} className='bg-black/20 top-0 fixed right-0 left-0 h-screen z-50 transition-all duration-200 ease-in'>
-        <div className='bg-white h-full text-black w-4/5 right-0 fixed flex flex-col space-y-4 justify-center items-center'>
-            <Link to={"/"} onClick={scrollToTop}>
-                home
+    <div className=' top-0 fixed right-0 left-0 h-screen z-50 transition-all duration-200 ease-in'>
+        <span onClick={handleMobile} className='bg-black/20 top-0 fixed right-0 left-0 h-screen z-50 transition-all duration-200 ease-in'></span>
+        <div className='bg-white h-72 text-black inset-0 m-5 rounded-2xl fixed flex flex-col space-y-4 justify-center items-center z-[999] group'>
+            <MdOutlineClose size={30} onClick={handleMobile} className='absolute top-4 right-4 cursor-pointer' />
+            <Link to={"/"} onClick={scrollToTop} className='text-lg'>
+                Home
             </Link>
-            <Link to={"/createBlog"} className="flex items-center cursor-pointer"> <LuPenLine />Write</Link>
+            <Link to={"/createBlog"} className="flex items-center text-lg"> <LuPenLine />Write New Blog</Link>
             <div>
                 <p className='font-bold text-blue2'>Follow us</p>
                 <SocialMedia/>

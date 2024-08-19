@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import { BlogProps } from "../interface/BlogProps"
 import displayRandom from "../utils/ShufflePost";
 import { useEffect, useState } from "react";
-import { UseData } from "../context/Blog";
 import {LoaderAnimation} from "../shared/LoaderAnimation";
+import scrollToTop from "../utils/ScrollTo";
 
 
 interface BlogListProps {
@@ -14,7 +14,6 @@ const Hero = ({posts}: BlogListProps) => {
     const result = displayRandom(posts).slice(0,4)
     const [index, setIndex] = useState<number>(0); 
     const [isMobile, setIsMobile] = useState<boolean>(false);
-    const {scrollToTop} = UseData()
 
     useEffect(() => {
       const checkIsMobile = () => setIsMobile(window.innerWidth <= 768);

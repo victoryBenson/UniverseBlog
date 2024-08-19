@@ -5,7 +5,7 @@ import LatestPosts from '../components/LatestPosts'
 import { SideScreen } from '../components/SideScreen';
 import StylePosts from '../components/StylePosts';
 import { useEffect } from "react";
-import {LoaderAnimation} from "../shared/LoaderAnimation";
+import {FullScreenLoader} from "../shared/LoaderAnimation";
 
 
 const LandingPage = () => {
@@ -18,7 +18,7 @@ const LandingPage = () => {
 
   
   if(isLoading){
-    <LoaderAnimation/>
+    return <div><FullScreenLoader/></div>
   }
 
   if(isError){
