@@ -167,6 +167,7 @@ const EditBlog = () => {
         } catch (error) {
             if(error instanceof Error){
                 setError(error.message)
+                toast.error(`${error.message}`)
                 console.log(error)
                 console.log(error.message)
             }else{
