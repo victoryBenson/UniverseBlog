@@ -12,7 +12,6 @@ import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import ImageResize from 'quill-image-resize-module-react';
 import isQuillContentEmpty from "../utils/ValidateQillContent";
-import axiosInstance from "../utils/AxiosConfig";
 import { MdArrowBackIosNew } from "react-icons/md";
 import scrollToTop from "../utils/ScrollTo";
 
@@ -35,19 +34,12 @@ const initialState: CreateBlogProps = {
     imagePrev:""
 };
 
-let backendURL
-    if (process.env.NODE_ENV === 'production') {
-        backendURL = "https://universeblog-api.onrender.com";
-    } else{
-        backendURL = "http://localhost:3000";
-    }
-    
-    console.log(backendURL)
+
 
 const EditBlog = () => {
     const [blog, setBlog] = useState<BlogProps | undefined>();
     const {id} = useParams<string>()
-    const { isLoading, isError, getBlogByID} = UseData();
+    const { isLoading, isError, getBlogByID, updateBlog} = UseData();
     const [formState, setFormState] = useState<CreateBlogProps>(initialState);
     const {author, title, readTime, label, image, img, imagePrev} = formState;
     const [content, setContent] = useState<string>("")
@@ -164,13 +156,13 @@ const EditBlog = () => {
                 formData.append("image", img);
             }
 
-            const response = await axiosInstance.put(`blogs/update_blog/${id}`, formData)
+            await updateBlog(id!, formData)
             toast.success('Blog updated Successfully!')
 
            if(blog){
             navigate(-1)
            }
-            return response.data
+        
 
         } catch (error) {
             if(error instanceof Error){
