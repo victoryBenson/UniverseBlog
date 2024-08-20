@@ -59,14 +59,6 @@ const BlogDetails = () => {
     }
 
 
-    let backendImageURL
-    if (process.env.NODE_ENV === 'production') {
-        backendImageURL = "https://universeblog-api.onrender.com";
-    } else{
-        backendImageURL = "http://localhost:3000";
-        console.log(process.env.NODE_ENV)
-    }
-
     if(!blog){
         return <div>No blog found</div>
     }
