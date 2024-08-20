@@ -132,34 +132,3 @@ const StylePosts = ({stylePosts}: DisplayPosts) => {
 
 export default StylePosts
 
-
-{/* <div>
-    {
-        filteredItems.map(filteredItems[0] => {
-            const formattedDate = new Date(filteredItems[0].updatedAt).toLocaleDateString('default', { month: 'long', year: 'numeric' });
-            return (
-                <div key={filteredItems[0]._id} className='grid grid-cols-3 gap-2'>
-                    <div className='col-span-2 shadow-xs rounded'>
-                        <div className='flex flex-col h-80'>
-                            <span className='h-2/3 p-2'>
-                                <img src={filteredItems[0].image} alt="" className='h-full w-full object-cover object-center rounded' />
-                            </span>
-                            <div className='p-2'>
-                                <p className='text-blue2 cursor-pointer underline decoration-2 decoration-seaGreen'>{filteredItems[0].label}</p>
-                                <p className='capitalize font-bold'>{filteredItems[0].title}</p>
-                                <div className="flex items-center gap-2">
-                                    <p className="text-darkGray capitalize">{filteredItems[0].author}</p>
-                                    <p className="text-darkGray">{formattedDate}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div key={filteredItems[0]._id} className='gap-2 flex flex-col '>
-                        <div className='border'>{filteredItems[0].label}</div>
-                        <div className='border'>{filteredItems[0].label}</div>
-                    </div>
-                </div>
-            )
-        })
-    }
-</div> */}

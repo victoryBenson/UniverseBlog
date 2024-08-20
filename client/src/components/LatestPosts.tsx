@@ -36,7 +36,7 @@ const LatestPosts = ({blogs}: MyBlogProps) => {
                             {/* <p className="truncate"  dangerouslySetInnerHTML={{ __html: isMobile ? truncateText(blog.content, 20) : blog.content }}></p> */}
                             <div className="flex flex-wrap items-center gap-2 text-base">
                                 <p className="text-darkGray truncate capitalize">By: {blog.author}</p>
-                                <p className="text-darkGray">{blog.readTime}min read</p>
+                                <p className="text-darkGray">{blog.readTime} read</p>
                             </div>
                         </div>
                     </Link>
