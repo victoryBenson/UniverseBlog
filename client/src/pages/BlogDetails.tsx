@@ -78,13 +78,8 @@ const BlogDetails = () => {
 
     return (
         <div className='min-h-screen md:mx-8 lg:mx-20 bg-white p-1 md:p-5'>
-            <div className=' overflow-hidden rounded-2xl w-full'>
-                {
-                    (blog.image)?.includes('uploads') ?
-                    <img src={`${backendImageURL}${blog.image}`} alt="image" className='rounded-2xl h-full w-full object-cover object-top hover:scale-105 duration-1000 '/>
-                    :
-                    <img src={blog.image} alt="image" className='rounded-2xl h-full w-full object-contain object-top hover:scale-105 duration-1000 '/>
-                }
+            <div className=' overflow-hidden rounded-2xl w-full h-60'>
+                <img src={blog?.image} alt="image" className='rounded-2xl h-full w-full object-contain object-top hover:scale-105 duration-1000 '/>
             </div>
             <div className='my-4'>
                 <span className='bg-blue1 text-white p-1 rounded my-10 text-sm'>{blog.label}</span>
