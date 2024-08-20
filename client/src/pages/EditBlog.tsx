@@ -167,6 +167,9 @@ const EditBlog = () => {
         } catch (error) {
             if(error instanceof Error){
                 setError(error.message)
+                toast.error(`${error.message}`)
+                console.log(error)
+                console.log(error.message)
             }else{
                 setError("An unknown error occurred")
             }
@@ -282,7 +285,7 @@ const EditBlog = () => {
                 <div className="md:w-[80%] w-full rounded-lg h-20 my-2">
                     {
                         !loading? 
-                        (<button disabled={loading} className="w-full h-full p-3 bg-blue1 text-white rounded-lg transition-all duration-300 flex items-center justify-center cursor-pointer">
+                        (<button type='submit' disabled={loading} className="w-full h-full p-3 bg-blue1 text-white rounded-lg transition-all duration-300 flex items-center justify-center cursor-pointer">
                             <AiOutlineCloudUpload />Update
                         </button>
                         ) :

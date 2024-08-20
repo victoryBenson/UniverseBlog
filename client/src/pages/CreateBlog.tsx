@@ -187,7 +187,7 @@ const CreateBlog = () => {
                 <div className=" md:w-[80%] w-full h-full my-5 rounded">
                     {
                         !loading? 
-                        (<button disabled={loading} className="w-full p-3 bg-blue1 text-white rounded-lg hover:bg-opacity-80 transition-all duration-300 flex items-center justify-center cursor-pointer">
+                        (<button disabled={loading} type='submit' className="w-full p-3 bg-blue1 text-white rounded-lg hover:bg-opacity-80 transition-all duration-300 flex items-center justify-center cursor-pointer">
                             <AiOutlineCloudUpload />Publish
                         </button>
                         ) :
