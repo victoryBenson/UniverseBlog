@@ -125,6 +125,7 @@ const EditBlog = () => {
     };
 
 
+    //handle-update
     const handleSubmit = async(event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setLoading(true);
@@ -143,7 +144,6 @@ const EditBlog = () => {
                 }
             }
     
-            
             const formData = new FormData();
             if(author !== undefined){
                 formData.append('author', author);
