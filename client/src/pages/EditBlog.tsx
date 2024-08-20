@@ -275,7 +275,7 @@ const EditBlog = () => {
                             </select>
                         </div>
                     </div>
-                    <div className="flex justify-center  no-scrollbar">
+                    <div className="flex justify-center h-full overflow-hidden no-scrollbar">
                         <ReactQuill 
                             value={content} 
                             className="md:w-[80%] mt-5" 
