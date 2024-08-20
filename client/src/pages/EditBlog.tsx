@@ -164,7 +164,7 @@ const EditBlog = () => {
                 formData.append("image", img);
             }
 
-            const response = await axiosInstance.patch(`blogs/update_blog/${id}`, formData)
+            const response = await axiosInstance.put(`blogs/update_blog/${id}`, formData)
             toast.success('Blog updated Successfully!')
 
            if(blog){
@@ -275,7 +275,7 @@ const EditBlog = () => {
                             </select>
                         </div>
                     </div>
-                    <div className="flex justify-center overflow-auto no-scrollbar">
+                    <div className="flex justify-center  no-scrollbar">
                         <ReactQuill 
                             value={content} 
                             className="md:w-[80%] mt-5" 
