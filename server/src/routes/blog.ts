@@ -8,7 +8,7 @@ router.get('/getBlogs', getBlogs)
 router.get('/getBlog/:id', getBlog)
 router.get("/getLabel/:label", getLabels)
 router.post("/write_blog",upload.single('image'), createBlog)
-router.patch("/update_blog/:id", upload.single('image'), updateBlog )
+router.put("/update_blog/:id", upload.single('image'), updateBlog )
 router.delete("/delete_blog/:id", deleteBlog )
 
 export default router;
