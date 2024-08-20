@@ -1,6 +1,7 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 import { BlogProps} from '../interface/BlogProps';
 import axiosInstance from "../utils/AxiosConfig";
+import axios from "axios";
 
 
 interface BlogContextType {
@@ -85,7 +86,7 @@ const BlogProvider = ({children}: DataProviderProps) => {
     };
 
     const updateBlog = async(id:string, blogData: unknown) => {
-        const response = await axiosInstance.put(`${backendURL}/blogs/update_blog/${id}`, blogData);
+        const response = await axios.put(`${backendURL}/blogs/update_blog/${id}`, blogData);
         return response.data
     }
 
