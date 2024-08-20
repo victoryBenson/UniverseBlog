@@ -10,7 +10,8 @@ interface BlogContextType {
     getBlogByID: (id: string) => Promise<BlogProps | undefined>;
     fetchAllBlogs: () => Promise<void>,
     createBlog: (blogData: unknown)=> Promise<void>,
-    deleteBlog: (id: string) => Promise<BlogProps | undefined>
+    deleteBlog: (id: string) => Promise<BlogProps | undefined>,
+    updateBlog:(id:string, blogData:unknown) => Promise<BlogProps | undefined>
 }
 
 const BlogContext = createContext<BlogContextType | undefined>(undefined);
@@ -73,11 +74,16 @@ const BlogProvider = ({children}: DataProviderProps) => {
     const deleteBlog = async(id: string) => {
         const response = await axiosInstance.delete(`blogs/delete_blog/${id}`)
         return response.data
+    };
+
+    const updateBlog = async(id:string, blogData: unknown) => {
+        const response = await axiosInstance.put(`blogs/update_blog/${id}`, blogData);
+        return response.data
     }
 
 
     return (
-        <BlogContext.Provider value={{data, isError, isLoading, getBlogByID, fetchAllBlogs, createBlog, deleteBlog}}>
+        <BlogContext.Provider value={{data, isError, isLoading, getBlogByID, fetchAllBlogs, createBlog, deleteBlog, updateBlog}}>
             {children}
         </BlogContext.Provider>
     )
