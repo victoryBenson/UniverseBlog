@@ -93,7 +93,7 @@ const BlogDetails = () => {
             </div>
             <div className='my-4 flex flex-wrap justify-end gap-4 items-center relative'>
                 <button onClick={goBack} className='absolute left-0 border border-seaGreen p-2 rounded-lg flex items-center mx-1'><MdArrowBackIosNew />go back</button>
-                <Link to={`/edit_blog/${blog._id}`} onClick={scrollToTop} className='hover:bg-blue1 hover:text-white border border-seaGreen transition-all p-2 rounded-lg my-10 text-sm flex items-center '><CiEdit size={20}/>Edit Blog</Link>
+                <Link to={`/editBlog/${blog._id}`} onClick={scrollToTop} className='hover:bg-blue1 hover:text-white border border-seaGreen transition-all p-2 rounded-lg my-10 text-sm flex items-center '><CiEdit size={20}/>Edit Blog</Link>
                 <div>
                     <button onClick={handleDeleteModal} className='bg-blue1 text-white hover:bg-white hover:text-black border border-seaGreen transition-all p-2 rounded-lg my-10 text-sm flex items-center'><RiDeleteBinLine/>Delete Blog</button>
                     {

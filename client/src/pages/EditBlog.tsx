@@ -262,11 +262,11 @@ const EditBlog = () => {
                         <div className="w-full md:w-auto">
                         <select id="readTime" name="readTime" onChange={handleInputChange} required className="p-2 w-full ring-1 ring-blue2/20 rounded-xl focus:ring-2 focus:outline-blue1/60 bg-arch/40">
                                 <option value="" className="text-lightGray">-select read time-</option>
-                                <option value="1">1 minute</option>
-                                <option value="2">2 minutes</option>
-                                <option value="3">3 minutes</option>
-                                <option value="4">4 minutes</option>
-                                <option value="5">5 minutes</option>
+                                <option value="1min">1 minute</option>
+                                <option value="2min">2 minutes</option>
+                                <option value="3min">3 minutes</option>
+                                <option value="4min">4 minutes</option>
+                                <option value="5min">5 minutes</option>
                             </select>
                         </div>
                     </div>
