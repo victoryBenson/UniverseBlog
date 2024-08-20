@@ -27,6 +27,14 @@ const BlogProvider = ({children}: DataProviderProps) => {
     const [isLoading, setIsLoading] = useState<boolean>(false)
     
     
+
+    let backendURL
+    if (process.env.NODE_ENV === 'production') {
+    backendURL = "https://universeblog-api.onrender.com/api";
+    } else{
+    backendURL = "http://localhost:3000/api";
+    }
+
      //fetch all blog
     const fetchAllBlogs = async () => {
         try {
@@ -77,7 +85,7 @@ const BlogProvider = ({children}: DataProviderProps) => {
     };
 
     const updateBlog = async(id:string, blogData: unknown) => {
-        const response = await axiosInstance.put(`blogs/update_blog/${id}`, blogData);
+        const response = await axiosInstance.put(`${backendURL}/blogs/update_blog/${id}`, blogData);
         return response.data
     }
 
