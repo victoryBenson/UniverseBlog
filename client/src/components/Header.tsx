@@ -34,7 +34,7 @@ const Header = () => {
 
   return (
     <div className={`${isActive && 'fixed z-40 inset-0 top-0 py-3 h-20 bg-white'}`}>
-        <div className='bg-gradient-to-l h-14 md:h-18 from-blue1 via-seaGreen to-blue2 text-white rounded-lg justify-between items-center p-2 px-3 flex m-2 md:mx-16 md:my-5'>
+        <div className='bg-gradient-to-l h-14 md:h-18 from-blue1 via-seaGreen to-blue2 text-white rounded-lg justify-between items-center p-2 px-3 flex m-3 md:mx-16'>
             <Link to={"/"}>
                 <Logo/>
             </Link>

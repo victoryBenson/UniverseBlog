@@ -16,7 +16,7 @@ const App = () => {
         <Routes>
           <Route path={"/"} index element={<LandingPage/>}/>
           <Route path={"/blog/:id"} element={<BlogDetailDashboard/>}/>
-          <Route path={"/edit_blog/:id"} element={<EditBlog/>}/>
+          <Route path={"/editBlog/:id"} element={<EditBlog/>}/>
           <Route path={"/createBlog"} element={<CreateBlog/>}/>
         </Routes>
         <Footer/>
