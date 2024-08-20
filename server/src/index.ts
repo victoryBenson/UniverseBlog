@@ -25,14 +25,16 @@ app.use(cors({
         } else {
             callback(new Error('Not allowed by CORS'));
         }
-    }
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+    credentials: true
 }));
 
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
-app.use("/uploads", express.static(path.join(__dirname, "../src/uploads")));
+// app.use("/uploads", express.static(path.join(__dirname, "../src/uploads")));
 
 
 // routes
