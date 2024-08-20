@@ -7,7 +7,7 @@ import blogRoute from "./routes/blog"
 import errorHandler from "./middleware/errorHandler";
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import path from "path";
+
 
 dotenv.config();
 
