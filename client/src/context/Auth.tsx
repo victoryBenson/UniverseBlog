@@ -1,13 +1,12 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import axiosInstance from "../utils/AxiosConfig";
 
-
 interface AuthContextType {
     login: (data: unknown) => Promise<void>,
     register: (data: unknown) => Promise<void>,
     userToken: string,
     forgotPassword:(data:unknown) => Promise<void>,
-    verifyOTP:(data: string[]) => Promise<void>
+    verifyOTP:(data: string[]) => Promise<string[]>
 }
 
 

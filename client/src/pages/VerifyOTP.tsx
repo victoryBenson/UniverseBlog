@@ -5,7 +5,7 @@ import { GiMoebiusTriangle } from "react-icons/gi"
 import { FormEvent, useRef, useState } from "react"
 import image from "../assets/images/otp.jpg"
 import axios from "axios"
-import { UserAuth } from "../context/Auth"
+// import { UserAuth } from "../context/Auth"
 import toast from "react-hot-toast"
 
 
@@ -14,8 +14,8 @@ const VerifyOTP = () => {
     const [otp, setOtp] = useState<string[]>(Array(otpLength).fill(''));
     const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
     const [error, setError] = useState<string | null>();
-    const [loading, setLoading] = useState<boolen>(false);
-    const {verifyOTP} = UserAuth();
+    const [loading, setLoading] = useState<boolean>(false);
+    // const {verifyOTP} = UserAuth();
     const navigate = useNavigate();
 
 
@@ -53,7 +53,7 @@ const VerifyOTP = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            await verifyOTP({otp})
+            // await verifyOTP({otp})
             toast.success("Proceed to create new Password!");
             navigate('/newPassword');
         } catch (error: unknown) {
@@ -113,8 +113,9 @@ const VerifyOTP = () => {
                         <span className="text-blue1 cursor-pointer"> example@gmail.com</span>
                         <p className="py-2">Not received? <button className="text-blue1 font-bold hover:underline">Resend(06)</button></p> 
                     </div>
+                    <span className="text-red">{error && error}</span>
                     <div>
-                        <button className="flex bg-blue1 my-3 items-center justify-center p-3 rounded-full text-white w-full"><FaArrowRightLong size={30} className="animate-pulse"/></button>
+                        <button type='submit' disabled={loading} className="flex bg-blue1 my-3 items-center justify-center p-3 rounded-full text-white w-full"><FaArrowRightLong size={30} className="animate-pulse"/></button>
                     </div>
                     <span className="pl-4 my-3 block py-3">no account yet?<Link to={'/register'} className="text-blue1 px-2 hover:underline decoration-2 underline-offset-2">create one</Link></span>
                 </form>
