@@ -19,7 +19,10 @@ const MobileSideMenu = ({handleMobile}: HandleMobileBtnProps) => {
             <Link to={"/"} onClick={scrollToTop} className='text-lg'>
                 Home
             </Link>
-            <Link to={"/createBlog"} className="flex items-center text-lg"> <LuPenLine />Write New Blog</Link>
+            <Link to={"/createBlog"} className="flex items-center text-lg"> <LuPenLine />Write</Link>
+            <Link to={"/login"} onClick={scrollToTop} className='text-lg bg-blue1 flex w-2/3 p-2 rounded-full text-white text-center justify-center'>
+                Login
+            </Link>
             <div>
                 <p className='font-bold text-blue2'>Follow us</p>
                 <SocialMedia/>

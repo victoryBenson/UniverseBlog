@@ -1,29 +1,36 @@
 import mongoose, { Document, Model, Schema } from "mongoose";
 import bcrypt from 'bcryptjs'
+import validator from "validator";
 
 export interface IUser extends Document {
     username: string;
     email: string;
     password: string;
     avatar?: string;
+    resetPasswordOtp?: string;
+    resetPasswordExpires?: Date | number;
 }
 
 const userSchema:Schema<IUser> = new Schema({
     username: {
         type: String,
-        required: [true, "Please add an username"],
+        required: true,
         trim: true,
-        unique: true,
         lowercase: true
     },
     email:{
         type: String,
-        required:[true, "Please add an email"],
-        unique: true
+        required:true,
+        unique: true,
+        lowercase: true,
+        trim: true,
+        validate:[validator.isEmail, "Pls use a valid email format"]
     },
     password:{
         type: String,
-        required: true
+        required: true,
+        trim: true,
+        validate:[validator.isStrongPassword, "Please use a strong password"]
     },
     avatar:{
         type:String

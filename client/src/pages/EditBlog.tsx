@@ -66,12 +66,12 @@ const EditBlog = () => {
     useEffect(() => {
         if(blog){
             setFormState({
-                author: blog?.author,
-                title: blog?.title,
-                content: blog?.content,
-                readTime: blog?.readTime,
-                label: blog?.label,
-                image: blog?.image
+                author: blog?.author || "",
+                title: blog?.title || "",
+                content: blog?.content || "",
+                readTime: blog?.readTime || "",
+                label: blog?.label || "",
+                image: blog?.image || ""
             });
             setContent(blog.content)
         }
@@ -180,16 +180,15 @@ const EditBlog = () => {
 
     const modules = {
         toolbar: [
-            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+            // [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
             ['bold', 'italic', 'underline', 'strike', 'blockquote'],
             [{ 'size': ['small', false, 'large', 'huge'] }],
-            [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }, 
-            {'align': []},],
+            [{ 'list': 'ordered' }, { 'list': 'bullet' }, {'align': []},],
             [{ 'font': [] }, ],
-            [{ 'script': 'sub' },{'script':'super' }],
-            [{ 'color': [] }, { 'background': [] }],
-            ['link', 'image', "video"],
-            ['clean']
+            // [{ 'script': 'sub' },{'script':'super' }],
+            // [{ 'color': [] }, { 'background': [] }],
+            ['link', 'image',],
+            // ['clean']
         ],
       
         imageResize: {
@@ -197,7 +196,7 @@ const EditBlog = () => {
          }
     }
     const formats = [
-        'header',
+        // 'header',
         'bold', 'italic', 'underline', 'strike', 'blockquote',
         'list', 'bullet', 'indent',
         'align','font','script',
@@ -244,14 +243,14 @@ const EditBlog = () => {
                 </div>
                 <div className="flex flex-col gap-2 items-center justify-center my-5">
                     <div className="w-full md:w-2/3">
-                        <input type="text" name="title" required value={title} onChange={handleInputChange} placeholder="blog title" className="p-2 w-full ring-1 ring-blue2/20 rounded-xl focus:ring-2 focus:outline-blue1/60 bg-arch/40"/>
+                        <input type="text" name="title" required value={title} onChange={handleInputChange} placeholder="blog title" className="p-3 w-full ring-1 ring-blue2/20 rounded-xl focus:ring-2 focus:outline-blue1/60 bg-arch/40"/>
                     </div>
                     <div className="gap-4 flex flex-wrap items-center justify-center">
                         <div className="w-full md:w-auto">
                             <input type="text" name="author" required value={author} onChange={handleInputChange}  placeholder="author" className="p-2 w-full ring-1 ring-blue2/20 rounded-xl focus:ring-2 focus:outline-blue1/60 bg-arch/40"/>
                         </div>
                         <div className="w-full md:w-auto">
-                            <select id="labels" name="label" onChange={handleInputChange} required className="p-2 w-full ring-1 ring-blue2/20 rounded-xl focus:ring-2 focus:outline-blue1/60 bg-arch/40">
+                            <select id="labels" name="label" onChange={handleInputChange} className="p-2 w-full ring-1 ring-blue2/20 rounded-xl focus:ring-2 focus:outline-blue1/60 bg-arch/40">
                                 <option value="" className="text-lightGray">-select label-</option>
                                 <option value="technology">technology</option>
                                 <option value="gadget">gadget</option>
@@ -260,7 +259,7 @@ const EditBlog = () => {
                             </select>
                         </div>
                         <div className="w-full md:w-auto">
-                        <select id="readTime" name="readTime" onChange={handleInputChange} required className="p-2 w-full ring-1 ring-blue2/20 rounded-xl focus:ring-2 focus:outline-blue1/60 bg-arch/40">
+                        <select id="readTime" name="readTime" onChange={handleInputChange} className="p-2 w-full ring-1 ring-blue2/20 rounded-xl focus:ring-2 focus:outline-blue1/60 bg-arch/40">
                                 <option value="" className="text-lightGray">-select read time-</option>
                                 <option value="1min">1 minute</option>
                                 <option value="2min">2 minutes</option>

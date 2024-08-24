@@ -86,16 +86,13 @@ const CreateBlog = () => {
     
     const modules = {
         toolbar: [
-            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
             ['bold', 'italic', 'underline', 'strike', 'blockquote'],
             [{ 'size': ['small', false, 'large', 'huge'] }],
-            [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }, 
+            [{ 'list': 'ordered' }, { 'list': 'bullet' },  
             {'align': []},],
-            [{ 'font': [] }, ],
-            [{ 'script': 'sub' },{'script':'super' }],
-            [{ 'color': [] }, { 'background': [] }],
-            ['link', 'image', "video"],
-            ['clean']
+            [{ 'font': [] }, ],            
+            ['link', 'image'],
+            // ['clean']
         ],
       
         imageResize: {
@@ -107,19 +104,19 @@ const CreateBlog = () => {
         'bold', 'italic', 'underline', 'strike', 'blockquote',
         'list', 'bullet', 'indent',
         'align','font','script',
-        'color', 'background',
+        'color',
         'link', 'image',
         'clean',
-        'size'
+        // 'size'
     ]
 
   return (
     <Wrapper>
-        <div className="min-h-screen flex justify-center md:m-10 p-2 rounded-lg ">
-            <form ref={formRef} onSubmit={handleSubmit} className=" md:w-[80%] flex flex-col items-center ">
-                <div className="h-full flex justify-center items-center">
+        <div className="min-h-screen w-auto flex flex-col justify-center items-center rounded-lg bg-white ">
+            <form ref={formRef} onSubmit={handleSubmit} className="">
+                <div className="h-full justify-center items-center">
                     <label
-                        className='flex justify-center items-center cursor-pointer overflow-hidden h-40 md:h-40 w-[80vw] md:w-[50vw] my-2 rounded-lg border-dashed border-2 border-darkGray'
+                        className='flex justify-center items-center cursor-pointer overflow-hidden h-28 my-2 rounded-lg border-dashed border-2 border-lightGray'
                         onClick={handleClick}
                     >
                         {
@@ -128,7 +125,7 @@ const CreateBlog = () => {
                                     <img src={imagePrev} alt="ProfilePreview" className='h-full w-full rounded object-cover object-top' />
                                 </div>
                             ):(
-                                <div className="flex flex-col items-center">
+                                <div className="flex flex-col items-center w-full">
                                    <FcAddImage size={60} />
                                    <p className="text-darkGray">Click to add cover image</p>
                                 </div>
@@ -145,15 +142,15 @@ const CreateBlog = () => {
                     />
                 </div>
                 <div className="flex flex-col gap-2 items-center justify-center my-2">
-                    <div className="w-full md:w-2/3">
-                        <input type="text" name="title" required value={title} onChange={(e) => setTitle(e.target.value)} placeholder="blog title" className="p-2 w-full ring-1 ring-blue2/20 rounded-xl focus:ring-2 focus:outline-blue1/60 bg-arch/40"/>
+                    <div className="w-full">
+                        <input type="text" name="title" required value={title} onChange={(e) => setTitle(e.target.value)} placeholder="New blog title..." className="p-3 w-full font-semibold rounded-xl text-base md:text-lg lg:text-3xl outline-none my-2"/>
                     </div>
                     <div className="gap-4 flex flex-wrap items-center justify-center">
                         <div className="w-full md:w-auto">
-                            <input type="text" name="author" required value={author} onChange={(e) => setAuthor(e.target.value)}  placeholder="author" className="p-2 w-full ring-1 ring-blue2/20 rounded-xl focus:ring-2 focus:outline-blue1/60 bg-arch/40"/>
+                            <input type="text" name="author" required value={author} onChange={(e) => setAuthor(e.target.value)}  placeholder="author's name" className="p-3 w-full rounded-lg outline-none border border-lightGray/40"/>
                         </div>
                         <div className="w-full md:w-auto">
-                            <select id="labels" name="label" onChange={(e) => setLabel(e.target.value)} required className="p-2 w-full ring-1 ring-blue2/20 rounded-xl focus:ring-2 focus:outline-blue1/60 bg-arch/40">
+                            <select id="labels" name="label" onChange={(e) => setLabel(e.target.value)} required className="p-3 w-full rounded-lg outline-none border border-lightGray/40">
                                 <option value="" className="text-lightGray">-select label-</option>
                                 <option value="technology">technology</option>
                                 <option value="gadget">gadget</option>
@@ -162,7 +159,7 @@ const CreateBlog = () => {
                             </select>
                         </div>
                         <div className="w-full md:w-auto">
-                        <select id="readTime" name="readTime" onChange={(e) => setReadTime(e.target.value)} required className="p-2 w-full ring-1 ring-blue2/20 rounded-xl focus:ring-2 focus:outline-blue1/60 bg-arch/40">
+                        <select id="readTime" name="readTime" onChange={(e) => setReadTime(e.target.value)} required className="p-3 w-full rounded-lg outline-none border border-lightGray/40">
                                 <option value="" className="text-lightGray">-select read time-</option>
                                 <option value="1">1 minute</option>
                                 <option value="2">2 minutes</option>
@@ -172,11 +169,11 @@ const CreateBlog = () => {
                             </select>
                         </div>
                     </div>
-                    <div className=" h-full flex justify-center overflow-hidden">
+                    <div className=" h-full w-full overflow-hidden prose-lg">
                         <ReactQuill 
                             value={content} 
-                            className="md:w-[80%] my-5" 
-                            placeholder="Write something here..."
+                            className="prose-lg" 
+                            placeholder="Write your post content here..."
                             formats={formats}
                             modules={modules}
                             onChange={setContent}
@@ -184,7 +181,7 @@ const CreateBlog = () => {
                     </div>
                 </div>
                 <div className="text-red">{isError && isError }</div>
-                <div className=" md:w-[80%] w-full h-full my-5 rounded">
+                <div className=" w-full h-full my-5 rounded">
                     {
                         !loading? 
                         (<button disabled={loading} type='submit' className="w-full p-3 bg-blue1 text-white rounded-lg hover:bg-opacity-80 transition-all duration-300 flex items-center justify-center cursor-pointer">
