@@ -2,7 +2,7 @@ import { BlogProps } from "../interface/BlogProps"
 import { SocialMedia2 } from "../shared/SocialMedia"
 import displayRandom from "../utils/ShufflePost"
 import { useMemo } from "react"
-import Newsletter from "./Newsletter"
+import Newsletter from "./Newsletter";
 
 
 interface BlogLabelProps {
@@ -10,8 +10,8 @@ interface BlogLabelProps {
 }
 
 export const SideScreen = ({blogLabel}: BlogLabelProps) => {
-    const displayPosts = displayRandom(blogLabel)
-
+    const displayPosts = displayRandom(blogLabel);
+    
     const uniquePosts = useMemo(() => {
 
         const uniqueLabel = new Set<string>();

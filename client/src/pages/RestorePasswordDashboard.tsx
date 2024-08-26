@@ -3,68 +3,31 @@ import ForgotPassword from './ForgotPassword';
 import VerifyOTP from './VerifyOTP';
 import NewPassword from './NewPassword';
 
+
 const RestorePasswordDashboard = () => {
-    const [activePage, setActivePage] = useState<number>(1);
+    const [step, setStep] = useState<number>(1);
+    const [email, setEmail] = useState<string>('');
+    const [otp, setOtp] = useState<string>('');
 
-    const TotalPages = 3;
 
-    const handlePageChange = (step: number) => {
-        setActivePage(step);
+    const handleNextStep = (currentStep: number) => {
+        setStep(currentStep + 1);
     };
 
-
-    // const nextPage =()=> {
-    //     if(activePage < TotalPages) {
-    //         setActivePage(activePage + 1)
-    //     }
-    // };
-
-    // const previousPage =()=> {
-    //     if(activePage > 1) {
-    //         setActivePage(activePage - 1)
-    //     }
-    // };
-
-
-    const displayPage =() =>{
-        switch (activePage) {
-            case 1:
-                return <ForgotPassword/>
-            case 2:
-                return <VerifyOTP/>
-            case 3:
-                return <NewPassword/>
-            default:
-                return null;
-        }
-    }
-
-    
+    const handlePreviousStep = (currentStep: number) => {
+      setStep(currentStep - 1);
+  };
 
   return (
     <div>
-        <div className="pagination gap-4 p-4 left-0 lg:right-1/2 lg:left-1/2 flex fixed z-50 top-10">
-            {Array.from({ length: TotalPages }, (_, index) => (
-            <button
-                key={index + 1}
-                className={`pagination-btn ${activePage === index + 1 ? 'text-blue1 text-5xl' : 'text-darkGray'}`}
-                onClick={() => handlePageChange(index + 1)}
-            >
-                {index + 1}
-            </button>
-            ))}
+        <div className='fixed top-12 px-10 z-50'>
+            <p className='lg:text-2xl text-lg text-darkGray lg:text-white font-light'>Step <span className=' rounded-full font-bold text-2xl lg:text-3xl'>{step}</span> of 3</p>
         </div>
-        {displayPage()}
-        {/* <div className=' gap-4 p-4 flex fixed z-50 bottom-20 right-10 '>
-            <button onClick={() => handlePageChange(activePage - 1)} disabled={activePage === 1}>
-            Previous
-            </button>
-            <button onClick={() => handlePageChange(activePage + 1)} disabled={activePage === TotalPages}>
-            Next
-            </button>
-      </div> */}
+        {step === 1 && <ForgotPassword onNext={()=> handleNextStep(1)} setEmail={setEmail}/>}
+        {step === 2 && <VerifyOTP onNext={() => {setOtp(otp); handleNextStep(2)}} handlePreviousStep={() => handlePreviousStep(2)} email={email}/>}
+        {step ===3 && <NewPassword email={email} otp={otp}/>}
     </div>
   )
 }
 
-export default RestorePasswordDashboard
+export default RestorePasswordDashboard;
