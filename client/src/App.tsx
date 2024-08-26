@@ -10,9 +10,7 @@ import { Login } from './pages/Login'
 import { Register } from './pages/Register'
 import NotFound from './components/NotFound'
 import RestorePasswordDashboard from './pages/RestorePasswordDashboard'
-import ForgotPassword from './pages/ForgotPassword'
-import VerifyOTP from './pages/VerifyOTP'
-import NewPassword from './pages/NewPassword'
+
 
 
 const App = () => {
@@ -28,10 +26,7 @@ const App = () => {
             <Route path={'/login'} element={<Login/>} />
             <Route path={'/register'} element={<Register/>}/>
             <Route path={'*'} element={<NotFound/>}/>
-            <Route path='/resetPassword' element={<RestorePasswordDashboard/>}/>
-            <Route path={'/forgotPassword'} element={<ForgotPassword/>}/>
-            <Route path={'/verifyOTP'} element={<VerifyOTP/>}/>
-            <Route path={'/newPassword'} element={<NewPassword/>}/>
+            <Route path={'/resetPassword'} element={<RestorePasswordDashboard/>}/>
         </Routes>
         <Footer/>
       </Router>

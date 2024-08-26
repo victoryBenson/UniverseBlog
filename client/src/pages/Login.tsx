@@ -86,13 +86,11 @@ export const Login = () => {
                 <form onSubmit={handleSubmit}>
                     <h1 className='font-bold text-3xl py-7 hidden lg:block text-center'>Have an Account?</h1>
                     <div className="text-center lg:hidden">
-                        <div className="flex items-center justify-center">
-                            <div className="flex flex-col items-center shadow-inner bg-gradient-to-tr from-blue1 to-blue2 via-seaGreen rounded-full p-4">
-                                <GiMoebiusTriangle className=" text-white" size={20}/>
-                            </div>
+                        <div className="flex items-center justify-center ">
+                            <GiMoebiusTriangle className=" rounded"/>
                         </div>
-                        <h1 className='font-extrabold text-3xl p-3'>Welcome back!</h1>
-                        <h4 className='sign text-xl p-2 text-center '>Sign in into your account for full access</h4>
+                        <h1 className='font-extrabold md:text-3xl text-lg md:p-3'>Welcome here!</h1>
+                        <h4 className='text-base md:text-xl p-2 text-center '>Sign in into your account for full access</h4>
                     </div>
                     <div className="flex flex-col items-start justify-start py-2 relative">
                         <label htmlFor="email" className="text-lg md:text-2xl">Email</label>

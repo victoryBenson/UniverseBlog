@@ -2,7 +2,7 @@ import { FaArrowRightLong } from "react-icons/fa6"
 import Logo from "../shared/Logo"
 import { GiMoebiusTriangle } from "react-icons/gi"
 import image from "../assets/images/forgotpassword.jpg"
-import { Link, useNavigate } from "react-router-dom"
+import { Link} from "react-router-dom"
 import { MdOutlineMail } from "react-icons/md"
 import { FormEvent, useState } from "react"
 import axios from "axios"
@@ -11,13 +11,18 @@ import { TbLoader3 } from "react-icons/tb"
 import { UserAuth } from "../context/Auth"
 
 
-const ForgotPassword = () => {
+interface OtpProps{
+    onNext: () => void;
+    setEmail: (email: string) => void;
+}
+
+
+const ForgotPassword = ({onNext, setEmail}: OtpProps) => {
     const [loading, setLoading] = useState<boolean>(false);
     const [isError, setIsError] = useState<string | null>();
-    const [email, setEmail] = useState<string>('');
+    const [email, setEmailState] = useState<string>('');
     const {forgotPassword} = UserAuth()
-    const navigate = useNavigate()
-
+    
 
     const handleSubmit = async(e:FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -25,9 +30,9 @@ const ForgotPassword = () => {
             setLoading(true)
 
             await forgotPassword({email})
-            toast.success("check your mail to get your OTP");
-            navigate('/verifyOTP')
-
+            setEmail(email)
+            toast.success("Check your mail to get your OTP");
+            onNext()
         } catch (error: unknown) {
             if(axios.isAxiosError(error)){
                 setIsError(error.response?.data?.message)
@@ -54,24 +59,22 @@ const ForgotPassword = () => {
                 <h4 className='text-xl p-2 text-center font-light'>No worries, Provide the email address associated with your account!</h4>
             </div>
             <div className='bg-white min-h-full flex justify-center flex-col items-center relative p-5'>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} className="w-full md:w-2/3 lg:w-3/4">
                     <div className="text-center lg:hidden">
-                        <div className="flex items-center justify-center">
-                            <div className="flex flex-col items-center shadow-inner bg-gradient-to-tr from-blue1 to-blue2 via-seaGreen rounded-full p-4">
-                                <GiMoebiusTriangle className=" text-white" size={20}/>
-                            </div>
+                        <div className="flex items-center justify-center ">
+                            <GiMoebiusTriangle className=" rounded"/>
                         </div>
-                        <h1 className='font-extrabold text-2xl p-2'>Forgot Password?</h1>
-                        <h4 className='text-lg p-2 text-center text-darkGray'>No worries, Provide the email address associated with your account!</h4>
+                        <h1 className='font-extrabold text-xl p-2'>Forgot Password?</h1>
+                        <h4 className='text-base p-2 text-center text-darkGray'>No worries, Provide the email address associated with your account!</h4>
                     </div>
                     <div className="flex flex-col items-start justify-start py-4 relative">
                         <label htmlFor="email" className="text-lg md:text-2xl">Enter your Email</label>
                         <input 
                             type="email" 
                             autoFocus 
-                            className="required  border-b border-lightGray/80 outline-none text-xl w-full lg:w-[30vw] pl-7 p-2 font-light" 
+                            className="required  border-b border-lightGray/80 outline-none text-xl w-full pl-7 p-2 font-light" 
                             placeholder="example@gmail.com"
-                            onChange={(e)=> setEmail(e.target.value)}
+                            onChange={(e)=> setEmailState(e.target.value)}
                             required
                             value={email} 
                         />

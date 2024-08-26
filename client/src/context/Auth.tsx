@@ -6,7 +6,7 @@ interface AuthContextType {
     register: (data: unknown) => Promise<void>,
     userToken: string,
     forgotPassword:(data:unknown) => Promise<void>,
-    verifyOTP:(data: string[]) => Promise<string[]>
+    // verifyOTP:(data: string[]) => Promise<string[]>
 }
 
 
@@ -51,10 +51,10 @@ const AuthProvider = ({children}: AuthProviderProps) => {
         return response.data
     }
 
-    const verifyOTP = async(data: string[]) => {
-        const response = await axiosInstance.post('auth/verifyOTP', data);
-        return response.data
-    }
+    // const verifyOTP = async(data: string[]) => {
+    //     const response = await axiosInstance.post('auth/verifyOTP', data);
+    //     return response.data
+    // }
 
 
     useEffect(() => {
@@ -65,7 +65,7 @@ const AuthProvider = ({children}: AuthProviderProps) => {
     },[])
 
     return(
-        <AuthContext.Provider value={{login, register, userToken, forgotPassword, verifyOTP}}>
+        <AuthContext.Provider value={{login, register, userToken, forgotPassword}}>
             {children}
         </AuthContext.Provider>
     )

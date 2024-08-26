@@ -84,8 +84,8 @@ export const Register = () => {
 
 
   return (
-    <div className='fixed inset-0 overflow-hidden' >
-        <div className='lg:grid grid-cols-1 sm:grid-cols-2 h-screen w-[100vw]'>
+    <div className='flex flex-col justify-center items-center w-auto min-h-screen inset-0 overflow-hidden' >
+        <div className='lg:grid grid-cols-1 sm:grid-cols-2 h-screen fixed inset-0 '>
             <div  className=' min-h-full w-[50vw] relative hidden lg:flex justify-center flex-col items-center text-white gap-4'>
                 <span className='absolute inset-0 bg-blue1/70 -z-10'/>
                 <span className='flex justify-center absolute inset-0 -z-20'>
@@ -96,14 +96,12 @@ export const Register = () => {
                 <h4 className='sign text-xl p-2 text-center '>Sign up to get access to members only content</h4>
                 <Link to={"/"} className="pl-4 my-3 flex items-center absolute bottom-4 gap-2 text-lightGray font-light cursor-pointer"><FaArrowRightLong size={30} className="animate-pulse "/>continue without login!</Link>
             </div>
-            <div className='min-h-full flex justify-center flex-col items-center relative p-5 w-full lg:w-[50vw] bg-white'>
-                <form onSubmit={handleSubmit} className="sm:w-[80%] w-full">
+            <div className='bg-white min-h-full flex justify-center flex-col items-center relative p-5'>
+                <form onSubmit={handleSubmit} className="w-full md:w-1/2 lg:w-2/3">
                     <h1 className='font-bold text-3xl py-3 hidden lg:block text-center'>Create Account?</h1>
                     <div className="text-center lg:hidden">
                         <div className="flex items-center justify-center ">
                             <GiMoebiusTriangle className=" rounded"/>
-                            {/* <div className="flex flex-col items-center shadow-inner bg-gradient-to-tr from-blue1 via-blue2 to-seaGreen rounded-full p-4">
-                            </div> */}
                         </div>
                         <h1 className='font-extrabold text-base md:text-2xl'>Create Account?</h1>
                         <h4 className='text-sm sm:text-base text-center '>Sign up to get access to members only content</h4>

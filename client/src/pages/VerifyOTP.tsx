@@ -1,23 +1,29 @@
 import { FaArrowRightLong } from "react-icons/fa6"
 import Logo from "../shared/Logo"
-import { Link, useNavigate } from "react-router-dom"
+import { Link} from "react-router-dom"
 import { GiMoebiusTriangle } from "react-icons/gi"
-import { FormEvent, useRef, useState } from "react"
+import { FormEvent, useEffect, useRef, useState } from "react"
 import image from "../assets/images/otp.jpg"
 import axios from "axios"
-// import { UserAuth } from "../context/Auth"
 import toast from "react-hot-toast"
+import axiosInstance from "../utils/AxiosConfig"
+import { TbLoader3 } from "react-icons/tb"
 
 
-const VerifyOTP = () => {
+interface VerifyOtpProps {
+    onNext: () => void;
+    email: string;
+    handlePreviousStep: ()=> void;
+}
+
+const VerifyOTP = ({onNext, email, handlePreviousStep}: VerifyOtpProps) => {
     const otpLength = 6;
     const [otp, setOtp] = useState<string[]>(Array(otpLength).fill(''));
     const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-    const [error, setError] = useState<string | null>();
+    const [error, setError] = useState<string>();
     const [loading, setLoading] = useState<boolean>(false);
-    // const {verifyOTP} = UserAuth();
-    const navigate = useNavigate();
-
+    const [timer, setTimer] = useState<number>(15);
+    const [active, setActive] = useState<boolean>(false)
 
     const handleChange = (value: string, index: number) => {
         if (/^[0-9]$/.test(value)) {
@@ -32,11 +38,11 @@ const VerifyOTP = () => {
         }
       };
 
-      const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
-        if (e.key === 'Backspace' && !otp[index] && index > 0) {
-            inputRefs.current[index - 1]?.focus();
-        }
-      };
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
+    if (e.key === 'Backspace' && !otp[index] && index > 0) {
+        inputRefs.current[index - 1]?.focus();
+    }
+    };
 
     const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
         const pastedData = e.clipboardData.getData('Text').slice(0, otpLength);
@@ -53,9 +59,11 @@ const VerifyOTP = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            // await verifyOTP({otp})
+            const stringOTP = otp.join("")
+            const response = await axiosInstance.post('auth/verifyOTP', {otp:stringOTP, email});
             toast.success("Proceed to create new Password!");
-            navigate('/newPassword');
+            onNext()
+            return response.data
         } catch (error: unknown) {
             if(axios.isAxiosError(error)){
                 setError(error.response?.data.message);
@@ -64,8 +72,19 @@ const VerifyOTP = () => {
                 setError("An unknown error occurred")
                 toast.error('An unknown error occurred')
             }
+        }finally{
+            setLoading(false)
         }
-    }
+    };
+
+    useEffect(() => {
+        if (timer > 0) {
+            const countdown = setTimeout(() => setTimer(timer - 1), 1000);
+            return () => clearTimeout(countdown); 
+        } else {
+            setActive(true); 
+        }
+    }, [timer, active]);
 
   return (
     <div className='flex flex-col justify-center items-center w-auto min-h-screen inset-0 overflow-hidden' >
@@ -110,12 +129,29 @@ const VerifyOTP = () => {
                     </div>
                     <div className=" py-3">
                         We've sent a verification 6 digits code to 
-                        <span className="text-blue1 cursor-pointer"> example@gmail.com</span>
-                        <p className="py-2">Not received? <button className="text-blue1 font-bold hover:underline">Resend(06)</button></p> 
+                        <span className="text-blue1 cursor-pointer"> {email}</span>
+                        <div className="py-2 flex items-center gap-1">
+                            Not received? 
+                            <button 
+                                disabled={!active} 
+                                onClick={() => handlePreviousStep()} 
+                                className={`${ active ? 'text-blue1 font-bold flex' : "text-red cursor-not-allowed" } `}
+                                > 
+                                Resend OTP
+                                {timer > 0 && `(${timer}s)`}
+                            </button> 
+                        </div> 
                     </div>
                     <span className="text-red">{error && error}</span>
                     <div>
-                        <button type='submit' disabled={loading} className="flex bg-blue1 my-3 items-center justify-center p-3 rounded-full text-white w-full"><FaArrowRightLong size={30} className="animate-pulse"/></button>
+                        <button type='submit' disabled={loading} className="flex bg-blue1 my-2 items-center justify-center p-3 rounded-full text-white w-full">
+                            {
+                                loading ?
+                                <TbLoader3 className="animate-spin" size={40} />
+                                :
+                                <FaArrowRightLong size={30} className="animate-pulse"/>
+                            }
+                        </button>
                     </div>
                     <span className="pl-4 my-3 block py-3">no account yet?<Link to={'/register'} className="text-blue1 px-2 hover:underline decoration-2 underline-offset-2">create one</Link></span>
                 </form>

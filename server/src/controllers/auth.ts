@@ -83,25 +83,25 @@ const RegisterUser = async (req: Request, res: Response, next: NextFunction) => 
 
 //ForgotPassword
 const ForgotPassword = async(req:Request, res:Response, next: NextFunction) => {
-    const otp = crypto.randomInt(100000, 999999).toString(); //get 6 digit otp
     const expires = new Date(Date.now() + 5 * 60 * 1000); //5min timeout
-
+    const otp = crypto.randomInt(100000, 999999).toString(); //get 6 digit otp
+    
     try {
         const { email } = req.body;
         
         if (!email) {
-            res.status(400).json({ message: 'Email is required' });
-            return;
+            return res.status(400).json({ message: 'Email is required' });
         }
     
         const verifyUser = await User.findOne({ email });
 
         if(!verifyUser) {
-            return res.status(404).json({ message: 'User does not exist, check the mail and try again' });
+            return res.status(404).json({ message: 'User does not exist, Pls enter an email address associated with your account' });
         }
     
-        verifyUser.resetPasswordOtp = otp;
-        verifyUser.resetPasswordExpires = expires;
+    
+        verifyUser.otp = otp;
+        verifyUser.otpExpires = expires;
         await verifyUser.save();
     
         const recipientEmail = verifyUser.email;
@@ -136,24 +136,25 @@ const ForgotPassword = async(req:Request, res:Response, next: NextFunction) => {
 //OTP
 const VerifyOTP = async(req:Request, res:Response, next:NextFunction) =>{
     try {
-        
-        const {otp} = req.body;
-        
-        const confirmOTP = await User.findOne({resetPasswordOtp: otp})
+        const {email, otp} = req.body;
+
+        const user = await User.findOne({email})
     
-        
-        if(!confirmOTP){
-            return res.status(400).json({message: 'OTP is invalid or has expired'})
+        if(!user){
+            return res.status(400).json({message: 'User not found'})
         };
 
-        // if (user.otpExpiresAt < new Date()) {
-        //     res.status(400).json({ message: 'OTP has expired' });
-        //     return;
-        // }
-    
+        if (user.otpExpires && user.otpExpires < new Date() ) {
+            return res.status(400).json({ message: 'OTP has expired' });
+        }
+        if (user.otp !== otp ) {
+            return res.status(400).json({ message: 'OTP is invalid' });
+        }
+
         res
         .status(200)
         .json({ message: 'You can now reset a new password'})
+
     } catch (error) {
         next(error)
     }
@@ -163,21 +164,29 @@ const VerifyOTP = async(req:Request, res:Response, next:NextFunction) =>{
 const ResetPassword = async (req: Request, res: Response, next: NextFunction) => {
     try {
         
-        const { email, otp, newPassword } = req.body;
+        const { email, otp, newPassword, confirmNewPassword } = req.body;
     
-        const user = await User.findOne({
-            email,
-            resetPasswordOtp: otp,
-            resetPasswordExpires: { $gt: Date.now() },
-        });
+        const user = await User.findOne({email});
     
         if (!user) {
-            return res.status(400).json({ message: 'OTP is invalid or has expired' });
+            return res.status(400).json({ message: 'User not found!' });
+        }
+
+        if(newPassword !== confirmNewPassword){
+            return res.status(400).json({message: "Password mismatch"})
+        }
+
+        if(newPassword === user.password){
+            return res.status(400).json({message: "Please choose a different passwrd"})
+        }
+
+        if (user.otpExpires && user.otpExpires < new Date() ) {
+            return res.status(400).json({ message: 'OTP has expired' });
         }
     
-        user.password = newPassword; // Ensure you hash the password before saving
-        // user.resetPasswordOtp = undefined;
-        user.resetPasswordExpires = undefined;
+        user.password = newPassword;
+        user.otp = undefined;
+        user.otpExpires = undefined;
     
         await user.save();
     

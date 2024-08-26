@@ -35,7 +35,7 @@ const Header = () => {
   return (
     <ConditionRoute>
         <div className={`${isActive && 'fixed z-40 inset-0 top-0 py-3 h-20 bg-white/60 backdrop-blur'}`}>
-            <div className='bg-gradient-to-l h-18 md:h-20 from-blue1 via-seaGreen to-blue2 text-white rounded-full justify-around items-center p-2 px-3 flex m-3 md:mx-16'>
+            <div className='bg-gradient-to-l h-18 md:h-20 from-blue1 via to-seaGreen text-white rounded-full justify-around items-center p-2 px-3 flex m-3 md:mx-16'>
                 <Link to={"/"}>
                     <Logo/>
                 </Link>
@@ -69,10 +69,10 @@ const Header = () => {
                 <div className="items-center justify-between hidden md:flex  h-14 md:gap-4">
                     <div className="hidden md:flex"><SocialMedia/></div>
                     <div className="rounded   items-right w-1/2  text-black ">
-                        <input type="text" name="" id="" placeholder="search here" className="p-3 outline-none w-full rounded-lg text-black/60 font-normal" />
+                        <input type="text" name="" id="" placeholder="search here" className="p-3 outline-none w-full rounded-full text-black/60 font-normal" />
                     </div>
                     <div className="hidden md:flex items-center gap-4">
-                        <Link to={"/login"} className="flex items-center from-blue2 border border-seaGreen/40 shadow rounded-lg text-white p-3 px-7 bg-gradient-to-r"><IoLockClosedOutline size={20}/>login</Link>
+                        <Link to={"/login"} className="flex items-center from-blue2 border border-seaGreen/10 shadow rounded-full text-white p-3 px-7 bg-gradient-to-r"><IoLockClosedOutline size={20}/>Login</Link>
                         {/* <Link to={"/register"}><FaRegUserCircle size={20}/></Link> */}
                     </div>
                 </div>

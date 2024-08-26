@@ -7,8 +7,8 @@ export interface IUser extends Document {
     email: string;
     password: string;
     avatar?: string;
-    resetPasswordOtp?: string;
-    resetPasswordExpires?: Date | number;
+    otp?: string;
+    otpExpires?: Date;
 }
 
 const userSchema:Schema<IUser> = new Schema({
@@ -31,6 +31,12 @@ const userSchema:Schema<IUser> = new Schema({
         required: true,
         trim: true,
         validate:[validator.isStrongPassword, "Please use a strong password"]
+    },
+    otp:{
+      type: String
+    },
+    otpExpires:{
+      type: Date
     },
     avatar:{
         type:String
