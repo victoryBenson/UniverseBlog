@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import axiosInstance from "../utils/AxiosConfig";
+import axios from "axios";
 
 interface AuthContextType {
     login: (data: unknown) => Promise<void>,
@@ -21,7 +22,7 @@ const AuthProvider = ({children}: AuthProviderProps) => {
 
     //login
     const login = async(data: unknown) => {
-        const response = await axiosInstance.post("auth/login", data);
+        const response = await axios.post("auth/login", data);
         const token = JSON.stringify(response.data.token)
         const userID = JSON.stringify(response.data.user._id)
         
