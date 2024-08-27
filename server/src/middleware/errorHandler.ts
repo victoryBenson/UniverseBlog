@@ -1,9 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv'
+
 dotenv.config()
 
 const errorHandler = (err:any, req:Request, res:Response, next:NextFunction) => {
-    const statusCode = err.statusCode || 500
+    const statusCode = err.statusCode || 500    
     const env = process.env.NODE_ENV || "development"
 
     if(env === "development"){
@@ -14,7 +15,9 @@ const errorHandler = (err:any, req:Request, res:Response, next:NextFunction) => 
         })
     }else {
         res.status(statusCode).json({
-            message: "Something went wrong, Pls try again!"
+            // message: "Something went wrong, Pls try again!"
+            message: err.message,
+            error: err
         })
     }
 }

@@ -133,7 +133,7 @@ const ForgotPassword = async(req:Request, res:Response, next: NextFunction) => {
 };
 
 
-//OTP
+//VerifyOTP
 const VerifyOTP = async(req:Request, res:Response, next:NextFunction) =>{
     try {
         const {email, otp} = req.body;
@@ -195,9 +195,6 @@ const ResetPassword = async (req: Request, res: Response, next: NextFunction) =>
         next(error)
     }
 };
-
-
-
 
 
 export {
