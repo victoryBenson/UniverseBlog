@@ -37,8 +37,7 @@ export const Register = () => {
     const handleChange = (e:ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
         setFormState({ ...formState, [name]: value})
-    }
-
+    };
 
     const togglePwd = () => {
        setViewPwd(!viewPwd)
@@ -48,7 +47,7 @@ export const Register = () => {
         setViewConfirmPwd(!viewConfirmPwd)
      };
 
-     const handleSubmit = async(e:FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async(e:FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
             setLoading(true);
@@ -67,7 +66,7 @@ export const Register = () => {
     
             await register(userData)
             toast.success("Account created successfully");
-            navigate('/')
+            navigate('/');
         } catch (error: unknown) {
             if(axios.isAxiosError(error)){
                 setIsError(error.response?.data.message)
@@ -79,7 +78,7 @@ export const Register = () => {
         finally{
             setLoading(false)
         }
-     }
+    }
 
 
 
