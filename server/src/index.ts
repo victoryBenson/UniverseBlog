@@ -18,21 +18,23 @@ const mongoUri = process.env.MONGODB_URI!;
 
 //cors middleware
 const allowedOrigins = ['http://localhost:5173', "https://universeblog.vercel.app"];
-app.use(cors({
-    origin: (origin, callback) => {
-        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    optionsSuccessStatus : 200,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
-    credentials: true,
-    preflightContinue: false
-}));
+
+// CORS configuration
+const corsOptions = {
+  origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true, 
+};
 
 
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); //handle preflight request
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
