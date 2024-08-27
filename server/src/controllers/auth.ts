@@ -35,7 +35,7 @@ const userLogin = async (req: Request, res: Response, next: NextFunction) => {
 
         res
         .status(200)
-        .setHeader("authorization", `Bearer ${token}`)
+        .setHeader("authorization",`Bearer ${token}`)
         .cookie("token", token, {httpOnly: true, secure:false, expires: expiryDate})
         .json({user, token})
     } catch (err) {

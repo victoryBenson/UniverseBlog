@@ -70,7 +70,7 @@ export const Login = () => {
     
 
   return (
-    <div className='flex flex-col justify-center items-center w-auto min-h-screen inset-0 overflow-hidden' >
+    <div className='flex flex-col justify-center items-center min-h-screen inset-0 overflow-hidden' >
         <div className='lg:grid grid-cols-1 sm:grid-cols-2 h-screen fixed inset-0'>
             <div  className=' min-h-full relative hidden lg:flex justify-center flex-col items-center text-white gap-4'>
                 <span className='absolute inset-0 bg-blue1/70 -z-10'/>
@@ -83,7 +83,7 @@ export const Login = () => {
                 <Link to={"/"} className="pl-4 my-3 flex items-center absolute bottom-4 gap-2 text-lightGray font-light cursor-pointer"><FaArrowRightLong size={30} className="animate-pulse "/>continue without login!</Link>
             </div>
             <div className='bg-white min-h-full flex justify-center flex-col items-center relative p-5'>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} className="w-full md:w-2/3 lg:w-3/4">
                     <h1 className='font-bold text-3xl py-7 hidden lg:block text-center'>Have an Account?</h1>
                     <div className="text-center lg:hidden">
                         <div className="flex items-center justify-center ">
