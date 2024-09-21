@@ -35,7 +35,7 @@ const Header = () => {
   return (
     <ConditionRoute>
         <div className={`${isActive && 'fixed z-40 inset-0 top-0 py-3 h-20 bg-white/60 backdrop-blur'}`}>
-            <div className='bg-gradient-to-l h-18 md:h-20 from-blue1 via to-seaGreen text-white rounded-full justify-around items-center p-2 px-3 flex m-3 md:mx-16'>
+            <div className='bg-gradient-to-l h-18 md:h-18 from-blue1 via to-seaGreen text-white rounded-full justify-around items-center p-2 px-3 flex m-3 md:mx-16'>
                 <Link to={"/"}>
                     <Logo/>
                 </Link>
@@ -47,7 +47,7 @@ const Header = () => {
                         />
                     )}
                 </div>
-                <div  className="gap-4 hidden lg:flex text-lg">
+                <div  className="gap-4 hidden lg:flex text-base">
                     <Link to={'/'} >Home</Link>
                     <div className="flex items-center relative">
                         <span onClick={handleCategory} className="flex items-center cursor-pointer">
