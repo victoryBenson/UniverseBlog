@@ -15,7 +15,7 @@ const userLogin = async (req: Request, res: Response, next: NextFunction) => {
     const { email, password } = req.body;
     try {
   
-        const user = await User.findOne({ email }).lean();
+        const user = await User.findOne({ email });
         
         if (!user) {
             return res.status(400).json({ message: 'User does not exist' });
@@ -24,7 +24,7 @@ const userLogin = async (req: Request, res: Response, next: NextFunction) => {
         const passwordMatch = await bcrypt.compare(password, user.password)
         
         if (!passwordMatch) {
-            return res.status(401).json({ message: 'Wrong email or password' });
+            return res.status(401).json({ message: 'Wrong email or password!' });
         }
         
         const token = jwt.sign({userID: user._id}, secret, {expiresIn: '24h'})
