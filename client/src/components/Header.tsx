@@ -35,12 +35,12 @@ const Header = () => {
   return (
     <ConditionRoute>
         <div className={`${isActive && 'fixed z-40 inset-0 top-0 py-3 h-20 bg-white/60 backdrop-blur'}`}>
-            <div className='bg-gradient-to-l h-18 md:h-18 from-blue1 via to-seaGreen text-white rounded-full justify-around items-center p-2 px-3 flex m-3 md:mx-16'>
+            <div className='bg-gradient-to-l h-18 md:h-18 from-blue1 via to-seaGreen text-white rounded-full justify-between items-center p-2 px-5 flex m-3 md:mx-16'>
                 <Link to={"/"}>
                     <Logo/>
                 </Link>
                 <div className="flex md:hidden " >
-                    <HiOutlineMenuAlt3 size={30} onClick={handleMobileView}/>
+                    <HiOutlineMenuAlt3 className="text-xl" onClick={handleMobileView}/>
                     {mobile && (
                         <MobileSideMenu 
                             handleMobile={handleMobileView}

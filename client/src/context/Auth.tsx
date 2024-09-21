@@ -57,7 +57,6 @@ const AuthProvider = ({children}: AuthProviderProps) => {
     //     return response.data
     // }
 
-
     useEffect(() => {
         const fetchToken = sessionStorage.getItem('token')
         if(fetchToken){

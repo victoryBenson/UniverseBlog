@@ -94,13 +94,13 @@ export const Login = () => {
                     </div>
                     <div className="flex flex-col items-start justify-start py-2 relative">
                         <label htmlFor="email" className="text-lg md:text-2xl">Email</label>
-                        <input type="email" value={formState.email} name="email" required onChange={handleChange} autoFocus className="required  border-b border-lightGray/80 outline-none text-xl w-full pl-7 p-2 font-light" placeholder="example@gmail.com" />
+                        <input type="email" value={formState.email} name="email" required onChange={handleChange} className="required border-b border-lightGray/80 outline-none text-lg w-full pl-7 p-2 font-light" placeholder="example@gmail.com" />
                         <span className="absolute left-0 bottom-5 text-darkGray"><MdOutlineMail size={20}/></span>
                     </div>
                     <div className="flex flex-col items-start justify-start py-3 relative">
                         <label htmlFor="password" className="text-lg md:text-2xl">Password</label>
-                        <input type={viewPwd? "text" : "password"} name="password" required value={formState.password} onChange={handleChange} className=" border-b border-lightGray/80 outline-none text-xl w-full pl-7 p-2" placeholder="**********" />
-                        <span onClick={togglePwd} className='absolute top-[54%] text-darkGray right-10 text-brown transition-transform  duration-300 cursor-pointer'>{viewPwd? <LuEye /> : <LuEyeOff/>}</span>
+                        <input type={viewPwd? "text" : "password"} name="password" required value={formState.password} onChange={handleChange} className=" border-b border-lightGray/80 outline-none text-lg w-full pl-7 p-2" placeholder="**********" />
+                        <span onClick={togglePwd} className='absolute top-[54%] text-darkGray right-10 text-brown transition-transform  duration-300 cursor-pointer white z-10 bg-white'>{viewPwd? <LuEye /> : <LuEyeOff/>}</span>
                         <span className="absolute left-0 top-1/2 text-darkGray"><LuLock size={20}/></span>
                     </div>
                     <Link to={"/resetPassword"} className="text-blue1 flex justify-end py-">forget password?</Link>

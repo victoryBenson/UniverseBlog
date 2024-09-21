@@ -13,7 +13,7 @@ const MobileSideMenu = ({handleMobile}: HandleMobileBtnProps) => {
 
   return (
     <div className=' top-0 fixed right-0 left-0 h-screen z-50 transition-all duration-200 ease-in'>
-        <span onClick={handleMobile} className='bg-black/20 top-0 fixed right-0 left-0 h-screen z-50 transition-all duration-200 ease-in'></span>
+        <span onClick={handleMobile} className='bg-black/30 top-0 fixed right-0 left-0 h-screen z-50 transition-all duration-200 ease-in'></span>
         <div className='bg-white h-72 text-black inset-0 m-5 rounded-2xl fixed flex flex-col space-y-4 justify-center items-center z-[999] group'>
             <MdOutlineClose size={30} onClick={handleMobile} className='absolute top-4 right-4 cursor-pointer' />
             <Link to={"/"} onClick={scrollToTop} className='text-lg'>
