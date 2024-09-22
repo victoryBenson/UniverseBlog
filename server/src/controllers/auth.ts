@@ -15,16 +15,16 @@ const userLogin = async (req: Request, res: Response, next: NextFunction) => {
     const { email, password } = req.body;
     try {
   
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ email: email.toLowerCase() });
         
         if (!user) {
-            return res.status(400).json({ message: 'User does not exist' });
+            return res.status(400).json({ message: 'User does not exist!' });
         } 
                 
         const passwordMatch = await bcrypt.compare(password, user.password)
         
         if (!passwordMatch) {
-            return res.status(401).json({ message: 'Wrong email or password!' });
+            return res.status(401).json({ message: 'Wrong email or password, try again!' });
         }
         
         const token = jwt.sign({userID: user._id}, secret, {expiresIn: '24h'})

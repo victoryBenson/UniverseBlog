@@ -42,12 +42,12 @@ export const Login = () => {
             setLoading(true)
 
             const userData ={
-                email: formState.email,
+                email: formState.email.toLowerCase(),
                 password: formState.password
             };
 
             if(!userData){
-                toast.error("Pls fill in the input field")
+                toast.error("Pls fill_in the input field")
                 return
             }
     

@@ -64,7 +64,7 @@ mongoose.set("strictQuery", false);
 mongoose.connect(mongoUri).then(() => {
   app.listen(port, () => {
     console.log(`server is listening on port ${port}!`);
-    console.log(`It's fun time!`);
+    console.log(`Let's find the bug!`);
   });
 });
 
