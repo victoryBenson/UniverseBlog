@@ -33,13 +33,13 @@ export const Login = () => {
 
     const handleChange = (e:ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target
-        setFormState({ ...formState, [name]: value})
+        setFormState({ ...formState, [name]: value.toLowerCase()})
     }
 
     const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            setLoading(true)
+            setLoading(true);
 
             const userData ={
                 email: formState.email,
@@ -123,4 +123,4 @@ export const Login = () => {
         </div>
     </div>
   )
-}
+};

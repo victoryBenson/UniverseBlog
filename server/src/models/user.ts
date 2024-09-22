@@ -12,7 +12,7 @@ export interface IUser extends Document {
 }
 
 const userSchema:Schema<IUser> = new Schema({
-    username: {
+    username:{
         type: String,
         required: true,
         trim: true,
