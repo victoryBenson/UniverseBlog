@@ -78,7 +78,7 @@ export const Login = () => {
                     <img src={image} alt="logo" className='h-full w-full object-cover' />
                 </span>
                 <Logo/>
-                <h1 className='font-extrabold text-5xl p-5'>Welcome Back!</h1>
+                <h1 className='font-extrabold text-5xl p-5'>Welcome Back !</h1>
                 <h4 className='sign text-xl p-2 text-center '>Sign in into your account for full access</h4>
                 <Link to={"/"} className="pl-4 my-3 flex items-center absolute bottom-4 gap-2 text-lightGray font-light cursor-pointer"><FaArrowRightLong size={30} className="animate-pulse "/>continue without login!</Link>
             </div>
