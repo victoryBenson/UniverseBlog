@@ -42,7 +42,7 @@ export const Login = () => {
             setLoading(true)
 
             const userData ={
-                email: formState.email.toLowerCase(),
+                email: formState.email,
                 password: formState.password
             };
 
