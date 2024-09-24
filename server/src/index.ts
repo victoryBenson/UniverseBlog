@@ -54,14 +54,14 @@ app.get("/", (req: Request, res: Response) => {
 app.use(errorHandler);
 
 if (!mongoUri) {
-  console.error('MONGO_URI is not defined in the environment variables');
+  console.error('MONGO_URI is not defined in the environment variable');
   process.exit(1);
 }
 
 
 //connect to mongoDb
 mongoose.set("strictQuery", false);
-mongoose.connect(process.env.MONGO_URI as string)
+mongoose.connect(process.env.MONGO_URI!)
   .then(() => {
   app.listen(port, () => {
     console.log(`server is listening on port ${port}!`);
