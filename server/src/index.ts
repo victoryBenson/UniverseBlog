@@ -53,7 +53,7 @@ app.get("/", (req: Request, res: Response) => {
 //error handler middleware
 app.use(errorHandler);
 
-if (!mongoUri) {
+if (!process.env.MONGO_URI!) {
   console.error('MONGO_URI is not defined in the environment variable');
   process.exit(1);
 }
