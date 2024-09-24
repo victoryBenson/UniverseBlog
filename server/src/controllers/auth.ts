@@ -6,8 +6,7 @@ import crypto from 'crypto';
 import nodemailer from 'nodemailer'
 import dotenv from 'dotenv'
 dotenv.config()
- 
-// import generateToken from "../utils/generateToken";
+
 
 const secret = process.env.ACCESS_TOKEN_SECRET as string
 
@@ -29,7 +28,7 @@ const userLogin = async (req: Request, res: Response, next: NextFunction) => {
             return res.status(401).json({ message: 'Wrong email or password, try again!' });
         }
         
-        const token = jwt.sign({userID: user._id}, secret, {expiresIn: '24h'})
+        const token = jwt.sign({userID: user._id}, process.env.ACCESS_TOKEN_SECRET as string, {expiresIn: '24h'})
 
         const expiryDate = new Date(Date.now() + 24*(3600000)) //expire in 24hrs
 
@@ -53,7 +52,7 @@ const RegisterUser = async (req: Request, res: Response, next: NextFunction) => 
             return;
         }
     
-        const duplicateUser = await User.findOne({ email });
+        const duplicateUser = await User.findOne({ email: email.toLowerCase() });
         if (duplicateUser) {
             res.status(400).json({ message: 'Email is already in use' });
             return;
