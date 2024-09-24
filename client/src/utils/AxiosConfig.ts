@@ -7,6 +7,8 @@ if (process.env.NODE_ENV === 'production') {
     backendURL = "http://localhost:3000/api/";
 }
 
+console.log(backendURL);
+
 const axiosInstance = axios.create({
     baseURL: backendURL,
     // headers: {

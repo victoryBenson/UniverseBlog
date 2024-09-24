@@ -15,7 +15,7 @@ import toast from 'react-hot-toast';
 
 
 type BlogParams = {
-  id: string;
+    id: string;
 }
 
 const BlogDetails = () => {
@@ -26,7 +26,6 @@ const BlogDetails = () => {
     const [deleteModal, setDeleteModal] = useState<boolean>(false)
 
   
-
     const handleDeleteModal =()=> {
         setDeleteModal(!deleteModal)
     }
@@ -80,7 +79,7 @@ const BlogDetails = () => {
                 <h1 className='font-bold p-2 text-lg md:text-2xl fond-bold capitalize px-4'>{blog.title}</h1>
                 <div className='flex flex-col flex-wrap justify-end gap-2 text-darkGray text-base px-4'>
                     <p className='flex gap-4 items-center'>
-                        <span>Author:<strong className='text-black capitalize text-base'>{blog.author}</strong></span>
+                        <span>Author:<strong className='text-black capitalize text-base'> {blog.author}</strong></span>
                         <span className='flex items-center'><CiClock1 /> {new Date(blog.updatedAt).toLocaleString('default', { day: "2-digit", month:"long", year:"numeric" })}</span>
                     </p>
                     <p className='flex items-center gap-4'>
@@ -89,7 +88,7 @@ const BlogDetails = () => {
                         <span><CiHeart size={20}/></span>
                     </p>
                 </div>
-                <div className=' ql-editor prose-lg'>
+                <div className=' ql-editor prose-base'>
                     <div dangerouslySetInnerHTML={{ __html: blog.content }} className=' py-2 font-light first-letter:text-2xl first-letter:mx-1' />
                 </div>
                 <div className='my-4 flex flex-wrap justify-end gap-4 items-center relative'>

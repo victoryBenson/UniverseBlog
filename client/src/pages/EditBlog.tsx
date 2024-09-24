@@ -272,12 +272,12 @@ const EditBlog = () => {
                     <div className="flex justify-center h-full overflow-hidden no-scrollbar">
                         <ReactQuill 
                             value={content} 
-                            className="md:w-[80%] mt-5" 
+                            className="md:w-[80%] mt-5 text-base" 
                             placeholder="Write something here..."
                             formats={formats}
                             modules={modules}
                             onChange={handleContentChange}
-                            />
+                        />
                     </div>
                 </div>
                 <div className="text-red">{error && error }</div>

@@ -13,7 +13,7 @@ dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT! || 3001;
-const mongoUri = process.env.MONGODB_URI!;
+const mongoUri = process.env.MONGO_URI!;
 
 
 //cors middleware
@@ -54,14 +54,15 @@ app.get("/", (req: Request, res: Response) => {
 app.use(errorHandler);
 
 if (!mongoUri) {
-  console.error('MONGODB_URI is not defined in the environment variables');
+  console.error('MONGO_URI is not defined in the environment variables');
   process.exit(1);
 }
 
 
 //connect to mongoDb
 mongoose.set("strictQuery", false);
-mongoose.connect(mongoUri).then(() => {
+mongoose.connect(process.env.MONGO_URI as string)
+  .then(() => {
   app.listen(port, () => {
     console.log(`server is listening on port ${port}!`);
     console.log(`Let's find the bug!`);

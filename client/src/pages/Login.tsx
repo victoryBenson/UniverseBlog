@@ -33,7 +33,7 @@ export const Login = () => {
 
     const handleChange = (e:ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target
-        setFormState({ ...formState, [name]: value.toLowerCase()})
+        setFormState({ ...formState, [name]: value})
     }
 
     const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {

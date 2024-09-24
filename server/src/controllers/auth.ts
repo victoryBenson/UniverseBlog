@@ -1,12 +1,13 @@
 import { NextFunction, Request, Response } from "express";
 import User from '../models/user';
-// import generateToken from "../utils/generateToken";
 import bcrypt from 'bcryptjs';
 import jwt from "jsonwebtoken";
 import crypto from 'crypto';
 import nodemailer from 'nodemailer'
 import dotenv from 'dotenv'
 dotenv.config()
+ 
+// import generateToken from "../utils/generateToken";
 
 const secret = process.env.ACCESS_TOKEN_SECRET as string
 
@@ -16,7 +17,8 @@ const userLogin = async (req: Request, res: Response, next: NextFunction) => {
     try {
   
         const user = await User.findOne({ email: email.toLowerCase() });
-        
+        // console.log(user)
+
         if (!user) {
             return res.status(400).json({ message: 'User does not exist!' });
         } 
