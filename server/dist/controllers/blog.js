@@ -17,13 +17,25 @@ const blog_1 = __importDefault(require("../models/blog"));
 const mongoose_1 = require("mongoose");
 //create_blog
 const createBlog = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     try {
-        const newBlog = new blog_1.default(req.body);
-        if (!newBlog) {
-            return res.status(204).json({ message: "no content found!" });
+        const { author, title, content, label, readTime } = req.body;
+        const imagePath = (_a = req.file) === null || _a === void 0 ? void 0 : _a.path;
+        if (!imagePath) {
+            return res.status(400).json({ message: "Please upload an image!" });
         }
-        const savedBlog = yield newBlog.save();
-        res.status(201).json(savedBlog);
+        ;
+        const newBlogData = {
+            author,
+            title,
+            content,
+            label,
+            readTime,
+            image: imagePath
+        };
+        const newBlog = new blog_1.default(newBlogData);
+        yield newBlog.save();
+        res.status(201).json(newBlog);
     }
     catch (err) {
         next(err);
@@ -81,15 +93,26 @@ const deleteBlog = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
     }
 });
 exports.deleteBlog = deleteBlog;
+//updateBlog
 const updateBlog = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const blogId = req.params.id;
+    var _a;
     try {
+        const blogId = req.params.id;
+        const { author, title, content, label, readTime } = req.body;
+        const imagePath = (_a = req.file) === null || _a === void 0 ? void 0 : _a.path;
         if (!blogId) {
             return res.status(400).json({ message: "Invalid blog Id" });
         }
-        const blogDetails = req.body;
+        const blogUpdateData = {
+            author,
+            title,
+            content,
+            label,
+            readTime,
+            image: imagePath
+        };
         const options = { new: true, runValidators: true };
-        const blog = yield blog_1.default.findByIdAndUpdate(blogId, blogDetails, options);
+        const blog = yield blog_1.default.findByIdAndUpdate(blogId, blogUpdateData, options);
         if (!blog) {
             return res.status(400).json({ message: "Blog does not exist" });
         }
@@ -100,6 +123,7 @@ const updateBlog = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
     }
 });
 exports.updateBlog = updateBlog;
+//getLabel
 const getLabels = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const Labels = yield blog_1.default.find({ label: req.params.tag });

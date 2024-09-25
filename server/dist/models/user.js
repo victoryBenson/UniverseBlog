@@ -37,22 +37,33 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
+const validator_1 = __importDefault(require("validator"));
 const userSchema = new mongoose_1.Schema({
     username: {
         type: String,
-        required: [true, "Please add an username"],
+        required: true,
         trim: true,
-        unique: true,
         lowercase: true
     },
     email: {
         type: String,
-        required: [true, "Please add an email"],
-        unique: true
+        required: true,
+        unique: true,
+        lowercase: true,
+        trim: true,
+        validate: [validator_1.default.isEmail, "Pls use a valid email format"]
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        trim: true,
+        validate: [validator_1.default.isStrongPassword, "Please use a strong password"]
+    },
+    otp: {
+        type: String
+    },
+    otpExpires: {
+        type: Date
     },
     avatar: {
         type: String

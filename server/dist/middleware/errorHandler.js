@@ -17,7 +17,9 @@ const errorHandler = (err, req, res, next) => {
     }
     else {
         res.status(statusCode).json({
-            message: "Something went wrong, Pls try again!"
+            // message: "Something went wrong, Pls try again!"
+            message: err.message,
+            error: err
         });
     }
 };
