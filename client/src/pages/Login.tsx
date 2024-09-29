@@ -41,7 +41,7 @@ export const Login = () => {
         try {
             setLoading(true);
 
-            const userData ={
+            const userData = {
                 email: formState.email,
                 password: formState.password
             };

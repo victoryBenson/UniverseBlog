@@ -15,6 +15,7 @@ import axios from "axios"
 import { TbLoader3 } from "react-icons/tb"
 
 
+
 const initialState = {
     username: "",
     email: "",
@@ -33,7 +34,6 @@ export const Register = () => {
     const navigate = useNavigate()
  
 
-
     const handleChange = (e:ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
         setFormState({ ...formState, [name]: value})
@@ -51,27 +51,29 @@ export const Register = () => {
         e.preventDefault()
         try {
             setLoading(true);
-
-            const userData ={
+            
+            const userData = {
                 email: formState.email,
                 password: formState.password,
                 username: formState.username,
                 confirmPassword: formState.confirmPassword
             };
-
+            
             if(!userData){
                 toast.error("Pls fill-in the input field")
-                return
+                return;
             }
-    
+            
             await register(userData)
+        
             toast.success("Account created successfully");
             navigate('/');
         } catch (error: unknown) {
             if(axios.isAxiosError(error)){
                 setIsError(error.response?.data.message)
-            }else {
-                setIsError("An unknown error occurred")
+            }
+            else {
+                setIsError("An unknown-error occurred")
                 toast.error(`An unknown error occurred`)
             }
         }
@@ -108,7 +110,7 @@ export const Register = () => {
                         <span className="text-sm flex lg:hidden justify-center">or</span>
                     </div>
                     <div className="flex flex-col items-start justify-start relative">
-                        <label htmlFor="username" className="text-base">Username</label>
+                        <label htmlFor="username" className="text-base font-semibold">Username</label>
                         <input 
                             type="text" 
                             autoFocus 
@@ -122,7 +124,7 @@ export const Register = () => {
                         <span className="absolute left-0 bottom-4 text-darkGray"><FaRegUser/></span>
                     </div>
                     <div className="flex flex-col items-start justify-start py-1 relative">
-                        <label htmlFor="email" className="text-base">Email</label>
+                        <label htmlFor="email" className="text-base font-semibold">Email</label>
                         <input 
                             type="email" 
                             className="required  border-b border-lightGray/80 outline-none text-base w-full pl-7 p-2" 
@@ -135,7 +137,7 @@ export const Register = () => {
                         <span className="absolute left-0 bottom-4 text-darkGray"><MdOutlineMail/></span>
                     </div>
                     <div className="flex flex-col items-start justify-start relative">
-                        <label htmlFor="password" className="text-base">Password</label>
+                        <label htmlFor="password" className="text-base font-semibold">Password</label>
                         <input 
                             type={viewPwd? "text" : "password"} 
                             className=" border-b border-lightGray/80 outline-none text-base w-full pl-7 p-2" 
@@ -149,7 +151,7 @@ export const Register = () => {
                         <span className="absolute left-0 top-1/2 text-darkGray"><LuLock/></span>
                     </div>
                     <div className="flex flex-col items-start justify-start relative">
-                        <label htmlFor="password" className="text-base">Confirm Password</label>
+                        <label htmlFor="password" className="text-base font-semibold">Confirm Password</label>
                         <input 
                             type={viewConfirmPwd? "text" : "password"} 
                             className=" border-b border-lightGray/80 outline-none text-base w-full pl-7 p-2" 

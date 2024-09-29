@@ -19,6 +19,8 @@ export default {
     },
     fontFamily:{
       poppins: ["Poppins", "sans-serif"],
+      zeyada: ["Zeyada", "cursive"],
+      rubik: ["Rubik Scribble", "system-ui"],
     },
     extend: {
     },

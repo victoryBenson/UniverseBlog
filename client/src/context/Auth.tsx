@@ -1,10 +1,11 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import axiosInstance from "../utils/AxiosConfig";
+import { AuthProps } from "../interface/AuthProps";
 
 
 interface AuthContextType {
     login: (data: unknown) => Promise<void>,
-    register: (data: unknown) => Promise<void>,
+    register: (data: AuthProps) => Promise<void>,
     userToken: string,
     forgotPassword:(data:unknown) => Promise<void>,
     // verifyOTP:(data: string[]) => Promise<string[]>
@@ -34,10 +35,10 @@ const AuthProvider = ({children}: AuthProviderProps) => {
     };
 
     //register
-    const register = async(data: unknown) =>{
+    const register = async(data: AuthProps) =>{
         const response = await axiosInstance.post("auth/register", data);
         const token = JSON.stringify(response.data.token)
-        const userID = JSON.stringify(response.data.user._id)
+        const userID = JSON.stringify(response.data.newUser._id)
         
         if(token && userID){
             sessionStorage.setItem('userToken', token)

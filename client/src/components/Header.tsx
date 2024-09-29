@@ -36,7 +36,7 @@ const Header = () => {
     <ConditionRoute>
         <div className={`${isActive && 'fixed z-40 inset-0 top-0 py-3 h-20 bg-white/60 backdrop-blur'}`}>
             <div className='bg-gradient-to-l h-18 md:h-18 from-blue1 via to-seaGreen text-white rounded-full justify-between items-center p-2 px-5 flex m-3 md:mx-16'>
-                <Link to={"/"}>
+                <Link to={"/"} className="flex justify-center text-center text-gradient from-blue1 to-blue2">
                     <Logo/>
                 </Link>
                 <div className="flex md:hidden " >

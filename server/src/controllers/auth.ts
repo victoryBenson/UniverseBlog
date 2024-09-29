@@ -53,29 +53,31 @@ const RegisterUser = async (req: Request, res: Response, next: NextFunction) => 
         }
     
         const duplicateUser = await User.findOne({ email: email.toLowerCase() });
-        if (duplicateUser) {
+        if(duplicateUser) {
             res.status(400).json({ message: 'Email is already in use' });
             return;
         }
 
         if(password != confirmPassword){
             res.status(400).json({message: "Password mismatch"})
+            return;
         }
   
-        const newUser = new User({ username, email, password });
-        await newUser.save();
+        // const newUser = new User({ username, email, password });
+        // await newUser.save();
 
-        const token = jwt.sign({userID: newUser._id}, secret, {expiresIn: '24h'})
+        const newUser = await User.create({username, email, password});
+
+        const token = jwt.sign({userID: newUser._id}, process.env.ACCESS_TOKEN_SECRET as string, {expiresIn: '24h'})
         
         const expiryDate = new Date(Date.now() + 24*(3600000)) //expire in 24hrs
         res
             .status(201)
             .header("authorization", `Bearer ${token}`)
-            .cookie("token", token, {httpOnly: true, secure:true, expires: expiryDate})
+            .cookie("token", token, {httpOnly: true, secure:false, expires: expiryDate})
             .json({newUser, token})
-        
-        } catch (err) {
-            next(err)
+        } catch (error) {
+            next(error)
         }
 };
 

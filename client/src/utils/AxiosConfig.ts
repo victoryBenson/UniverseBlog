@@ -1,13 +1,13 @@
 import axios from "axios";
 
-let backendURL
+let backendURL;
 if (process.env.NODE_ENV === 'production') {
     backendURL = "https://universeblog-api.onrender.com/api/";
 } else{
     backendURL = "http://localhost:3000/api/";
 }
 
-console.log(backendURL);
+// console.log(backendU RL);
 
 const axiosInstance = axios.create({
     baseURL: backendURL,
