@@ -24,13 +24,16 @@ const LoaderAnimation2 = () => {
 
 const FullScreenLoader = () => {
     return (
-        <div className="flex items-center justify-center h-inherit bg-black/80 fixed inset-0 z-[999]">
-            <div className="flex flex-col items-center shadow-inner bg-gradient-to-tr from-blue1 to-blue2 via-seaGreen rounded-full p-4 animate-pulse">
+        <div className="flex flex-col items-center justify-center h-inherit bg-white fixed inset-0 z-[999]">
+            <div className="flex flex-col items-center shadow-inner bg-blue1 rounded-full p-4 animate-pulse">
                 <GiMoebiusTriangle className=" text-white" size={40}/>
             </div>
+            <p className="font-bold font-zeyada text-2xl">Universe Blog</p>
         </div>
     )
 }
+
+
 
 export {
     LoaderAnimation,

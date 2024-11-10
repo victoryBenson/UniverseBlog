@@ -12,7 +12,7 @@ interface DisplayPosts {
 const StylePosts = ({stylePosts}: DisplayPosts) => {
     // const shufflePost = displayRandom(stylePosts)
 
-    const [selectedCategory, setSelectedCategory] = useState<string >("editor's pick");
+    const [selectedCategory, setSelectedCategory] = useState<string >("software");
 
     const items = Array.from(new Set(stylePosts.map(item => item.label)));
   
